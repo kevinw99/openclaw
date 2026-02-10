@@ -1,0 +1,31 @@
+this repo should contain these two parts:
+
+1. it should contain my own customization and extension, ie.e everyuthing in this project SenAI ~/AI/SenAI, excluding specs/02_paper-author-outreach, which is specifically for senAI. Acutally can you extract everything generic in ~/AI/Enpack_CCC to a new project ~/AI/base, and compare it to see if they match my description of generic parts here. The idea is for every new project, I can just clone ~/AI/base and then add project specific stuff on top of it. And base can continue to evolve as I add more generic capabilities. please analyze and propose a plan to do this refactoring.
+2. it clones from github openClaw repo, how can I continue to get the update of this source project?
+3. given the current set up, please review if they can meet my requirement. if not what adjustment I have to make? Please provide a detail plan to achieve this goal, and we can build a new project repo if needed.
+
+what is the recommended approach in term of this " Options:
+                                                    Approach: A. Install openclaw as a tool (recommended)
+                                                    Pros: Clean separation, npm update for upgrades
+                                                    Cons: Your specs/customizations live in a separate project repo
+                                                    ────────────────────────────────────────
+                                                    Approach: B. Fork on GitHub + upstream remote
+                                                    Pros: Can track upstream, merge updates
+                                                    Cons: Merge conflicts with your added files, messy
+                                                    ────────────────────────────────────────
+                                                    Approach: C. Git subtree
+                                                    Pros: Upstream code in a subdirectory, your stuff at root
+                                                    Cons: Complex git workflow
+                                                    Recommended: Approach A — Keep openclaw as an installed tool (npm i -g
+                                                    openclaw), and put your spec/customization work in a separate project repo that
+                                                     uses base as its template. Your CLAUDE.md / .claude/ customizations work with
+                                                    any installed version of openclaw.
+
+                                                    If you genuinely need to modify openclaw source code:
+                                                    - Fork openclaw/openclaw on GitHub
+                                                    - Add upstream remote pointing to the original
+                                                    - Periodically git fetch upstream && git merge upstream/main
+
+" I do plan to modify openclaw source code.
+
+given the recommneded approach, what is the repo directory sturcture like? also shows how git remotes are set up?
