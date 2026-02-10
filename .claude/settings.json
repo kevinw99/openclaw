@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "osascript -e 'display notification \"Remember to run /log to update work log\" with title \"Claude Code Reminder\"'"
+          }
+        ]
+      }
+    ]
+  }
+}
