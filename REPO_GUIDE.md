@@ -12,33 +12,37 @@ This is a fork of [openclaw/openclaw](https://github.com/openclaw/openclaw) with
 
 ## Repo Structure
 
-The repo is upstream openclaw + your customization files layered on top:
+All files live flat at the root. Upstream openclaw files and your customizations coexist side-by-side — there are no wrapper subdirectories.
 
 ```
 ~/AI/openclaw/
-├── [upstream openclaw]
-│   ├── src/                     # OpenClaw source code
-│   ├── apps/                    # Native apps (macOS, iOS, Android)
-│   ├── docs/                    # OpenClaw documentation
-│   ├── extensions/              # Channel plugins
-│   ├── skills/                  # OpenClaw skills
-│   ├── packages/                # Workspace packages
-│   ├── AGENTS.md / CLAUDE.md    # OpenClaw's own AI agent instructions
-│   ├── README.md                # OpenClaw README
-│   └── ...
 │
-├── [your customization layer]
-│   ├── PROJECT_GUIDELINES.md    # Your workflow conventions
-│   ├── REPO_GUIDE.md            # This file
-│   ├── WORK_LOG.md              # Session work log
-│   ├── requests-claw.txt        # Project requirements notes
-│   ├── spec/                    # Your project specs
-│   │   ├── README.md
-│   │   └── 01_full-context-ai-assistant/
-│   └── .claude/                 # Claude Code customizations
-│       ├── commands/log.md
-│       └── settings.json
+│  ── Upstream openclaw files ──
+├── src/                         # OpenClaw source code
+├── apps/                        # Native apps (macOS, iOS, Android)
+├── docs/                        # OpenClaw documentation
+├── extensions/                  # Channel plugins
+├── skills/                      # OpenClaw skills
+├── packages/                    # Workspace packages
+├── AGENTS.md / CLAUDE.md        # OpenClaw's own AI agent instructions
+├── README.md                    # OpenClaw README
+├── package.json                 # OpenClaw package config
+├── ...                          # (other upstream files)
+│
+│  ── Your customization files ──
+├── PROJECT_GUIDELINES.md        # Your workflow conventions
+├── REPO_GUIDE.md                # This file
+├── WORK_LOG.md                  # Session work log
+├── requests-claw.txt            # Project requirements notes
+├── spec/                        # Your project specs
+│   ├── README.md
+│   └── 01_full-context-ai-assistant/
+└── .claude/                     # Claude Code customizations
+    ├── commands/log.md
+    └── settings.json
 ```
+
+Your files don't exist in upstream, so `git merge upstream/main` won't touch them.
 
 **Key rule:** Don't modify `CLAUDE.md` / `AGENTS.md` — that's upstream's file and will cause merge conflicts. Keep your conventions in `PROJECT_GUIDELINES.md`.
 
