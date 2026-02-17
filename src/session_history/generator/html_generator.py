@@ -1,4 +1,4 @@
-"""HTML Generator - generate interactive single-file HTML session replay"""
+"""HTML Generator - 生成交互式单文件 HTML 会话回放"""
 
 import html
 import json
@@ -11,13 +11,13 @@ from ..parser.jsonl_reader import JsonlReader
 
 
 class HtmlGenerator:
-    """Generate interactive HTML replay (single file, inline CSS+JS)."""
+    """生成交互式 HTML 回放 (单文件, 内联 CSS+JS)"""
 
     def __init__(self, exclude_thinking: bool = True):
         self.reader = JsonlReader(exclude_thinking=exclude_thinking)
 
     def generate(self, entity_index: EntityIndex, output_path: Path):
-        """Generate HTML replay from entity index."""
+        """根据实体索引生成 HTML 回放"""
         sessions_html = []
         session_options = []
 
@@ -45,7 +45,7 @@ class HtmlGenerator:
             f.write(page)
 
     def generate_from_sessions(self, sessions: List[Session], title: str, output_path: Path):
-        """Generate from Session list directly."""
+        """从 Session 列表直接生成"""
         sessions_html = []
         session_options = []
 
@@ -69,7 +69,7 @@ class HtmlGenerator:
             f.write(page)
 
     def _render_session_html(self, session: Session) -> str:
-        """Render a single session as HTML fragment."""
+        """渲染单个会话为 HTML 片段"""
         parts = [
             f'<div class="session" data-session-id="{html.escape(session.session_id)}">',
             f'  <div class="session-header">',
@@ -91,7 +91,7 @@ class HtmlGenerator:
         return "\n".join(parts)
 
     def _render_message_html(self, msg: SessionMessage) -> str:
-        """Render a single message as HTML."""
+        """渲染单条消息为 HTML"""
         if msg.msg_type in ("progress", "file-history-snapshot"):
             return ""
         if msg.msg_type == "system" and msg.subtype in ("local_command",):
@@ -100,7 +100,7 @@ class HtmlGenerator:
         role = msg.role or msg.msg_type
         css_class = role
         timestamp = msg.timestamp[:19] if msg.timestamp else ""
-        icon = {"user": "U", "assistant": "A", "system": "S"}.get(role, "?")
+        icon = {"user": "👤", "assistant": "🤖", "system": "⚙️"}.get(role, "📌")
 
         parts = [
             f'<div class="message {html.escape(css_class)}" data-type="{html.escape(role)}" data-uuid="{html.escape(msg.uuid)}">',
@@ -114,6 +114,7 @@ class HtmlGenerator:
         for block in msg.content_blocks:
             if block.block_type == "text" and block.text:
                 escaped = html.escape(block.text)
+                # 简单 Markdown 渲染: 代码块, 加粗, 链接
                 escaped = self._simple_markdown(escaped)
                 parts.append(f'    <div class="text-block">{escaped}</div>')
 
@@ -122,7 +123,7 @@ class HtmlGenerator:
                 if len(input_json) > 500:
                     input_json = input_json[:500] + "\n..."
                 parts.append(f'    <details class="tool-block">')
-                parts.append(f'      <summary>Tool: {html.escape(block.tool_name)}</summary>')
+                parts.append(f'      <summary>🔧 {html.escape(block.tool_name)}</summary>')
                 parts.append(f'      <pre class="tool-input">{html.escape(input_json)}</pre>')
                 parts.append(f'    </details>')
 
@@ -130,7 +131,7 @@ class HtmlGenerator:
                 if block.text:
                     preview = block.text[:500]
                     parts.append(f'    <details class="tool-result-block">')
-                    parts.append(f'      <summary>Result ({len(block.text)} chars)</summary>')
+                    parts.append(f'      <summary>📋 Result ({len(block.text)} chars)</summary>')
                     parts.append(f'      <pre class="tool-output">{html.escape(preview)}</pre>')
                     parts.append(f'    </details>')
 
@@ -139,29 +140,33 @@ class HtmlGenerator:
         return "\n".join(parts)
 
     def _simple_markdown(self, text: str) -> str:
-        """Simple Markdown to HTML conversion."""
+        """简单 Markdown 到 HTML 转换"""
         import re
+        # 代码块
         text = re.sub(
             r'```(\w*)\n(.*?)```',
             r'<pre class="code-block"><code>\2</code></pre>',
             text, flags=re.DOTALL
         )
+        # 行内代码
         text = re.sub(r'`([^`]+)`', r'<code>\1</code>', text)
+        # 加粗
         text = re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', text)
+        # 换行
         text = text.replace("\n", "<br>\n")
         return text
 
     def _build_page(self, title: str, sessions_html: list, session_options: list) -> str:
-        """Build the complete HTML page."""
+        """构建完整的 HTML 页面"""
         options_json = json.dumps(session_options, ensure_ascii=False)
         sessions_joined = "\n".join(sessions_html)
 
         return f'''<!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{html.escape(title)} - Session Replay</title>
+<title>{html.escape(title)} - 会话回放</title>
 <style>
 * {{ margin: 0; padding: 0; box-sizing: border-box; }}
 body {{
@@ -180,6 +185,7 @@ header {{
 header h1 {{ color: #569cd6; font-size: 1.5em; }}
 header .subtitle {{ color: #858585; font-size: 0.9em; margin-top: 5px; }}
 
+/* Controls */
 .controls {{
     display: flex; gap: 10px; flex-wrap: wrap;
     padding: 10px 20px; background: #252526;
@@ -192,7 +198,9 @@ header .subtitle {{ color: #858585; font-size: 0.9em; margin-top: 5px; }}
     color: #d4d4d4; font-family: inherit; font-size: 0.9em;
     border-radius: 3px;
 }}
-.controls input[type="text"]:focus {{ outline: none; border-color: #007acc; }}
+.controls input[type="text"]:focus {{
+    outline: none; border-color: #007acc;
+}}
 .controls select {{
     padding: 8px 12px; background: #3c3c3c; border: 1px solid #3e3e42;
     color: #d4d4d4; font-family: inherit; font-size: 0.9em;
@@ -205,6 +213,7 @@ header .subtitle {{ color: #858585; font-size: 0.9em; margin-top: 5px; }}
 }}
 .controls button:hover {{ background: #1177bb; }}
 
+/* Session */
 .session {{
     margin-bottom: 30px;
     border: 1px solid #3e3e42;
@@ -220,6 +229,7 @@ header .subtitle {{ color: #858585; font-size: 0.9em; margin-top: 5px; }}
 .session-meta {{ color: #858585; font-size: 0.85em; }}
 .session-messages {{ padding: 10px; }}
 
+/* Messages */
 .message {{
     margin: 8px 0; padding: 10px 14px;
     border-left: 4px solid #444;
@@ -240,9 +250,13 @@ header .subtitle {{ color: #858585; font-size: 0.9em; margin-top: 5px; }}
 .message-time {{ color: #858585; font-size: 0.8em; }}
 .message-content {{ font-size: 0.9em; }}
 
+/* Text */
 .text-block {{ margin: 4px 0; white-space: pre-wrap; word-break: break-word; }}
 
-.tool-block, .tool-result-block {{ margin: 6px 0; }}
+/* Tool blocks */
+.tool-block, .tool-result-block {{
+    margin: 6px 0;
+}}
 .tool-block summary, .tool-result-block summary {{
     cursor: pointer; color: #dcdcaa; font-size: 0.85em;
     padding: 4px 0;
@@ -256,6 +270,7 @@ header .subtitle {{ color: #858585; font-size: 0.9em; margin-top: 5px; }}
     white-space: pre-wrap;
 }}
 
+/* Code */
 .code-block {{
     background: #1e1e1e; padding: 8px;
     border: 1px solid #3e3e42; border-radius: 3px;
@@ -266,9 +281,13 @@ code {{
     border-radius: 2px; font-size: 0.9em;
 }}
 
+/* Search highlight */
 .highlight {{ background: #515c28; padding: 1px 2px; border-radius: 2px; }}
+
+/* Hidden */
 .hidden {{ display: none; }}
 
+/* Stats bar */
 .stats-bar {{
     padding: 8px 20px; background: #252526;
     border-bottom: 1px solid #3e3e42;
@@ -279,7 +298,7 @@ code {{
 </head>
 <body>
 <header>
-    <h1>{html.escape(title)} - Session Replay</h1>
+    <h1>{html.escape(title)} - 会话回放</h1>
     <div class="subtitle">Interactive Session Replay</div>
 </header>
 <div class="controls">
@@ -303,6 +322,7 @@ code {{
 <script>
 const sessionOptions = {options_json};
 
+// 初始化
 document.addEventListener('DOMContentLoaded', function() {{
     const sel = document.getElementById('sessionFilter');
     sessionOptions.forEach(opt => {{
@@ -324,6 +344,7 @@ function doSearch() {{
     const query = document.getElementById('searchInput').value.trim().toLowerCase();
     const messages = document.querySelectorAll('.message');
 
+    // 清除旧高亮
     document.querySelectorAll('.highlight').forEach(el => {{
         el.outerHTML = el.textContent;
     }});
@@ -338,6 +359,7 @@ function doSearch() {{
         const text = msg.textContent.toLowerCase();
         if (text.includes(query)) {{
             msg.classList.remove('hidden');
+            // 高亮匹配文本
             const textBlocks = msg.querySelectorAll('.text-block');
             textBlocks.forEach(tb => {{
                 const regex = new RegExp('(' + query.replace(/[.*+?^${{}}()|[\\]\\\\]/g, '\\\\$&') + ')', 'gi');

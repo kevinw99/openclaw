@@ -1,23 +1,26 @@
-"""Text Pattern Signal - score based on regex text patterns"""
+"""Text Pattern Signal - 基于正则文本模式评分"""
 
 import re
 from typing import List
 
-from ..config.settings import Settings
 from ..models.category import Entity
 from ..models.session import SessionMessage
 from ..parser.message_extractor import MessageExtractor
 
 
 class TextPatternSignal:
-    """Match entities via regex text patterns."""
+    """通过正则表达式文本模式匹配实体"""
 
-    def __init__(self, settings: Settings = None):
-        self.extractor = MessageExtractor(settings=settings)
+    def __init__(self):
+        self.extractor = MessageExtractor()
         self._compiled_cache = {}
 
     def score(self, messages: List[SessionMessage], entity: Entity) -> float:
-        """Compute text pattern match score (0.0 - 1.0)."""
+        """计算文本模式匹配分数 (0.0 - 1.0)
+
+        综合考虑比例和绝对数量：在多主题会话中，
+        即使占比低，足够多的文本匹配也应被识别。
+        """
         if not messages or not entity.text_patterns:
             return 0.0
 
@@ -39,12 +42,25 @@ class TextPatternSignal:
             return 0.0
 
         ratio = matched / total_with_text
-        if matched > 0:
-            return max(0.2, ratio)
-        return 0.0
+
+        # 绝对数量奖励
+        if matched >= 15:
+            count_bonus = 0.5
+        elif matched >= 8:
+            count_bonus = 0.4
+        elif matched >= 4:
+            count_bonus = 0.3
+        elif matched >= 2:
+            count_bonus = 0.2
+        elif matched >= 1:
+            count_bonus = 0.1
+        else:
+            return 0.0
+
+        return max(ratio, count_bonus)
 
     def matched_messages(self, messages: List[SessionMessage], entity: Entity) -> List[SessionMessage]:
-        """Return list of matching messages."""
+        """返回匹配的消息列表"""
         patterns = self._get_compiled(entity)
         result = []
         for msg in messages:
@@ -58,7 +74,7 @@ class TextPatternSignal:
         return result
 
     def _get_compiled(self, entity: Entity) -> list:
-        """Get compiled regex patterns (cached)."""
+        """获取编译后的正则表达式 (缓存)"""
         key = entity.entity_id
         if key not in self._compiled_cache:
             compiled = []

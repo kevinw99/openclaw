@@ -1,13 +1,12 @@
-"""Session data models"""
+"""Session 数据模型"""
 
-import re
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
 
 
 @dataclass
 class ContentBlock:
-    """Message content block."""
+    """消息内容块"""
     block_type: str  # text, tool_use, tool_result, thinking
     text: str = ""
     tool_name: str = ""
@@ -17,7 +16,7 @@ class ContentBlock:
 
 @dataclass
 class SessionMessage:
-    """Single session message."""
+    """单条会话消息"""
     uuid: str
     parent_uuid: Optional[str]
     msg_type: str  # user, assistant, system, progress
@@ -25,14 +24,14 @@ class SessionMessage:
     content_blocks: List[ContentBlock] = field(default_factory=list)
     timestamp: str = ""
     session_id: str = ""
-    line_number: int = 0
+    line_number: int = 0  # JSONL 中的行号
     is_sidechain: bool = False
     subtype: str = ""
-    cwd: str = ""
+    cwd: str = ""  # 工作目录
 
     @property
     def text_content(self) -> str:
-        """Get plain text content."""
+        """获取纯文本内容"""
         parts = []
         for block in self.content_blocks:
             if block.block_type == "text" and block.text:
@@ -41,7 +40,7 @@ class SessionMessage:
 
     @property
     def file_paths(self) -> List[str]:
-        """Extract all file paths from tool calls."""
+        """提取所有工具调用中的文件路径"""
         paths = []
         for block in self.content_blocks:
             if block.block_type == "tool_use":
@@ -49,9 +48,11 @@ class SessionMessage:
                     val = block.tool_input.get(key, "")
                     if val and "/" in val:
                         paths.append(val)
+                # Bash command 中的路径
                 cmd = block.tool_input.get("command", "")
                 if cmd:
                     paths.extend(_extract_paths_from_command(cmd))
+                # Grep/Glob 的 path 参数
                 pattern = block.tool_input.get("pattern", "")
                 if pattern and "/" in pattern:
                     paths.append(pattern)
@@ -59,15 +60,15 @@ class SessionMessage:
 
     @property
     def tool_names(self) -> List[str]:
-        """Get all tool call names."""
+        """获取所有工具调用名称"""
         return [b.tool_name for b in self.content_blocks if b.block_type == "tool_use"]
 
 
 @dataclass
 class Session:
-    """Session."""
+    """会话"""
     session_id: str
-    file_path: str  # JSONL file path
+    file_path: str  # JSONL 文件路径
     messages: List[SessionMessage] = field(default_factory=list)
     start_time: str = ""
     end_time: str = ""
@@ -101,10 +102,11 @@ class Session:
 
 
 def _extract_paths_from_command(cmd: str) -> List[str]:
-    """Extract file paths from Bash commands."""
+    """从 Bash 命令中提取文件路径"""
+    import re
     paths = []
-    # Match absolute paths starting with /Users/
-    for match in re.finditer(r'/Users/\S+', cmd):
+    # 匹配绝对路径或项目相对路径
+    for match in re.finditer(r'(?:/Users/\S+|(?:规格|源代码|研究|知识库|工具)/\S+)', cmd):
         path = match.group(0).rstrip("'\"`;,)")
         paths.append(path)
     return paths

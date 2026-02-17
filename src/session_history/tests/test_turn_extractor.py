@@ -5,33 +5,11 @@ import unittest
 from session_history.models.session import ContentBlock, Session, SessionMessage
 from session_history.models.turn import Turn
 from session_history.generator.turn_extractor import TurnExtractor
-from session_history.config.settings import Settings
-
-
-def _make_test_settings():
-    s = Settings.__new__(Settings)
-    s.project_root = Settings.__dataclass_fields__['project_root'].default_factory()
-    s.sessions_dir = None
-    s.history_root = "session-history"
-    s.classification_threshold = 0.15
-    s.signal_weights = {"file_path": 0.50, "text_pattern": 0.35, "keyword": 0.15}
-    s.exclude_thinking = True
-    s.exclude_sidechains = True
-    s.scan_state_file = ".scan-state.json"
-    s.entity_dirs = {"spec": "specs", "source": "src", "research": "research", "knowledge": "docs", "tool": "scripts"}
-    s.spec_pattern = r"(\d+)_(.+)"
-    s.spec_display = "Spec {num}: {desc}"
-    s.restricted_spec_dir = None
-    s.legacy_aliases = {}
-    s.skip_files = {}
-    # Compute sessions_dir
-    s.sessions_dir = s._compute_sessions_dir()
-    return s
 
 
 def _make_msg(role, msg_type, blocks=None, text="", timestamp="", uuid="u1",
               is_sidechain=False, subtype="", cwd=""):
-    """Helper to create SessionMessage."""
+    """Helper to create SessionMessage"""
     content_blocks = blocks or []
     if text and not blocks:
         content_blocks = [ContentBlock(block_type="text", text=text)]
@@ -50,8 +28,8 @@ def _make_msg(role, msg_type, blocks=None, text="", timestamp="", uuid="u1",
     )
 
 
-def _make_session(messages, file_path="/Users/testuser/.claude/projects/test/abc.jsonl"):
-    """Helper to create Session."""
+def _make_session(messages, file_path="/Users/kweng/.claude/projects/test/abc.jsonl"):
+    """Helper to create Session"""
     s = Session(session_id="test-session", file_path=file_path, messages=messages)
     if messages:
         s.start_time = messages[0].timestamp or "2026-02-01T10:00:00"
@@ -64,7 +42,7 @@ class TestTurnExtractor(unittest.TestCase):
         self.extractor = TurnExtractor()
 
     def test_simple_single_turn(self):
-        """Single turn: user asks -> AI answers."""
+        """一轮简单对话: 用户问 → AI 答"""
         msgs = [
             _make_msg("user", "user", text="Hello, how are you?", timestamp="2026-02-01T10:00:00"),
             _make_msg("assistant", "assistant", text="I'm doing well!", timestamp="2026-02-01T10:00:05"),
@@ -79,7 +57,7 @@ class TestTurnExtractor(unittest.TestCase):
         self.assertEqual(turns[0].tool_counts, {})
 
     def test_multiple_turns(self):
-        """Multiple turns."""
+        """多轮对话"""
         msgs = [
             _make_msg("user", "user", text="Question 1", timestamp="2026-02-01T10:00:00"),
             _make_msg("assistant", "assistant", text="Answer 1", timestamp="2026-02-01T10:00:05"),
@@ -94,7 +72,7 @@ class TestTurnExtractor(unittest.TestCase):
         self.assertEqual(turns[1].user_prompt, "Question 2")
 
     def test_tool_result_not_new_turn(self):
-        """tool_result messages should not start a new turn."""
+        """tool_result 消息不应该开始新的轮次"""
         msgs = [
             _make_msg("user", "user", text="Read this file", timestamp="2026-02-01T10:00:00"),
             _make_msg("assistant", "assistant", blocks=[
@@ -102,6 +80,7 @@ class TestTurnExtractor(unittest.TestCase):
                 ContentBlock(block_type="tool_use", tool_name="Read",
                              tool_input={"file_path": "/foo/bar.py"}, tool_use_id="t1"),
             ], timestamp="2026-02-01T10:00:05"),
+            # tool_result 从用户角色发回
             _make_msg("user", "user", blocks=[
                 ContentBlock(block_type="tool_result", text="file contents here", tool_use_id="t1"),
             ], timestamp="2026-02-01T10:00:06"),
@@ -115,7 +94,7 @@ class TestTurnExtractor(unittest.TestCase):
         self.assertIn("The file contains", turns[0].assistant_response)
 
     def test_final_response_after_tools(self):
-        """Final response should be text after last tool_use."""
+        """最终回答应该是最后一个 tool_use 之后的文本"""
         msgs = [
             _make_msg("user", "user", text="Fix the bug", timestamp="2026-02-01T10:00:00"),
             _make_msg("assistant", "assistant", blocks=[
@@ -140,10 +119,11 @@ class TestTurnExtractor(unittest.TestCase):
 
         self.assertEqual(len(turns), 1)
         self.assertEqual(turns[0].assistant_response, "I've fixed the bug by updating the condition.")
+        # "Let me look" preamble should not be in the final response
         self.assertNotIn("Let me look", turns[0].assistant_response)
 
     def test_tool_counting(self):
-        """Tool call counting."""
+        """工具调用计数"""
         msgs = [
             _make_msg("user", "user", text="Do stuff", timestamp="2026-02-01T10:00:00"),
             _make_msg("assistant", "assistant", blocks=[
@@ -177,7 +157,7 @@ class TestTurnExtractor(unittest.TestCase):
         self.assertIn("Write (1)", turns[0].tool_summary_line)
 
     def test_skip_system_messages(self):
-        """System messages should not affect turn splitting."""
+        """系统消息不应该影响轮次划分"""
         msgs = [
             _make_msg("", "system", text="System init"),
             _make_msg("user", "user", text="Hello", timestamp="2026-02-01T10:00:00"),
@@ -191,7 +171,7 @@ class TestTurnExtractor(unittest.TestCase):
         self.assertEqual(turns[0].user_prompt, "Hello")
 
     def test_long_prompt_detection(self):
-        """Detect long prompts."""
+        """检测长提示"""
         short_prompt = "Short question"
         long_prompt = "x" * 600
 
@@ -211,18 +191,18 @@ class TestTurnExtractor(unittest.TestCase):
         self.assertTrue(turns_long[0].is_long_prompt)
 
     def test_auto_title(self):
-        """Auto title generation."""
+        """自动标题生成"""
         msgs = [
-            _make_msg("user", "user", text="Design the data pipeline", timestamp="2026-02-01T10:00:00"),
+            _make_msg("user", "user", text="请帮我设计数据流水线", timestamp="2026-02-01T10:00:00"),
             _make_msg("assistant", "assistant", text="ok"),
         ]
         session = _make_session(msgs)
         turns = self.extractor.extract_turns(session)
 
-        self.assertEqual(turns[0].title, "Design the data pipeline")
+        self.assertEqual(turns[0].title, "请帮我设计数据流水线")
 
     def test_auto_title_truncation(self):
-        """Truncate long titles."""
+        """标题过长时截断"""
         long_title = "This is a very long prompt that exceeds the sixty character limit and should be truncated"
         msgs = [
             _make_msg("user", "user", text=long_title, timestamp="2026-02-01T10:00:00"),
@@ -235,34 +215,34 @@ class TestTurnExtractor(unittest.TestCase):
         self.assertTrue(turns[0].title.endswith("..."))
 
     def test_extract_person(self):
-        """Extract username from file path."""
+        """从文件路径提取用户名"""
         msgs = [_make_msg("user", "user", text="hi")]
-        session = _make_session(msgs, file_path="/Users/testuser/.claude/projects/test/abc.jsonl")
+        session = _make_session(msgs, file_path="/Users/kweng/.claude/projects/test/abc.jsonl")
         person = self.extractor.extract_person(session)
-        self.assertEqual(person, "testuser")
+        self.assertEqual(person, "kweng")
 
     def test_extract_person_fallback_cwd(self):
-        """Extract username from cwd (fallback)."""
+        """从 cwd 提取用户名 (fallback)"""
         msgs = [_make_msg("user", "user", text="hi", cwd="/Users/alice/projects/test")]
         session = _make_session(msgs, file_path="/tmp/abc.jsonl")
         person = self.extractor.extract_person(session)
         self.assertEqual(person, "alice")
 
     def test_extract_person_unknown(self):
-        """Return unknown when username can't be extracted."""
+        """无法提取用户名时返回 unknown"""
         msgs = [_make_msg("user", "user", text="hi")]
         session = _make_session(msgs, file_path="/tmp/abc.jsonl")
         person = self.extractor.extract_person(session)
         self.assertEqual(person, "unknown")
 
     def test_empty_session(self):
-        """Empty session produces no turns."""
+        """空会话不产生轮次"""
         session = _make_session([])
         turns = self.extractor.extract_turns(session)
         self.assertEqual(len(turns), 0)
 
     def test_time_short(self):
-        """Turn.time_short property."""
+        """Turn.time_short 属性"""
         t = Turn(
             turn_number=1,
             timestamp="2026-02-01T10:30:00",
@@ -278,12 +258,12 @@ class TestTurnToolNarrative(unittest.TestCase):
         self.extractor = TurnExtractor()
 
     def test_file_path_in_narrative(self):
-        """Tool narrative includes file paths."""
+        """工具叙述包含文件路径"""
         msgs = [
             _make_msg("user", "user", text="Check", timestamp="2026-02-01T10:00:00"),
             _make_msg("assistant", "assistant", blocks=[
                 ContentBlock(block_type="tool_use", tool_name="Read",
-                             tool_input={"file_path": "/foo/bar/specs/01_data-pipeline/design.md"},
+                             tool_input={"file_path": "/Users/kweng/AI/Enpack_CCC/规格/P12_内部数据/design.md"},
                              tool_use_id="t1"),
             ]),
             _make_msg("user", "user", blocks=[
@@ -294,12 +274,10 @@ class TestTurnToolNarrative(unittest.TestCase):
         session = _make_session(msgs)
         turns = self.extractor.extract_turns(session)
 
-        # The path won't be shortened since it doesn't match project root,
-        # but it should still appear in narrative
-        self.assertTrue(len(turns[0].tool_narrative) > 0)
+        self.assertIn("规格/P12_内部数据/design.md", turns[0].tool_narrative)
 
     def test_bash_description_in_narrative(self):
-        """Bash command descriptions included in narrative."""
+        """Bash 命令描述包含在叙述中"""
         msgs = [
             _make_msg("user", "user", text="Run tests", timestamp="2026-02-01T10:00:00"),
             _make_msg("assistant", "assistant", blocks=[

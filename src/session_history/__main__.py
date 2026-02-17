@@ -1,4 +1,4 @@
-"""Allow python -m session_history to run"""
+"""允许 python -m session_history 运行"""
 from .main import main
 
 main()

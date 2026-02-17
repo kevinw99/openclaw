@@ -1,21 +1,20 @@
-"""Keyword Signal - score based on keyword matching"""
+"""Keyword Signal - 基于关键词匹配评分"""
 
 from typing import List, Set
 
-from ..config.settings import Settings
 from ..models.category import Entity
 from ..models.session import SessionMessage
 from ..parser.message_extractor import MessageExtractor
 
 
 class KeywordSignal:
-    """Match entities via keywords (lowest weight signal)."""
+    """通过关键词匹配实体 (最低权重信号)"""
 
-    def __init__(self, settings: Settings = None):
-        self.extractor = MessageExtractor(settings=settings)
+    def __init__(self):
+        self.extractor = MessageExtractor()
 
     def score(self, messages: List[SessionMessage], entity: Entity) -> float:
-        """Compute keyword match score (0.0 - 1.0)."""
+        """计算关键词匹配分数 (0.0 - 1.0)"""
         if not messages or not entity.keywords:
             return 0.0
 
@@ -28,6 +27,7 @@ class KeywordSignal:
             if not msg_keywords:
                 continue
             total_with_text += 1
+            # 检查消息关键词是否与实体关键词有交集
             msg_lower = {k.lower() for k in msg_keywords}
             if msg_lower & entity_keywords:
                 matched += 1
@@ -37,11 +37,11 @@ class KeywordSignal:
 
         ratio = matched / total_with_text
         if matched > 0:
-            return max(0.1, min(ratio, 0.8))
+            return max(0.1, min(ratio, 0.8))  # 关键词匹配有上限
         return 0.0
 
     def matched_messages(self, messages: List[SessionMessage], entity: Entity) -> List[SessionMessage]:
-        """Return list of matching messages."""
+        """返回匹配的消息列表"""
         entity_keywords = self._normalize_keywords(entity.keywords)
         result = []
         for msg in messages:
@@ -52,10 +52,11 @@ class KeywordSignal:
         return result
 
     def _normalize_keywords(self, keywords: List[str]) -> Set[str]:
-        """Normalize keywords."""
+        """归一化关键词"""
         normalized = set()
         for kw in keywords:
             normalized.add(kw.lower())
+            # 对下划线/连字符分词也加入
             for part in kw.replace("-", "_").split("_"):
                 if part and len(part) > 2:
                     normalized.add(part.lower())

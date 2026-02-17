@@ -1,4 +1,4 @@
-"""CLI entry point - Session History Categorization System"""
+"""CLI 入口 - 会话历史分类系统"""
 
 import argparse
 import json
@@ -7,7 +7,7 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-# Ensure module can be imported correctly
+# 确保模块可以被正确导入
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from session_history.config.settings import Settings
@@ -23,43 +23,43 @@ from session_history.models.category import SessionClassification
 
 
 def cmd_scan(args):
-    """Scan all sessions and classify them."""
+    """扫描所有会话并分类"""
     settings = Settings()
     if args.sessions_dir:
         settings.sessions_dir = Path(args.sessions_dir)
 
     print("=" * 60)
-    print("Session History Categorization - Scan")
+    print("会话历史分类系统 - 扫描")
     print("=" * 60)
-    print(f"Sessions dir: {settings.sessions_dir}")
-    print(f"Project root: {settings.project_root}")
+    print(f"会话目录: {settings.sessions_dir}")
+    print(f"项目根: {settings.project_root}")
 
-    # Incremental mode check
+    # 增量模式检查
     last_scan = {}
     if args.incremental and settings.scan_state_path.exists():
         with open(settings.scan_state_path, "r", encoding="utf-8") as f:
             last_scan = json.load(f)
-        print("Mode: incremental scan")
+        print("模式: 增量扫描")
     else:
-        print("Mode: full scan")
+        print("模式: 全量扫描")
 
     print("-" * 60)
 
-    # 1. Discover entities
-    registry = EntityRegistry(settings.project_root, settings=settings)
+    # 1. 发现实体
+    registry = EntityRegistry(settings.project_root)
     entities = registry.discover_all()
-    print(f"\n[1/4] Discovered {len(entities)} entities")
+    print(f"\n[1/4] 发现 {len(entities)} 个实体")
     for e in entities:
         print(f"  - {e.display_name} ({e.entity_type.value})")
 
-    # 2. Read sessions
+    # 2. 读取会话
     reader = JsonlReader(
         exclude_thinking=settings.exclude_thinking,
         exclude_sidechains=settings.exclude_sidechains,
     )
     session_files = reader.list_session_files(str(settings.sessions_dir))
 
-    # Incremental filter
+    # 增量过滤
     if args.incremental and last_scan:
         filtered = []
         for f in session_files:
@@ -68,24 +68,24 @@ def cmd_scan(args):
             if mtime > last_mtime:
                 filtered.append(f)
         if not filtered:
-            print(f"\n[2/4] No new or modified session files, skipping scan")
+            print(f"\n[2/4] 无新增或修改的会话文件，跳过扫描")
             return
-        print(f"\n[2/4] Incremental scan {len(filtered)}/{len(session_files)} session files")
+        print(f"\n[2/4] 增量扫描 {len(filtered)}/{len(session_files)} 个会话文件")
         session_files = filtered
     else:
-        print(f"\n[2/4] Reading {len(session_files)} session files")
+        print(f"\n[2/4] 读取 {len(session_files)} 个会话文件")
 
     sessions = []
     for fp in session_files:
         try:
             session = reader.read_session(fp)
             sessions.append(session)
-            print(f"  + {Path(fp).stem[:8]}... ({session.message_count} msgs)")
+            print(f"  ✓ {Path(fp).stem[:8]}... ({session.message_count} msgs)")
         except Exception as e:
-            print(f"  x {Path(fp).stem[:8]}... error: {e}")
+            print(f"  ✗ {Path(fp).stem[:8]}... 错误: {e}")
 
-    # 3. Classify
-    print(f"\n[3/4] Classifying {len(sessions)} sessions...")
+    # 3. 分类
+    print(f"\n[3/4] 分类 {len(sessions)} 个会话...")
     classifier = CompositeClassifier(settings)
     classifications = []
     for session in sessions:
@@ -99,11 +99,12 @@ def cmd_scan(args):
         else:
             print(f"  {session.session_id[:8]}... -> Uncategorized")
 
-    # 4. Generate indices
-    print(f"\n[4/4] Generating indices...")
+    # 4. 生成索引
+    print(f"\n[4/4] 生成索引...")
     index_gen = IndexGenerator(settings.project_root)
 
-    entity_refs = {}
+    # 按实体生成索引 (session 归入所有匹配的实体, 支持多实体 session 拆分)
+    entity_refs = {}  # entity_id -> [SessionReference]
     for classification in classifications:
         if not classification.matches:
             continue
@@ -122,22 +123,22 @@ def cmd_scan(args):
         refs = data["refs"]
         entity_index = index_gen.build_entity_index(entity, refs)
         index_gen.write_entity_index(entity, entity_index)
-        print(f"  + {entity.display_name}: {len(refs)} sessions")
+        print(f"  ✓ {entity.display_name}: {len(refs)} 会话")
 
-    # Clean up empty entity indices
+    # 清理不再有 session 的实体索引
     for entity in entities:
         if entity.entity_id not in entity_refs:
             idx_path = settings.project_root / entity.history_dir / "sessions-index.json"
             if idx_path.exists():
                 idx_path.unlink()
-                print(f"  x {entity.display_name}: removed empty index")
+                print(f"  ✗ {entity.display_name}: 已移除空索引")
 
-    # Master index and report
+    # 主索引和报告
     history_dir = settings.history_dir
     index_gen.write_master_index(classifications, history_dir)
     index_gen.write_categorization_report(classifications, entities, history_dir)
 
-    # Uncategorized sessions
+    # 未分类会话
     uncategorized = [c for c in classifications if c.is_uncategorized]
     if uncategorized:
         uncat_dir = history_dir / "uncategorized"
@@ -148,9 +149,9 @@ def cmd_scan(args):
         }
         with open(uncat_dir / "sessions.json", "w", encoding="utf-8") as f:
             json.dump(uncat_data, f, ensure_ascii=False, indent=2)
-        print(f"  + Uncategorized: {len(uncategorized)} sessions")
+        print(f"  ✓ Uncategorized: {len(uncategorized)} 会话")
 
-    # Save scan state
+    # 保存扫描状态 (用于增量扫描)
     scan_state = {
         "last_scan": datetime.now().isoformat(),
         "file_mtimes": {
@@ -161,16 +162,16 @@ def cmd_scan(args):
     with open(settings.scan_state_path, "w", encoding="utf-8") as f:
         json.dump(scan_state, f, ensure_ascii=False, indent=2)
 
-    print(f"\nDone! Classified {len(classifications)} sessions")
-    print(f"  Categorized: {len(classifications) - len(uncategorized)}")
-    print(f"  Uncategorized: {len(uncategorized)}")
-    print(f"  Master index: {history_dir / 'all-sessions.json'}")
-    print(f"  Report: {history_dir / 'categorization-report.md'}")
+    print(f"\n完成! 分类 {len(classifications)} 个会话")
+    print(f"  已分类: {len(classifications) - len(uncategorized)}")
+    print(f"  未分类: {len(uncategorized)}")
+    print(f"  主索引: {history_dir / 'all-sessions.json'}")
+    print(f"  报告: {history_dir / 'categorization-report.md'}")
 
 
 def _load_entity_index(settings, entity_id):
-    """Find entity and load its index, return (entity, entity_index, history_dir) or None."""
-    registry = EntityRegistry(settings.project_root, settings=settings)
+    """查找实体并加载其索引, 返回 (entity, entity_index, history_dir) 或 None"""
+    registry = EntityRegistry(settings.project_root)
     entities = registry.discover_all()
 
     matched_entity = None
@@ -184,15 +185,15 @@ def _load_entity_index(settings, entity_id):
             break
 
     if not matched_entity:
-        print(f"No matching entity found: {entity_id}")
-        print("Available entities:")
+        print(f"未找到匹配的实体: {entity_id}")
+        print("可用实体:")
         for e in entities:
             print(f"  {e.entity_id} - {e.display_name}")
         return None
 
     index_path = settings.project_root / matched_entity.history_dir / "sessions-index.json"
     if not index_path.exists():
-        print(f"Entity {matched_entity.display_name} has no index file. Run scan first.")
+        print(f"实体 {matched_entity.display_name} 没有索引文件。请先运行 scan。")
         return None
 
     with open(index_path, "r", encoding="utf-8") as f:
@@ -223,7 +224,7 @@ def _load_entity_index(settings, entity_id):
 
 
 def cmd_replay(args):
-    """Generate session replay."""
+    """生成会话回放"""
     settings = Settings()
     entity_id = args.entity
 
@@ -233,22 +234,22 @@ def cmd_replay(args):
     matched_entity, entity_index, history_dir = result
 
     if args.raw:
+        # 旧格式: 单文件 HTML + Markdown
         html_gen = HtmlGenerator(exclude_thinking=settings.exclude_thinking)
         html_path = history_dir / "replay.html"
         html_gen.generate(entity_index, html_path)
-        print(f"HTML replay: {html_path}")
+        print(f"HTML 回放: {html_path}")
 
         md_gen = MarkdownGenerator(exclude_thinking=settings.exclude_thinking)
         md_path = history_dir / "replay.md"
         md_gen.generate(entity_index, md_path)
-        print(f"Markdown replay: {md_path}")
+        print(f"Markdown 回放: {md_path}")
     else:
-        replay_gen = ReadableReplayGenerator(
-            exclude_thinking=settings.exclude_thinking,
-            settings=settings,
-        )
+        # 新格式: 按 session 的可读回放文件
+        replay_gen = ReadableReplayGenerator(exclude_thinking=settings.exclude_thinking)
         generated_files = replay_gen.generate(entity_index, history_dir)
 
+        # 生成 replay-index.md
         index_gen = ReplayIndexGenerator()
         index_gen.write_entity_index(entity_index, history_dir, generated_files)
 
@@ -258,11 +259,11 @@ def cmd_replay(args):
         print(f"Index: {history_dir / 'replay-index.md'}")
         print(f"Total: {len(generated_files)} session file(s)")
 
-    print(f"\nDone! Generated replay for {matched_entity.display_name}")
+    print(f"\n完成! 为 {matched_entity.display_name} 生成了回放文件")
 
 
 def cmd_search(args):
-    """Search sessions."""
+    """搜索会话"""
     settings = Settings()
     query = args.query.lower()
 
@@ -272,8 +273,8 @@ def cmd_search(args):
     )
     session_files = reader.list_session_files(str(settings.sessions_dir))
 
-    print(f"Search: \"{args.query}\"")
-    print(f"Scanning {len(session_files)} sessions...")
+    print(f"搜索: \"{args.query}\"")
+    print(f"扫描 {len(session_files)} 个会话...")
     print("-" * 60)
 
     total_matches = 0
@@ -294,39 +295,40 @@ def cmd_search(args):
         if matches:
             sid = session.session_id[:8]
             time_str = session.start_time[:10] if session.start_time else "N/A"
-            print(f"\n  {sid}... ({time_str}) - {len(matches)} match(es)")
+            print(f"\n📁 {sid}... ({time_str}) - {len(matches)} match(es)")
             for m in matches[:args.limit]:
                 print(f"  [{m['type']:9s}] {m['time']} | {m['preview']}")
             if len(matches) > args.limit:
                 print(f"  ... and {len(matches) - args.limit} more")
             total_matches += len(matches)
 
-    print(f"\nTotal: {total_matches} matches")
+    print(f"\n总计: {total_matches} 匹配")
 
 
 def cmd_list(args):
-    """List sessions with classification."""
+    """列出会话及分类"""
     settings = Settings()
     master_path = settings.history_dir / "all-sessions.json"
 
     if not master_path.exists():
-        print("Master index not found. Run scan first.")
+        print("主索引不存在。请先运行 scan。")
         return
 
     with open(master_path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
     print("=" * 60)
-    print("Session List")
+    print("会话列表")
     print("=" * 60)
-    print(f"Total sessions: {data['total_sessions']}")
-    print(f"Categorized: {data['categorized']} | Uncategorized: {data['uncategorized']}")
+    print(f"总会话数: {data['total_sessions']}")
+    print(f"已分类: {data['categorized']} | 未分类: {data['uncategorized']}")
     print("-" * 60)
 
     for s in data.get("sessions", []):
         sid = s["session_id"][:8]
         time_str = s.get("start_time", "")[:10] or "N/A"
         msg_count = s.get("message_count", 0)
+        primary = s.get("primary_entity", "Uncategorized")
 
         matches_str = ""
         if s.get("matches"):
@@ -339,8 +341,9 @@ def cmd_list(args):
             matches_str = "Uncategorized"
 
         print(f"\n  {sid}... | {time_str} | {msg_count:3d} msgs")
-        print(f"    -> {matches_str}")
+        print(f"    → {matches_str}")
 
+    # 按类型筛选
     if args.type:
         filtered = [
             s for s in data.get("sessions", [])
@@ -350,31 +353,32 @@ def cmd_list(args):
 
 
 def cmd_stats(args):
-    """Show classification statistics."""
+    """显示分类统计"""
     settings = Settings()
     master_path = settings.history_dir / "all-sessions.json"
 
     if not master_path.exists():
-        print("Master index not found. Run scan first.")
+        print("主索引不存在。请先运行 scan。")
         return
 
     with open(master_path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
     print("=" * 60)
-    print("Classification Statistics")
+    print("分类统计")
     print("=" * 60)
 
     total = data["total_sessions"]
     categorized = data["categorized"]
     uncategorized = data["uncategorized"]
 
-    print(f"\nTotal sessions: {total}")
+    print(f"\n总会话数: {total}")
     pct = (categorized / total * 100) if total else 0
-    bar = "#" * int(pct / 5) + "." * (20 - int(pct / 5))
-    print(f"Coverage:     [{bar}] {pct:.1f}%")
-    print(f"Categorized: {categorized} | Uncategorized: {uncategorized}")
+    bar = "█" * int(pct / 5) + "░" * (20 - int(pct / 5))
+    print(f"分类率:   [{bar}] {pct:.1f}%")
+    print(f"已分类: {categorized} | 未分类: {uncategorized}")
 
+    # 按实体类型统计
     type_counts = {}
     entity_counts = {}
     for s in data.get("sessions", []):
@@ -384,51 +388,52 @@ def cmd_stats(args):
             type_counts[etype] = type_counts.get(etype, 0) + 1
             entity_counts[ename] = entity_counts.get(ename, 0) + 1
 
-    print("\nBy type:")
+    print("\n按类型:")
     for etype, count in sorted(type_counts.items(), key=lambda x: x[1], reverse=True):
-        print(f"  {etype:15s}: {count} sessions")
+        print(f"  {etype:15s}: {count} 会话")
 
-    print("\nBy entity (Top 10):")
+    print("\n按实体 (Top 10):")
     for ename, count in sorted(entity_counts.items(), key=lambda x: x[1], reverse=True)[:10]:
-        print(f"  {ename:40s}: {count} sessions")
+        print(f"  {ename:40s}: {count} 会话")
 
+    # 多分类统计
     multi_classified = sum(
         1 for s in data.get("sessions", [])
         if len(s.get("matches", [])) > 1
     )
-    print(f"\nMulti-classified sessions: {multi_classified} ({multi_classified/total*100:.1f}% of total)" if total else "")
+    print(f"\n多分类会话: {multi_classified} ({multi_classified/total*100:.1f}% of total)" if total else "")
 
 
 def main():
-    """Main entry point."""
+    """主入口"""
     parser = argparse.ArgumentParser(
-        description="Session History Categorization System - classify and replay Claude Code sessions",
+        description="会话历史分类系统 - 分类和回放 Claude Code 会话",
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
 
-    subparsers = parser.add_subparsers(dest="command", help="Available commands")
+    subparsers = parser.add_subparsers(dest="command", help="可用命令")
 
     # scan
-    p_scan = subparsers.add_parser("scan", help="Scan sessions and classify")
-    p_scan.add_argument("--sessions-dir", help="Sessions JSONL directory")
-    p_scan.add_argument("--incremental", "-i", action="store_true", help="Incremental scan")
+    p_scan = subparsers.add_parser("scan", help="扫描会话并分类")
+    p_scan.add_argument("--sessions-dir", help="会话 JSONL 目录")
+    p_scan.add_argument("--incremental", "-i", action="store_true", help="增量扫描")
 
     # replay
-    p_replay = subparsers.add_parser("replay", help="Generate session replay")
-    p_replay.add_argument("entity", help="Entity identifier (number, name, or entity_id)")
-    p_replay.add_argument("--raw", action="store_true", help="Use raw format (single-file HTML/Markdown)")
+    p_replay = subparsers.add_parser("replay", help="生成会话回放")
+    p_replay.add_argument("entity", help="实体标识 (编号、名称或 entity_id)")
+    p_replay.add_argument("--raw", action="store_true", help="使用旧格式 (单文件 HTML/Markdown)")
 
     # search
-    p_search = subparsers.add_parser("search", help="Search session content")
-    p_search.add_argument("query", help="Search query")
-    p_search.add_argument("--limit", "-n", type=int, default=5, help="Max matches per session to show")
+    p_search = subparsers.add_parser("search", help="搜索会话内容")
+    p_search.add_argument("query", help="搜索关键词")
+    p_search.add_argument("--limit", "-n", type=int, default=5, help="每个会话显示的最大匹配数")
 
     # list
-    p_list = subparsers.add_parser("list", help="List sessions with classification")
-    p_list.add_argument("--type", "-t", help="Filter by entity type")
+    p_list = subparsers.add_parser("list", help="列出会话及分类")
+    p_list.add_argument("--type", "-t", help="按实体类型筛选")
 
     # stats
-    p_stats = subparsers.add_parser("stats", help="Show classification statistics")
+    p_stats = subparsers.add_parser("stats", help="显示分类统计")
 
     args = parser.parse_args()
 

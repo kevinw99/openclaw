@@ -1,3 +1,3 @@
-"""Session History Categorization System"""
+"""会话历史分类系统 - Session History Categorization System"""
 
-__version__ = "2.0.0"
+__version__ = "1.0.0"

@@ -1,4 +1,4 @@
-"""Category data models - entities and classifications"""
+"""Category 数据模型 - 实体和分类"""
 
 from dataclasses import dataclass, field
 from enum import Enum
@@ -6,7 +6,7 @@ from typing import Any, Dict, List
 
 
 class EntityType(Enum):
-    """Entity type."""
+    """实体类型"""
     SPEC = "spec"
     SOURCE = "source"
     RESEARCH = "research"
@@ -17,14 +17,14 @@ class EntityType(Enum):
 
 @dataclass
 class Entity:
-    """Project entity."""
+    """项目实体"""
     entity_type: EntityType
-    name: str  # directory name
-    display_name: str
-    directory: str  # relative to project root
+    name: str  # 目录名
+    display_name: str  # 显示名
+    directory: str  # 相对于项目根的路径
     keywords: List[str] = field(default_factory=list)
-    path_patterns: List[str] = field(default_factory=list)
-    text_patterns: List[str] = field(default_factory=list)
+    path_patterns: List[str] = field(default_factory=list)  # 路径匹配模式
+    text_patterns: List[str] = field(default_factory=list)  # 正则文本模式
 
     @property
     def history_dir(self) -> str:
@@ -46,7 +46,7 @@ class Entity:
 
 @dataclass
 class EntityMatch:
-    """Single entity match result."""
+    """单个实体的匹配结果"""
     entity: Entity
     confidence: float = 0.0
     file_path_score: float = 0.0
@@ -72,7 +72,7 @@ class EntityMatch:
 
 @dataclass
 class SessionClassification:
-    """Session classification result."""
+    """会话分类结果"""
     session_id: str
     file_path: str
     matches: List[EntityMatch] = field(default_factory=list)

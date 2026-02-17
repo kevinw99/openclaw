@@ -53,9 +53,9 @@ def test_markdown_generation():
 def test_index_generation():
     entity = Entity(
         entity_type=EntityType.SPEC,
-        name="01_data-pipeline",
-        display_name="Spec 01: data-pipeline",
-        directory="specs/01_data-pipeline",
+        name="P12_内部数据收集系统",
+        display_name="Spec P12",
+        directory="规格/P12_内部数据收集系统",
     )
 
     ref = SessionReference(
@@ -71,11 +71,11 @@ def test_index_generation():
         index = gen.build_entity_index(entity, [ref])
         gen.write_entity_index(entity, index)
 
-        index_path = Path(tmpdir) / "specs" / "01_data-pipeline" / "history" / "sessions-index.json"
+        index_path = Path(tmpdir) / "规格" / "P12_内部数据收集系统" / "history" / "sessions-index.json"
         assert index_path.exists()
 
         data = json.loads(index_path.read_text(encoding="utf-8"))
-        assert data["entity_id"] == "spec:01_data-pipeline"
+        assert data["entity_id"] == "spec:P12_内部数据收集系统"
         assert data["session_count"] == 1
         assert data["sessions"][0]["confidence"] == 0.85
 

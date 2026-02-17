@@ -17,78 +17,56 @@ FIXTURE_DIR = Path(__file__).parent / "fixtures"
 SAMPLE_SESSION = str(FIXTURE_DIR / "sample_session.jsonl")
 
 
-def _make_test_settings():
-    """Create settings pointing at the test project root."""
-    s = Settings.__new__(Settings)
-    s.project_root = Path("/Users/testuser/AI/base")
-    s.sessions_dir = Path("/tmp/sessions")
-    s.history_root = "session-history"
-    s.classification_threshold = 0.15
-    s.signal_weights = {"file_path": 0.50, "text_pattern": 0.35, "keyword": 0.15}
-    s.exclude_thinking = True
-    s.exclude_sidechains = True
-    s.scan_state_file = ".scan-state.json"
-    s.entity_dirs = {"spec": "specs", "source": "src", "research": "research", "knowledge": "docs", "tool": "scripts"}
-    s.spec_pattern = r"(\d+)_(.+)"
-    s.spec_display = "Spec {num}: {desc}"
-    s.restricted_spec_dir = None
-    s.legacy_aliases = {}
-    s.skip_files = {}
-    return s
-
-
-def _make_spec_01_entity():
+def _make_spec_p12_entity():
     return Entity(
         entity_type=EntityType.SPEC,
-        name="01_data-pipeline",
-        display_name="Spec 01: data-pipeline",
-        directory="specs/01_data-pipeline",
-        keywords=["01_data-pipeline", "data-pipeline", "data", "pipeline", "spec 01", "spec #01"],
-        path_patterns=["specs/01_data-pipeline/", "specs/01_data-pipeline"],
-        text_patterns=[r"[Ss]pec\s*#?01\b", r"specs/01_data-pipeline", r"specs.*01"],
+        name="P12_内部数据收集系统",
+        display_name="Spec P12: 内部数据收集系统",
+        directory="规格/P12_内部数据收集系统",
+        keywords=["P12_内部数据收集系统", "内部数据收集系统", "内部数据收集", "spec P12", "spec #P12"],
+        path_patterns=["规格/P12_内部数据收集系统/", "规格/P12_内部数据收集系统"],
+        text_patterns=[r"[Ss]pec\s*#?P12\b", r"规格/P12_内部数据收集系统", r"规格.*P12"],
     )
 
 
-def _make_source_entity():
+def _make_chunked_entity():
     return Entity(
         entity_type=EntityType.SOURCE,
-        name="data_processor",
-        display_name="src: data_processor",
-        directory="src/data_processor",
-        keywords=["data_processor", "data", "processor"],
-        path_patterns=["src/data_processor/", "src/data_processor"],
-        text_patterns=[r"src/data_processor"],
+        name="chunked_processor",
+        display_name="源代码: chunked_processor",
+        directory="源代码/chunked_processor",
+        keywords=["chunked_processor", "chunked", "processor"],
+        path_patterns=["源代码/chunked_processor/", "源代码/chunked_processor"],
+        text_patterns=[r"源代码/chunked_processor"],
     )
 
 
 def _make_unrelated_entity():
     return Entity(
         entity_type=EntityType.RESEARCH,
-        name="pricing-analysis",
-        display_name="research: pricing-analysis",
-        directory="research/pricing-analysis",
-        keywords=["pricing-analysis", "pricing", "analysis"],
-        path_patterns=["research/pricing-analysis/"],
-        text_patterns=[r"research/pricing-analysis"],
+        name="定价分析",
+        display_name="研究: 定价分析",
+        directory="研究/定价分析",
+        keywords=["定价分析", "定价", "pricing"],
+        path_patterns=["研究/定价分析/"],
+        text_patterns=[r"研究/定价分析"],
     )
 
 
 def test_file_path_signal_matches():
-    settings = _make_test_settings()
     reader = JsonlReader(exclude_thinking=True)
     session = reader.read_session(SAMPLE_SESSION)
-    signal = FilePathSignal(settings=settings)
+    signal = FilePathSignal()
 
-    spec01 = _make_spec_01_entity()
-    score = signal.score(session.messages, spec01)
-    assert score > 0, f"Expected positive score for spec 01, got {score}"
+    spec09 = _make_spec_p12_entity()
+    score = signal.score(session.messages, spec09)
+    assert score > 0, f"Expected positive score for spec P12, got {score}"
 
 
 def test_file_path_signal_no_match():
-    settings = _make_test_settings()
     reader = JsonlReader(exclude_thinking=True)
     session = reader.read_session(SAMPLE_SESSION)
-    signal = FilePathSignal(settings=settings)
+    signal = FilePathSignal()
 
     unrelated = _make_unrelated_entity()
     score = signal.score(session.messages, unrelated)
@@ -96,62 +74,59 @@ def test_file_path_signal_no_match():
 
 
 def test_text_pattern_signal():
-    settings = _make_test_settings()
     reader = JsonlReader(exclude_thinking=True)
     session = reader.read_session(SAMPLE_SESSION)
-    signal = TextPatternSignal(settings=settings)
+    signal = TextPatternSignal()
 
-    spec01 = _make_spec_01_entity()
-    score = signal.score(session.messages, spec01)
-    assert score > 0, f"Expected positive text pattern score for spec 01, got {score}"
+    spec09 = _make_spec_p12_entity()
+    score = signal.score(session.messages, spec09)
+    assert score > 0, f"Expected positive text pattern score for spec P12, got {score}"
 
 
 def test_keyword_signal():
-    settings = _make_test_settings()
     reader = JsonlReader(exclude_thinking=True)
     session = reader.read_session(SAMPLE_SESSION)
-    signal = KeywordSignal(settings=settings)
+    signal = KeywordSignal()
 
-    source = _make_source_entity()
-    score = signal.score(session.messages, source)
-    assert score > 0, f"Expected positive keyword score for data_processor, got {score}"
+    chunked = _make_chunked_entity()
+    score = signal.score(session.messages, chunked)
+    assert score > 0, f"Expected positive keyword score for chunked_processor, got {score}"
 
 
 def test_composite_classifier():
-    settings = _make_test_settings()
     reader = JsonlReader(exclude_thinking=True)
     session = reader.read_session(SAMPLE_SESSION)
 
-    entities = [_make_spec_01_entity(), _make_source_entity(), _make_unrelated_entity()]
-    classifier = CompositeClassifier(settings)
+    entities = [_make_spec_p12_entity(), _make_chunked_entity(), _make_unrelated_entity()]
+    classifier = CompositeClassifier()
     classification = classifier.classify(session, entities)
 
+    # 应该匹配 spec P12 和 chunked_processor, 不匹配定价分析
     matched_ids = {m.entity.entity_id for m in classification.matches}
-    assert "spec:01_data-pipeline" in matched_ids, f"Expected spec 01 match, got {matched_ids}"
-    assert "source:data_processor" in matched_ids, f"Expected data_processor match, got {matched_ids}"
-    assert "research:pricing-analysis" not in matched_ids, f"Should not match pricing-analysis"
+    assert "spec:P12_内部数据收集系统" in matched_ids, f"Expected spec P12 match, got {matched_ids}"
+    assert "source:chunked_processor" in matched_ids, f"Expected chunked match, got {matched_ids}"
+    assert "research:定价分析" not in matched_ids, f"Should not match 定价分析"
 
 
 def test_classification_ordering():
-    settings = _make_test_settings()
     reader = JsonlReader(exclude_thinking=True)
     session = reader.read_session(SAMPLE_SESSION)
 
-    entities = [_make_spec_01_entity(), _make_source_entity()]
-    classifier = CompositeClassifier(settings)
+    entities = [_make_spec_p12_entity(), _make_chunked_entity()]
+    classifier = CompositeClassifier()
     classification = classifier.classify(session, entities)
 
+    # 结果应按置信度降序排列
     if len(classification.matches) >= 2:
         assert classification.matches[0].confidence >= classification.matches[1].confidence
 
 
 def test_session_reference_building():
-    settings = _make_test_settings()
     reader = JsonlReader(exclude_thinking=True)
     session = reader.read_session(SAMPLE_SESSION)
 
-    entities = [_make_spec_01_entity()]
-    classifier = CompositeClassifier(settings)
+    entities = [_make_spec_p12_entity()]
+    classifier = CompositeClassifier()
     classification = classifier.classify(session, entities)
 
     if classification.matches:
