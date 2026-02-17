@@ -19,6 +19,7 @@ Merge a prepared PR via `gh pr merge --squash` and clean up the worktree after s
 
 - Use `gh pr merge --squash` as the only path to `main`.
 - Do not run `git push` at all during merge.
+- Do not run gateway stop commands. Do not kill processes. Do not touch port 18792.
 
 ## Execution Rule
 
@@ -27,7 +28,7 @@ Merge a prepared PR via `gh pr merge --squash` and clean up the worktree after s
 
 ## Known Footguns
 
-- If you see "fatal: not a git repository", use `git rev-parse --show-toplevel` to find the repo root.
+- If you see "fatal: not a git repository", you are in the wrong directory. Use `~/dev/openclaw` if available; otherwise ask user.
 - Read `.local/review.md` and `.local/prep.md` in the worktree. Do not skip.
 - Clean up the real worktree directory `.worktrees/pr-<PR>` only after a successful merge.
 - Expect cleanup to remove `.local/` artifacts.
@@ -48,8 +49,9 @@ Create a checklist of all merge steps, print it, then continue and execute the c
 Use an isolated worktree for all merge work.
 
 ```sh
-REPO_ROOT=$(git rev-parse --show-toplevel)
-cd "$REPO_ROOT"
+cd ~/dev/openclaw
+# Sanity: confirm you are in the repo
+git rev-parse --show-toplevel
 
 WORKTREE_DIR=".worktrees/pr-<PR>"
 ```
@@ -102,6 +104,8 @@ Stop if any are true:
 - Required checks are failing.
 - Branch is behind main.
 
+If `.local/prep.md` contains `Docs-only change detected with high confidence; skipping pnpm test.`, that local test skip is allowed. CI checks still must be green.
+
 ```sh
 # Checks
 gh pr checks <PR>
@@ -119,6 +123,7 @@ If anything is failing or behind, stop and say to run `/preparepr`.
 If checks are still running, use `--auto` to queue the merge.
 
 ```sh
+# Check status first
 check_status=$(gh pr checks <PR> 2>&1)
 if echo "$check_status" | grep -q "pending\|queued"; then
   echo "Checks still running, using --auto to queue merge"
@@ -130,6 +135,7 @@ fi
 ```
 
 If merge fails, report the error and stop. Do not retry in a loop.
+If the PR needs changes beyond what `/preparepr` already did, stop and say to run `/preparepr` again.
 
 4. Get merge SHA
 
@@ -139,6 +145,8 @@ echo "merge_sha=$merge_sha"
 ```
 
 5. Optional comment
+
+Use a literal multiline string or heredoc for newlines.
 
 ```sh
 gh pr comment <PR> -F - <<'EOF'
@@ -161,8 +169,7 @@ gh pr view <PR> --json state --jq .state
 Run cleanup only if step 6 returned `MERGED`.
 
 ```sh
-REPO_ROOT=$(git rev-parse --show-toplevel)
-cd "$REPO_ROOT"
+cd ~/dev/openclaw
 
 git worktree remove ".worktrees/pr-<PR>" --force
 

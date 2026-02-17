@@ -19,6 +19,7 @@ Perform a thorough review-only PR assessment and return a structured recommendat
 
 - Never push to `main` or `origin/main`, not during review, not ever.
 - Do not run `git push` at all during review. Treat review as read only.
+- Do not stop or kill the gateway. Do not run gateway stop commands. Do not kill processes on port 18792.
 
 ## Execution Rule
 
@@ -27,7 +28,7 @@ Perform a thorough review-only PR assessment and return a structured recommendat
 
 ## Known Failure Modes
 
-- If you see "fatal: not a git repository", you are in the wrong directory. Use `git rev-parse --show-toplevel` to find the repo root.
+- If you see "fatal: not a git repository", you are in the wrong directory. Use `~/dev/openclaw` if available; otherwise ask user.
 - Do not stop after printing the checklist. That is not completion.
 
 ## Writing Style for Output
@@ -50,8 +51,9 @@ Create a checklist of all review steps, print it, then continue and execute the 
 Use an isolated worktree for all review work.
 
 ```sh
-REPO_ROOT=$(git rev-parse --show-toplevel)
-cd "$REPO_ROOT"
+cd ~/dev/openclaw
+# Sanity: confirm you are in the repo
+git rev-parse --show-toplevel
 
 WORKTREE_DIR=".worktrees/pr-<PR>"
 git fetch origin main
@@ -89,7 +91,9 @@ gh pr view <PR> --json number,title,state,isDraft,author,baseRefName,headRefName
 
 ```sh
 # Use keywords from the PR title and changed files
-rg -n "<keyword_from_pr_title>" -S src || true
+rg -n "<keyword_from_pr_title>" -S src packages apps ui || true
+rg -n "<function_or_component_name>" -S src packages apps ui || true
+
 git log --oneline --all --grep="<keyword_from_pr_title>" | head -20
 ```
 
@@ -120,11 +124,22 @@ If you need full code context locally, fetch the PR head to a local ref and diff
 
 ```sh
 git fetch origin pull/<PR>/head:pr-<PR>
+# Show changes without modifying the working tree
+
 git diff --stat origin/main..pr-<PR>
 git diff origin/main..pr-<PR>
 ```
 
 If you want to browse the PR version of files directly, temporarily check out `pr-<PR>` in the worktree. Do not commit or push. Return to `temp/pr-<PR>` and reset to `origin/main` afterward.
+
+```sh
+# Use only if needed
+# git checkout pr-<PR>
+# ...inspect files...
+
+git checkout temp/pr-<PR>
+git reset --hard origin/main
+```
 
 6. Validate the change is needed and valuable
 
@@ -136,7 +151,7 @@ Review correctness, design, performance, and ergonomics.
 
 8. Perform a security review
 
-Check auth, input validation, secrets, dependencies, tool safety, and privacy.
+Assume OpenClaw subagents run with full disk access, including git, gh, and shell. Check auth, input validation, secrets, dependencies, tool safety, and privacy.
 
 9. Review tests and verification
 
@@ -144,7 +159,7 @@ Identify what exists, what is missing, and what would be a minimal regression te
 
 10. Check docs
 
-Check if the PR touches code with related documentation.
+Check if the PR touches code with related documentation such as README, docs, inline API docs, or config examples.
 
 - If docs exist for the changed area and the PR does not update them, flag as IMPORTANT.
 - If the PR adds a new feature or config option with no docs, flag as IMPORTANT.
