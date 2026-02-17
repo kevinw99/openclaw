@@ -1,4 +1,4 @@
-"""Index data models - indices and references"""
+"""Index 数据模型 - 索引和引用"""
 
 from dataclasses import dataclass, field
 from typing import Any, Dict, List
@@ -6,12 +6,12 @@ from typing import Any, Dict, List
 
 @dataclass
 class MessagePointer:
-    """Message pointer - points to a specific message in JSONL."""
+    """消息指针 - 指向 JSONL 中的特定消息"""
     uuid: str
     line_number: int
     msg_type: str  # user, assistant
     timestamp: str = ""
-    preview: str = ""
+    preview: str = ""  # 前100个字符的预览
 
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -25,9 +25,9 @@ class MessagePointer:
 
 @dataclass
 class SessionReference:
-    """Session reference - a session's reference to an entity."""
+    """会话引用 - 一个会话对某个实体的引用"""
     session_id: str
-    file_path: str
+    file_path: str  # JSONL 文件的绝对路径
     confidence: float = 0.0
     start_time: str = ""
     end_time: str = ""
@@ -51,7 +51,7 @@ class SessionReference:
 
 @dataclass
 class EntityIndex:
-    """Entity index - stored at entity/history/sessions-index.json."""
+    """实体索引 - 存储在 entity/history/sessions-index.json"""
     entity_id: str
     entity_type: str
     display_name: str

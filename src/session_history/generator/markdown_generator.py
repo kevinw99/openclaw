@@ -1,4 +1,4 @@
-"""Markdown Generator - generate readable Markdown session replay"""
+"""Markdown Generator - 生成可读的 Markdown 会话回放"""
 
 import json
 from pathlib import Path
@@ -10,18 +10,18 @@ from ..parser.jsonl_reader import JsonlReader
 
 
 class MarkdownGenerator:
-    """Generate Markdown format session replay."""
+    """生成 Markdown 格式的会话回放"""
 
     def __init__(self, exclude_thinking: bool = True):
         self.reader = JsonlReader(exclude_thinking=exclude_thinking)
 
     def generate(self, entity_index: EntityIndex, output_path: Path):
-        """Generate Markdown replay from entity index."""
+        """根据实体索引生成 Markdown 回放"""
         lines = [
-            f"# {entity_index.display_name} - Session Replay",
+            f"# {entity_index.display_name} - 会话回放",
             "",
-            f"> Generated: {entity_index.last_updated[:19]}",
-            f"> Sessions: {len(entity_index.sessions)}",
+            f"> 生成时间: {entity_index.last_updated[:19]}",
+            f"> 关联会话数: {len(entity_index.sessions)}",
             "",
             "---",
             "",
@@ -30,7 +30,7 @@ class MarkdownGenerator:
         for ref in entity_index.sessions:
             session_file = ref.file_path
             if not Path(session_file).exists():
-                lines.append(f"## Session {ref.session_id[:8]}... (file not found)")
+                lines.append(f"## Session {ref.session_id[:8]}... (文件不存在)")
                 lines.append("")
                 continue
 
@@ -42,9 +42,9 @@ class MarkdownGenerator:
             f.write("\n".join(lines))
 
     def generate_from_sessions(self, sessions: List[Session], title: str, output_path: Path):
-        """Generate from Session list directly."""
+        """从 Session 列表直接生成"""
         lines = [
-            f"# {title} - Session Replay",
+            f"# {title} - 会话回放",
             "",
             "---",
             "",
@@ -58,12 +58,12 @@ class MarkdownGenerator:
             f.write("\n".join(lines))
 
     def _render_session(self, session: Session, session_id: str) -> List[str]:
-        """Render a single session."""
+        """渲染单个会话"""
         lines = [
             f"## Session: {session_id[:8]}...",
-            f"**Time**: {session.start_time[:19] if session.start_time else 'N/A'} ~ "
+            f"**时间**: {session.start_time[:19] if session.start_time else 'N/A'} ~ "
             f"{session.end_time[:19] if session.end_time else 'N/A'}",
-            f"**Messages**: {session.message_count}",
+            f"**消息数**: {session.message_count}",
             "",
         ]
 
@@ -77,14 +77,15 @@ class MarkdownGenerator:
         return lines
 
     def _render_message(self, msg: SessionMessage) -> List[str]:
-        """Render a single message."""
+        """渲染单条消息"""
+        # 跳过 progress 和 system 子类型
         if msg.msg_type in ("progress", "file-history-snapshot"):
             return []
         if msg.msg_type == "system" and msg.subtype in ("local_command",):
             return []
 
         role = msg.role or msg.msg_type
-        icon = {"user": "U", "assistant": "A", "system": "S"}.get(role, "?")
+        icon = {"user": "👤", "assistant": "🤖", "system": "⚙️"}.get(role, "📌")
         timestamp = msg.timestamp[:19] if msg.timestamp else ""
 
         lines = [f"### {icon} {role.title()} {timestamp}", ""]

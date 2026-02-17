@@ -1,4 +1,4 @@
-"""Index Generator - generate sessions-index.json"""
+"""Index Generator - 生成 sessions-index.json"""
 
 import json
 from datetime import datetime
@@ -10,7 +10,7 @@ from ..models.index import EntityIndex, SessionReference
 
 
 class IndexGenerator:
-    """Generate entity index files and master index."""
+    """生成实体索引文件和主索引"""
 
     def __init__(self, project_root: Path):
         self.project_root = project_root
@@ -20,7 +20,7 @@ class IndexGenerator:
         entity: Entity,
         references: List[SessionReference],
     ) -> EntityIndex:
-        """Build an entity index."""
+        """构建实体索引"""
         return EntityIndex(
             entity_id=entity.entity_id,
             entity_type=entity.entity_type.value,
@@ -31,7 +31,7 @@ class IndexGenerator:
         )
 
     def write_entity_index(self, entity: Entity, index: EntityIndex):
-        """Write index to entity's history/ directory."""
+        """将索引写入实体的 history/ 目录"""
         history_dir = self.project_root / entity.history_dir
         history_dir.mkdir(parents=True, exist_ok=True)
         index_path = history_dir / "sessions-index.json"
@@ -44,7 +44,7 @@ class IndexGenerator:
         classifications: List[SessionClassification],
         output_dir: Path,
     ):
-        """Write master index file (all-sessions.json)."""
+        """写入主索引文件 (all-sessions.json)"""
         output_dir.mkdir(parents=True, exist_ok=True)
         master_path = output_dir / "all-sessions.json"
 
@@ -65,27 +65,28 @@ class IndexGenerator:
         entities: list,
         output_dir: Path,
     ):
-        """Generate categorization statistics report."""
+        """生成分类统计报告"""
         output_dir.mkdir(parents=True, exist_ok=True)
         report_path = output_dir / "categorization-report.md"
 
         lines = [
-            "# Session History Categorization Report",
+            "# 会话历史分类报告",
             "",
-            f"> Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
+            f"> 生成时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
             "",
-            "## Overview",
+            "## 概览",
             "",
-            f"- Total sessions: {len(classifications)}",
-            f"- Categorized: {sum(1 for c in classifications if not c.is_uncategorized)}",
-            f"- Uncategorized: {sum(1 for c in classifications if c.is_uncategorized)}",
+            f"- 总会话数: {len(classifications)}",
+            f"- 已分类: {sum(1 for c in classifications if not c.is_uncategorized)}",
+            f"- 未分类: {sum(1 for c in classifications if c.is_uncategorized)}",
             "",
-            "## By Entity",
+            "## 按实体分类",
             "",
-            "| Entity | Type | Sessions | Max Confidence |",
-            "|--------|------|----------|---------------|",
+            "| 实体 | 类型 | 匹配会话数 | 最高置信度 |",
+            "|------|------|-----------|----------|",
         ]
 
+        # 统计每个实体匹配了多少会话
         entity_stats: Dict[str, dict] = {}
         for classification in classifications:
             for match in classification.matches:
@@ -110,7 +111,7 @@ class IndexGenerator:
 
         lines.extend([
             "",
-            "## Session Details",
+            "## 会话详情",
             "",
         ])
 
@@ -120,10 +121,10 @@ class IndexGenerator:
                 for m in c.matches[:3]
             ) or "Uncategorized"
             lines.append(f"### {c.session_id[:8]}...")
-            lines.append(f"- File: `{c.file_path}`")
-            lines.append(f"- Time: {c.start_time[:19] if c.start_time else 'N/A'} ~ {c.end_time[:19] if c.end_time else 'N/A'}")
-            lines.append(f"- Messages: {c.message_count} (user: {c.user_message_count})")
-            lines.append(f"- Classification: {entities_str}")
+            lines.append(f"- 文件: `{c.file_path}`")
+            lines.append(f"- 时间: {c.start_time[:19] if c.start_time else 'N/A'} ~ {c.end_time[:19] if c.end_time else 'N/A'}")
+            lines.append(f"- 消息数: {c.message_count} (用户: {c.user_message_count})")
+            lines.append(f"- 分类: {entities_str}")
             lines.append("")
 
         with open(report_path, "w", encoding="utf-8") as f:

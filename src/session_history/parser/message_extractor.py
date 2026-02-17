@@ -1,42 +1,22 @@
-"""Message Extractor - extract text and file paths from messages"""
+"""Message Extractor - 从消息中提取文本和文件路径"""
 
 import re
 from typing import List, Set
 
-from ..config.settings import Settings
 from ..models.session import SessionMessage
 
 
 class MessageExtractor:
-    """Extract classification-relevant information from session messages."""
+    """从会话消息中提取分类相关信息"""
 
-    def __init__(self, settings: Settings = None):
-        self.settings = settings or Settings()
-        # Build project prefixes dynamically from project_root
-        root_str = str(self.settings.project_root)
-        self._project_prefixes = [
-            root_str + "/",
-        ]
-        # Also handle common path variations (spaces vs underscores)
-        alt = root_str.replace("_", " ")
-        if alt != root_str:
-            self._project_prefixes.append(alt + "/")
-        alt2 = root_str.replace(" ", "_")
-        if alt2 != root_str:
-            self._project_prefixes.append(alt2 + "/")
-
-        # Build entity dir regex pattern from settings
-        dir_names = list(self.settings.entity_dirs.values())
-        if dir_names:
-            escaped = [re.escape(d) for d in dir_names]
-            self._dir_pattern = re.compile(
-                r'(?:' + '|'.join(escaped) + r')/[^\s\'"`,;)\]}>]+'
-            )
-        else:
-            self._dir_pattern = None
+    # 项目根路径的可能前缀
+    PROJECT_PREFIXES = [
+        "/Users/kweng/AI/Enpack_CCC/",
+        "/Users/kweng/AI/Enpack-CCC/",
+    ]
 
     def extract_file_paths(self, msg: SessionMessage) -> List[str]:
-        """Extract all file paths referenced in the message (normalized to project-relative)."""
+        """提取消息中引用的所有文件路径 (归一化为项目相对路径)"""
         raw_paths = msg.file_paths
         normalized = []
         for p in raw_paths:
@@ -44,23 +24,27 @@ class MessageExtractor:
             if rel:
                 normalized.append(rel)
 
-        # Also extract paths from text content
+        # 也从文本内容中提取路径
         text = msg.text_content
-        if text and self._dir_pattern:
-            for match in self._dir_pattern.finditer(text):
+        if text:
+            for match in re.finditer(
+                r'(?:规格|源代码|研究|知识库|工具)/[^\s\'"`,;)\]}>]+', text
+            ):
                 path = match.group(0).rstrip(".,;:)")
                 normalized.append(path)
 
-        return list(dict.fromkeys(normalized))  # dedupe preserving order
+        return list(dict.fromkeys(normalized))  # 去重保序
 
     def extract_text(self, msg: SessionMessage) -> str:
-        """Extract plain text content (for keyword and pattern matching)."""
+        """提取消息的纯文本内容 (用于关键词和模式匹配)"""
         parts = []
 
+        # 用户或助手的文本
         text = msg.text_content
         if text:
             parts.append(text)
 
+        # 系统消息 content
         if msg.msg_type == "system":
             for block in msg.content_blocks:
                 if block.block_type == "text":
@@ -69,15 +53,15 @@ class MessageExtractor:
         return "\n".join(parts)
 
     def extract_keywords(self, msg: SessionMessage) -> Set[str]:
-        """Extract keywords from the message (for fuzzy matching)."""
+        """提取消息中的关键词 (用于模糊匹配)"""
         text = self.extract_text(msg)
         if not text:
             return set()
 
-        # Extract CJK words (consecutive CJK characters)
+        # 提取中文词汇 (连续中文字符)
         chinese_words = set(re.findall(r'[\u4e00-\u9fff]{2,}', text))
 
-        # Extract English words
+        # 提取英文词汇
         english_words = set(
             w.lower() for w in re.findall(r'[a-zA-Z_]{3,}', text)
         )
@@ -85,15 +69,13 @@ class MessageExtractor:
         return chinese_words | english_words
 
     def _normalize_path(self, path: str) -> str:
-        """Normalize absolute path to project-relative path."""
-        for prefix in self._project_prefixes:
+        """将绝对路径归一化为项目相对路径"""
+        for prefix in self.PROJECT_PREFIXES:
             if path.startswith(prefix):
                 return path[len(prefix):]
 
-        # Already a relative path matching known entity dirs
-        dir_names = self.settings.entity_dirs.values()
-        for d in dir_names:
-            if path.startswith(f"{d}/"):
-                return path
+        # 已经是相对路径
+        if path.startswith(("规格/", "源代码/", "研究/", "知识库/", "工具/")):
+            return path
 
         return ""

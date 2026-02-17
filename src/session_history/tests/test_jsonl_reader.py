@@ -3,6 +3,7 @@
 import sys
 from pathlib import Path
 
+# 确保能导入模块
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from session_history.parser.jsonl_reader import JsonlReader
@@ -37,14 +38,16 @@ def test_tool_use_extraction():
     reader = JsonlReader(exclude_thinking=True)
     session = reader.read_session(SAMPLE_SESSION)
 
+    # 找有 tool_use 的消息
     tool_msgs = [m for m in session.messages if m.tool_names]
     assert len(tool_msgs) >= 2
 
+    # 检查文件路径提取
     all_paths = []
     for msg in tool_msgs:
         all_paths.extend(msg.file_paths)
-    assert any("specs/01_" in p for p in all_paths)
-    assert any("data_processor" in p for p in all_paths)
+    assert any("规格/09_" in p for p in all_paths)
+    assert any("chunked_processor" in p for p in all_paths)
 
 
 def test_text_content():
@@ -52,7 +55,8 @@ def test_text_content():
     session = reader.read_session(SAMPLE_SESSION)
 
     user_msgs = [m for m in session.messages if m.role == "user"]
-    assert "Spec #01" in user_msgs[0].text_content or "01" in user_msgs[0].text_content
+    # 第一个用户消息应提到 Spec #P12
+    assert "Spec #P12" in user_msgs[0].text_content or "P12" in user_msgs[0].text_content
 
 
 def test_line_numbers():
@@ -60,6 +64,7 @@ def test_line_numbers():
     session = reader.read_session(SAMPLE_SESSION)
 
     line_numbers = [m.line_number for m in session.messages]
+    # 行号应该是递增的
     assert line_numbers == sorted(line_numbers)
 
 
