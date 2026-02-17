@@ -1,4 +1,4 @@
-# Project Guidelines for OpenClaw
+# Project Guidelines
 
 ## Core Principles
 
@@ -44,14 +44,14 @@ All spec directories must be numbered sequentially:
 - Separate number from name with underscore
 - Use kebab-case for descriptive names
 - Check existing specs to determine the next available number
-- Location: `spec/` or `.kiro/specs/`
+- Location: `specs/`
 
 ### Spec Directory Structure
 
 Each spec directory should contain:
 
 ```
-spec/##_spec-name/
+specs/##_spec-name/
 ├── README.md         # Overview, quick links, completion status
 ├── requirements.md   # What needs to be done
 ├── design.md         # How it will be done
@@ -71,44 +71,6 @@ spec/##_spec-name/
 - After completing significant milestones
 - Before switching to a different task/spec
 - When pausing work for later resumption
-
-## Project Structure
-
-```
-~/AI/openclaw/
-├── AGENTS.md / CLAUDE.md      # AI agent instructions (existing)
-├── PROJECT_GUIDELINES.md      # This file - development workflow
-├── WORK_LOG.md                # Session work log
-├── README.md                  # Project overview
-│
-├── docs/                      # Public documentation
-├── src/                       # Source code
-├── skills/                    # OpenClaw skills
-├── extensions/                # Platform extensions
-├── packages/                  # Shared packages
-├── test/                      # Tests
-│
-├── spec/                      # Project specifications
-│   └── ##_topic/
-│       ├── README.md
-│       ├── requirements.md
-│       ├── design.md
-│       ├── tasks.md
-│       └── status.md
-│
-├── .claude/
-│   ├── commands/              # Custom slash commands
-│   ├── skills/                # Custom Claude Code skills
-│   └── settings.json          # Claude Code settings
-│
-├── .kiro/                     # Internal documentation
-│   ├── project/               # Architecture, requirements
-│   ├── specs/                 # Alternative spec location
-│   └── archive/               # Archived documentation
-│
-└── .github/
-    └── workflows/             # CI/CD workflows
-```
 
 ## Documentation Standards
 
@@ -134,8 +96,8 @@ All documentation with factual information should follow proper citation practic
    - `[ref-design-doc]` Design Document for Feature X
 
    ### External Sources
-   - `[ref-typescript-docs]` TypeScript Official Documentation
-   - `[ref-node-best-practices]` Node.js Best Practices Guide
+   - `[ref-docs]` Official Documentation
+   - `[ref-best-practices]` Best Practices Guide
    ```
 
 4. **Data Source Metadata** (for research documents):

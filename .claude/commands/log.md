@@ -37,7 +37,7 @@ Please update the project's `WORK_LOG.md` file in the root directory.
 
 | # | Task | Status | Notes |
 |---|------|--------|-------|
-| 1 | Task description | ✅/🔄/❌ | Notes |
+| 1 | Task description | Done/In Progress/Not Done | Notes |
 
 ### Git Commits
 
@@ -56,5 +56,4 @@ commit_hash commit_message
 
 - Order by date descending (newest at top)
 - Preserve user instructions as accurately as possible
-- Status markers: ✅ Complete 🔄 In Progress ❌ Not Complete
 - Notify user when update is complete
