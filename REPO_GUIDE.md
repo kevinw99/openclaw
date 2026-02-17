@@ -29,22 +29,42 @@ All files live flat at the root. Upstream openclaw files and your customizations
 ├── package.json                 # OpenClaw package config
 ├── ...                          # (other upstream files)
 │
-│  ── Your customization files ──
-├── PROJECT_GUIDELINES.md        # Your workflow conventions
+│  ── From base (edit in ~/AI/base, pull here) ──
+├── PROJECT_GUIDELINES.md        # Workflow conventions
+├── WORK_LOG.md                  # Session work log template
+├── specs/00_template/           # Spec templates
+├── specs/README.md              # Spec index
+├── src/session_history/         # Session history tool
+├── .claude/commands/log.md      # /log command
+├── .claude/commands/history.md  # /history command
+├── .claude/skills/log.md        # Log skill
+├── .claude/skills/history.md    # History skill
+├── .claude/settings.json        # Hooks config
+├── .gitignore                   # Ignore rules
+│
+│  ── Project-specific (edit here) ──
 ├── REPO_GUIDE.md                # This file
-├── WORK_LOG.md                  # Session work log
 ├── requests-claw.txt            # Project requirements notes
-├── spec/                        # Your project specs
-│   ├── README.md
-│   └── 01_full-context-ai-assistant/
-└── .claude/                     # Claude Code customizations
-    ├── commands/log.md
-    └── settings.json
+└── spec/                        # Your project specs
+    ├── README.md
+    └── 01_full-context-ai-assistant/
 ```
 
 Your files don't exist in upstream, so `git merge upstream/main` won't touch them.
 
-**Key rule:** Don't modify `CLAUDE.md` / `AGENTS.md` — that's upstream's file and will cause merge conflicts. Keep your conventions in `PROJECT_GUIDELINES.md`.
+## Where to Make Changes
+
+This repo has three layers. **Always edit in the layer that owns the code.**
+
+| Layer | Source remote | What it contains | Edit where? |
+|-------|-------------|------------------|-------------|
+| **Upstream** | `upstream` (openclaw/openclaw) | OpenClaw source code (`src/`, `apps/`, `docs/`, `CLAUDE.md`, etc.) | In this repo if you're modifying openclaw. Push to `origin`. |
+| **Base** | `base` (ai-project-base) | Generic workflow tools and templates (`PROJECT_GUIDELINES.md`, `specs/00_template/`, `.claude/commands/`, `.claude/skills/`, `src/session_history/`) | **In `~/AI/base`, not here.** Then pull via `git fetch base && git merge base/main`. |
+| **Project** | `origin` (this fork) | Project-specific files (`REPO_GUIDE.md`, `WORK_LOG.md`, `spec/01_*`, `requests-claw.txt`) | In this repo. Push to `origin`. |
+
+**Key rules:**
+- **Don't modify base-owned files here.** If you need to fix `PROJECT_GUIDELINES.md`, `src/session_history/`, `.claude/skills/log.md`, or spec templates — do it in `~/AI/base` and pull the change into this repo. This keeps all projects in sync.
+- **Don't modify `CLAUDE.md` / `AGENTS.md`** — that's upstream's file and will cause merge conflicts. Keep your conventions in `PROJECT_GUIDELINES.md`.
 
 ## Common Operations
 
