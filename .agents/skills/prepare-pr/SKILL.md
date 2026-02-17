@@ -19,7 +19,6 @@ Prepare a PR branch for merge with review fixes, green gates, and an updated hea
 
 - Never push to `main` or `origin/main`. Push only to the PR head branch.
 - Never run `git push` without specifying remote and branch explicitly. Do not run bare `git push`.
-- Do not run gateway stop commands. Do not kill processes. Do not touch port 18792.
 - Do not run `git clean -fdx`.
 - Do not run `git add -A` or `git add .`. Stage only specific files changed.
 
@@ -30,7 +29,7 @@ Prepare a PR branch for merge with review fixes, green gates, and an updated hea
 
 ## Known Footguns
 
-- If you see "fatal: not a git repository", you are in the wrong directory. Use `~/dev/openclaw` if available; otherwise ask user.
+- If you see "fatal: not a git repository", use `git rev-parse --show-toplevel` to find the repo root.
 - Do not run `git clean -fdx`.
 - Do not run `git add -A` or `git add .`.
 
@@ -38,7 +37,7 @@ Prepare a PR branch for merge with review fixes, green gates, and an updated hea
 
 - Rebase PR commits onto `origin/main`.
 - Fix all BLOCKER and IMPORTANT items from `.local/review.md`.
-- Run required gates and pass (docs-only PRs may skip `pnpm test` when high-confidence docs-only criteria are met and documented).
+- Run required gates and pass.
 - Commit prep changes.
 - Push the updated HEAD back to the PR head branch.
 - Write `.local/prep.md` with a prep summary.
@@ -53,9 +52,8 @@ Create a checklist of all prep steps, print it, then continue and execute the co
 Use an isolated worktree for all prep work.
 
 ```sh
-cd ~/openclaw
-# Sanity: confirm you are in the repo
-git rev-parse --show-toplevel
+REPO_ROOT=$(git rev-parse --show-toplevel)
+cd "$REPO_ROOT"
 
 WORKTREE_DIR=".worktrees/pr-<PR>"
 ```
@@ -130,11 +128,6 @@ Check `.local/review.md` section H for guidance.
 If flagged and user-facing:
 
 - Check if `CHANGELOG.md` exists.
-
-```sh
-ls CHANGELOG.md 2>/dev/null
-```
-
 - Follow existing format.
 - Add a concise entry with PR number and contributor.
 
@@ -149,60 +142,27 @@ Stage only specific files:
 
 ```sh
 git add <file1> <file2> ...
-```
-
-Preferred commit tool:
-
-```sh
-committer "fix: <summary> (#<PR>) (thanks @$contrib)" <changed files>
-```
-
-If `committer` is not found:
-
-```sh
 git commit -m "fix: <summary> (#<PR>) (thanks @$contrib)"
 ```
 
-8. Decide verification mode and run required gates before pushing
+8. Run required gates before pushing
 
-If you are highly confident the change is docs-only, you may skip `pnpm test`.
-
-High-confidence docs-only criteria (all must be true):
-
-- Every changed file is documentation-only (`docs/**`, `README*.md`, `CHANGELOG.md`, `*.md`, `*.mdx`, `mintlify.json`, `docs.json`).
-- No code, runtime, test, dependency, or build config files changed (`src/**`, `extensions/**`, `apps/**`, `package.json`, lockfiles, TS/JS config, test files, scripts).
-- `.local/review.md` does not call for non-doc behavior fixes.
-
-Suggested check:
+Determine the project's gate commands from `package.json` scripts, `Makefile`, or project docs. Common patterns:
 
 ```sh
-changed_files=$(git diff --name-only origin/main...HEAD)
-non_docs=$(printf "%s\n" "$changed_files" | grep -Ev '^(docs/|README.*\.md$|CHANGELOG\.md$|.*\.md$|.*\.mdx$|mintlify\.json$|docs\.json$)' || true)
+# Node/TypeScript projects
+npm test    # or: pnpm test, bun test
 
-docs_only=false
-if [ -n "$changed_files" ] && [ -z "$non_docs" ]; then
-  docs_only=true
-fi
+# Python projects
+pytest
 
-echo "docs_only=$docs_only"
+# Go projects
+go test ./...
+
+# General: look for lint, build, test scripts
 ```
 
-Run required gates:
-
-```sh
-pnpm install
-pnpm build
-pnpm ui:build
-pnpm check
-
-if [ "$docs_only" = "true" ]; then
-  echo "Docs-only change detected with high confidence; skipping pnpm test." | tee -a .local/prep.md
-else
-  pnpm test
-fi
-```
-
-Require all required gates to pass. If something fails, fix, commit, and rerun. Allow at most 3 fix and rerun cycles. If gates still fail after 3 attempts, stop and report the failures. Do not loop indefinitely.
+Run the project's lint, build, and test gates. Allow at most 3 fix-and-rerun cycles. If gates still fail after 3 attempts, stop and report the failures.
 
 9. Push updates back to the PR head branch
 
@@ -210,7 +170,6 @@ Require all required gates to pass. If something fails, fix, commit, and rerun. 
 # Ensure remote for PR head exists
 git remote add prhead "$head_repo_url.git" 2>/dev/null || git remote set-url prhead "$head_repo_url.git"
 
-# Use force with lease after rebase
 # Double check: $head must NOT be "main" or "master"
 echo "Pushing to branch: $head"
 if [ "$head" = "main" ] || [ "$head" = "master" ]; then
@@ -241,8 +200,6 @@ Update `.local/prep.md` with:
 - Push confirmation.
 - Rebase verification result.
 
-Create or overwrite `.local/prep.md` and verify it exists and is non-empty:
-
 ```sh
 git rev-parse HEAD
 ls -la .local/prep.md
@@ -258,8 +215,6 @@ git diff --stat origin/main..HEAD
 git diff --shortstat origin/main..HEAD
 ```
 
-Report totals: X files changed, Y insertions(+), Z deletions(-).
-
 If gates passed and push succeeded, print exactly:
 
 ```
@@ -274,4 +229,4 @@ Otherwise, list remaining failures and stop.
 - Do not delete the worktree on success. `/mergepr` may reuse it.
 - Do not run `gh pr merge`.
 - Never push to main. Only push to the PR head branch.
-- Run and pass all required gates before pushing. `pnpm test` may be skipped only for high-confidence docs-only changes, and the skip must be explicitly recorded in `.local/prep.md`.
+- Run and pass all required gates before pushing.
