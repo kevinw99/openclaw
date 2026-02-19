@@ -15,6 +15,25 @@ LONG_PROMPT_THRESHOLD = 500
 # 标题最大长度
 TITLE_MAX_LENGTH = 60
 
+# System tags to strip entirely (tag + content) from user prompts
+_STRIP_TAGS = [
+    "local-command-caveat",
+    "local-command-stdout",
+    "local-command-stderr",
+    "system-reminder",
+    "command-name",
+    "command-args",
+]
+_STRIP_RE = re.compile(
+    r"<(?:" + "|".join(_STRIP_TAGS) + r")>[\s\S]*?</(?:" + "|".join(_STRIP_TAGS) + r")>",
+)
+
+# Tags to unwrap (keep inner text, remove tags) — e.g. <command-message>/history</command-message> → /history
+_UNWRAP_TAGS = ["command-message"]
+_UNWRAP_RE = re.compile(
+    r"<(?:" + "|".join(_UNWRAP_TAGS) + r")>([\s\S]*?)</(?:" + "|".join(_UNWRAP_TAGS) + r")>",
+)
+
 
 class TurnExtractor:
     """将会话消息流分割为 Turn 对象"""
@@ -46,7 +65,8 @@ class TurnExtractor:
                         turn_number, current_timestamp,
                         current_user_prompt, current_assistant_msgs,
                     )
-                    turns.append(turn)
+                    if turn is not None:
+                        turns.append(turn)
 
                 current_user_prompt = msg.text_content
                 current_timestamp = msg.timestamp or ""
@@ -63,7 +83,8 @@ class TurnExtractor:
                 turn_number, current_timestamp,
                 current_user_prompt, current_assistant_msgs,
             )
-            turns.append(turn)
+            if turn is not None:
+                turns.append(turn)
 
         return turns
 
@@ -97,8 +118,13 @@ class TurnExtractor:
         timestamp: str,
         user_prompt: str,
         assistant_msgs: List[SessionMessage],
-    ) -> Turn:
-        """构建一个 Turn 对象"""
+    ) -> Optional[Turn]:
+        """构建一个 Turn 对象, 如果清理后提示为空则返回 None"""
+        # 清理系统标签
+        cleaned_prompt = self._clean_prompt(user_prompt)
+        if not cleaned_prompt:
+            return None
+
         # 提取 AI 最终回答 (最后一个 tool_use 之后的文本)
         assistant_response = self._extract_final_response(assistant_msgs)
 
@@ -109,21 +135,33 @@ class TurnExtractor:
         tool_narrative = self._build_tool_narrative(assistant_msgs)
 
         # 自动标题
-        title = self._auto_title(user_prompt)
+        title = self._auto_title(cleaned_prompt)
 
         # 是否长提示
-        is_long = len(user_prompt) > LONG_PROMPT_THRESHOLD
+        is_long = len(cleaned_prompt) > LONG_PROMPT_THRESHOLD
 
         return Turn(
             turn_number=turn_number,
             timestamp=timestamp,
             title=title,
-            user_prompt=user_prompt,
+            user_prompt=cleaned_prompt,
             assistant_response=assistant_response,
             tool_counts=tool_counts,
             tool_narrative=tool_narrative,
             is_long_prompt=is_long,
         )
+
+    @staticmethod
+    def _clean_prompt(text: str) -> str:
+        """Strip system-injected XML tags from user prompts.
+
+        - Tags in _STRIP_TAGS are removed entirely (tag + content).
+        - Tags in _UNWRAP_TAGS keep their inner text (tags removed).
+        - Returns empty string if nothing human-readable remains.
+        """
+        cleaned = _STRIP_RE.sub("", text)
+        cleaned = _UNWRAP_RE.sub(r"\1", cleaned)
+        return cleaned.strip()
 
     def _extract_final_response(self, assistant_msgs: List[SessionMessage]) -> str:
         """提取 AI 最终回答文本: 最后一个 tool_use 之后的所有文本块"""
