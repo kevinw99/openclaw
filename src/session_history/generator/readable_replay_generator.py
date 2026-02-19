@@ -76,7 +76,10 @@ class ReadableReplayGenerator:
                 segments = self.turn_classifier.classify_turns(turns, all_entities)
                 matching_turns = self._collect_matching_turns(segments, current_entity)
                 if not matching_turns:
-                    continue
+                    # Session-level classifier approved this session for
+                    # the entity, but turn-level found no specific matches.
+                    # Fall back to all turns rather than dropping the session.
+                    matching_turns = turns
             else:
                 # 找不到实体对象时 fallback: 输出所有轮次
                 matching_turns = turns

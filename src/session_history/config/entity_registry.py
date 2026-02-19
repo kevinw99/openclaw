@@ -70,11 +70,18 @@ class EntityRegistry:
     def discover_all(self) -> List[Entity]:
         """发现所有实体"""
         entities: List[Entity] = []
-        entities.extend(self._discover_specs())
-        entities.extend(self._discover_sources())
+        specs = self._discover_specs()
+        sources = self._discover_sources()
+        entities.extend(specs)
+        entities.extend(sources)
         entities.extend(self._discover_research())
         entities.extend(self._discover_knowledge())
         entities.extend(self._discover_tools())
+
+        # Cross-reference: link spec entities to related source directories
+        # so turn-level classification can match implementation code to specs
+        self._link_specs_to_sources(specs, sources)
+
         return entities
 
     # ------------------------------------------------------------------
@@ -113,6 +120,32 @@ class EntityRegistry:
     @staticmethod
     def _should_skip(name: str) -> bool:
         return name in _SKIP_NAMES or name.startswith(".")
+
+    @staticmethod
+    def _link_specs_to_sources(
+        specs: List[Entity], sources: List[Entity],
+    ) -> None:
+        """Add source path/text patterns to specs whose keywords overlap.
+
+        When a source directory name appears in a spec's keywords, the
+        source's implementation paths are added to the spec entity.  This
+        lets the turn-level classifier match implementation code (e.g.
+        ``extensions/wechat/``) to its spec (e.g. ``spec/02_wechat-channel``).
+        """
+        kw_lower: Dict[str, set] = {}
+        for spec in specs:
+            kw_lower[spec.entity_id] = {k.lower() for k in spec.keywords}
+
+        for source in sources:
+            source_name_lower = source.name.lower()
+            for spec in specs:
+                if source_name_lower in kw_lower[spec.entity_id]:
+                    for pp in source.path_patterns:
+                        if pp not in spec.path_patterns:
+                            spec.path_patterns.append(pp)
+                    for tp in source.text_patterns:
+                        if tp not in spec.text_patterns:
+                            spec.text_patterns.append(tp)
 
     # ------------------------------------------------------------------
     # Entity type discovery
