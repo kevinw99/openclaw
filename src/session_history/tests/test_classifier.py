@@ -26,6 +26,7 @@ def _make_spec_p12_entity():
         keywords=["P12_内部数据收集系统", "内部数据收集系统", "内部数据收集", "spec P12", "spec #P12"],
         path_patterns=["规格/P12_内部数据收集系统/", "规格/P12_内部数据收集系统"],
         text_patterns=[r"[Ss]pec\s*#?P12\b", r"规格/P12_内部数据收集系统", r"规格.*P12"],
+        history_dir="规格/P12_内部数据收集系统/history",
     )
 
 
@@ -38,6 +39,7 @@ def _make_chunked_entity():
         keywords=["chunked_processor", "chunked", "processor"],
         path_patterns=["源代码/chunked_processor/", "源代码/chunked_processor"],
         text_patterns=[r"源代码/chunked_processor"],
+        history_dir="会话历史/entities/source/chunked_processor",
     )
 
 
@@ -50,6 +52,7 @@ def _make_unrelated_entity():
         keywords=["定价分析", "定价", "pricing"],
         path_patterns=["研究/定价分析/"],
         text_patterns=[r"研究/定价分析"],
+        history_dir="会话历史/entities/research/定价分析",
     )
 
 

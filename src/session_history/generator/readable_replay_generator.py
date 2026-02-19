@@ -29,7 +29,7 @@ class ReadableReplayGenerator:
         """懒加载所有实体"""
         if self._all_entities is None:
             settings = Settings()
-            registry = EntityRegistry(settings.project_root)
+            registry = EntityRegistry(settings.project_root, history_root=settings.history_root)
             self._all_entities = registry.discover_all()
         return self._all_entities
 

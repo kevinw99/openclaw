@@ -16,7 +16,7 @@ import re
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
-from ..models.category import Entity, EntityType
+from ..models.category import Entity, EntityType, INLINE_HISTORY_TYPES
 
 
 # Directory name alternatives for each entity type.
@@ -26,6 +26,7 @@ _SPEC_RESTRICTED_PARENTS = ["RESTRICTED"]
 _SOURCE_DIRS = ["源代码", "src", "extensions"]
 _RESEARCH_DIRS = ["研究", "research"]
 _KNOWLEDGE_DIRS = ["知识库", "knowledge", "docs"]
+_TASK_DIRS = ["tasks", "任务"]
 _TOOL_DIRS = ["工具", "tools"]
 
 # Directories to skip when scanning
@@ -64,8 +65,9 @@ class EntityRegistry:
         "P16_会话历史分类系统": ["11_会话历史分类系统"],
     }
 
-    def __init__(self, project_root: Path):
+    def __init__(self, project_root: Path, history_root: str = "会话历史"):
         self.project_root = project_root
+        self.history_root = history_root
 
     def discover_all(self) -> List[Entity]:
         """发现所有实体"""
@@ -73,6 +75,7 @@ class EntityRegistry:
         specs = self._discover_specs()
         sources = self._discover_sources()
         entities.extend(specs)
+        entities.extend(self._discover_tasks())
         entities.extend(sources)
         entities.extend(self._discover_research())
         entities.extend(self._discover_knowledge())
@@ -81,6 +84,8 @@ class EntityRegistry:
         # Cross-reference: link spec entities to related source directories
         # so turn-level classification can match implementation code to specs
         self._link_specs_to_sources(specs, sources)
+
+        self._resolve_history_dirs(entities)
 
         return entities
 
@@ -148,8 +153,77 @@ class EntityRegistry:
                             spec.text_patterns.append(tp)
 
     # ------------------------------------------------------------------
+    # History dir resolution
+    # ------------------------------------------------------------------
+
+    def _resolve_history_dirs(self, entities: List[Entity]) -> None:
+        """Set history_dir on each entity: inline for SPEC/TASK, centralized for others."""
+        for entity in entities:
+            if entity.entity_type in INLINE_HISTORY_TYPES:
+                entity.history_dir = f"{entity.directory}/history"
+            else:
+                entity.history_dir = f"{self.history_root}/entities/{entity.entity_type.value}/{entity.name}"
+
+    # ------------------------------------------------------------------
     # Entity type discovery
     # ------------------------------------------------------------------
+
+    def _discover_tasks(self) -> List[Entity]:
+        """Discover task entities from tasks/ or 任务/ directories.
+
+        Accepts both numbered (##_name) and plain kebab-case directory names.
+        """
+        entities: List[Entity] = []
+
+        for tasks_dir in self._find_existing_dirs(_TASK_DIRS):
+            parent_rel = str(tasks_dir.relative_to(self.project_root))
+
+            for d in sorted(tasks_dir.iterdir()):
+                if not d.is_dir() or self._should_skip(d.name):
+                    continue
+
+                name = d.name
+                rel_dir = f"{parent_rel}/{name}"
+
+                # Try numbered pattern first
+                parsed = self._parse_spec_number(name)
+                if parsed:
+                    num, desc = parsed
+                    display_num = num.lstrip("PR") if num[0] in "PR" else num
+                    display_name = f"Task {display_num}: {desc}"
+                    keywords = [
+                        name, desc,
+                        f"task {num}", f"task #{num}",
+                        f"task {display_num}", f"task #{display_num}",
+                    ]
+                    for part in re.split(r"[_\-]", desc):
+                        if part:
+                            keywords.append(part)
+                    text_patterns = [
+                        rf"[Tt]ask\s*#?{re.escape(num)}\b",
+                        rf"[Tt]ask\s*#?{re.escape(display_num)}\b",
+                        rf"{re.escape(rel_dir)}",
+                    ]
+                else:
+                    # Plain kebab-case name
+                    display_name = f"Task: {name}"
+                    keywords = [name]
+                    for part in re.split(r"[-_]", name):
+                        if part and len(part) > 2:
+                            keywords.append(part)
+                    text_patterns = [rf"{re.escape(rel_dir)}"]
+
+                entities.append(Entity(
+                    entity_type=EntityType.TASK,
+                    name=name,
+                    display_name=display_name,
+                    directory=rel_dir,
+                    keywords=keywords,
+                    path_patterns=[f"{rel_dir}/", rel_dir],
+                    text_patterns=text_patterns,
+                ))
+
+        return entities
 
     def _discover_specs(self) -> List[Entity]:
         """Discover spec entities from all spec directory conventions."""
