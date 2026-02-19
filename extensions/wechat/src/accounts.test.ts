@@ -144,8 +144,8 @@ describe("listEnabledWeChatAccounts", () => {
       channels: {
         wechat: {
           accounts: {
-            enabled_one: { enabled: true },
-            disabled_one: { enabled: false },
+            enabled_one: { enabled: true, puppet: "wechat4u" },
+            disabled_one: { enabled: false, puppet: "wechat4u" },
           },
         },
       },

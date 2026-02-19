@@ -8,13 +8,13 @@
 
 ## Progress
 
-| Phase | Status | Notes |
-|-------|--------|-------|
-| Phase 1: Scaffolding & Config | Complete | package.json, plugin manifest, types, config schema, accounts, runtime |
-| Phase 2: Bot Lifecycle | Complete | bot.ts, onboarding.ts, probe.ts, status-issues.ts |
-| Phase 3: Message Pipeline | Complete | monitor.ts, send.ts, actions.ts, channel.ts, index.ts |
-| Phase 4: WeChat-Specific Features | Complete | voice.ts, moments.ts, contact-graph.ts |
-| Phase 5: Docs & Tests | Complete | docs written; 9 test files (5 prior + 4 new) |
+| Phase                             | Status   | Notes                                                                  |
+| --------------------------------- | -------- | ---------------------------------------------------------------------- |
+| Phase 1: Scaffolding & Config     | Complete | package.json, plugin manifest, types, config schema, accounts, runtime |
+| Phase 2: Bot Lifecycle            | Complete | bot.ts, onboarding.ts, probe.ts, status-issues.ts                      |
+| Phase 3: Message Pipeline         | Complete | monitor.ts, send.ts, actions.ts, channel.ts, index.ts                  |
+| Phase 4: WeChat-Specific Features | Complete | voice.ts, moments.ts, contact-graph.ts                                 |
+| Phase 5: Docs & Tests             | Complete | docs written; 9 test files (5 prior + 4 new)                           |
 
 ## Files Created
 
@@ -56,20 +56,20 @@
 
 ## Decisions Log
 
-| Date | Decision | Rationale |
-|------|----------|-----------|
-| 2026-02-19 | Use Wechaty as puppet layer | TypeScript-native, consistent with OpenClaw runtime |
-| 2026-02-19 | padlocal as primary puppet | Most stable, supports Moments, works with modern accounts |
-| 2026-02-19 | wechat4u for dev/test only | Free but web protocol (blocked for post-2017 accounts) |
-| 2026-02-19 | Moments = read-only, polling | No push API available; padlocal-only feature |
-| 2026-02-19 | Voice transcription via config | Support both local (macOS Speech) and cloud (OpenAI Whisper) |
-| 2026-02-19 | Follow Zalo extension pattern exactly | Same file structure, SDK patterns, account resolution |
+| Date       | Decision                              | Rationale                                                    |
+| ---------- | ------------------------------------- | ------------------------------------------------------------ |
+| 2026-02-19 | Use Wechaty as puppet layer           | TypeScript-native, consistent with OpenClaw runtime          |
+| 2026-02-19 | padlocal as primary puppet            | Most stable, supports Moments, works with modern accounts    |
+| 2026-02-19 | wechat4u for dev/test only            | Free but web protocol (blocked for post-2017 accounts)       |
+| 2026-02-19 | Moments = read-only, polling          | No push API available; padlocal-only feature                 |
+| 2026-02-19 | Voice transcription via config        | Support both local (macOS Speech) and cloud (OpenAI Whisper) |
+| 2026-02-19 | Follow Zalo extension pattern exactly | Same file structure, SDK patterns, account resolution        |
 
 ## Blockers
 
 - padlocal token needed for integration testing (Phase 3+)
 - System voice transcription (macOS Speech.framework) is stubbed — needs Swift helper
-- Dependencies not installed (pnpm install needed to run tests)
+- ~~Dependencies not installed~~ — resolved (pnpm install successful, all 89 tests pass)
 - monitor.ts duplicates the pipeline from bot.ts — should be refactored to call handleWeChatMessage
 
 ## Notes

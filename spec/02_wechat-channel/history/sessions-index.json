@@ -3,16 +3,111 @@
   "entity_type": "spec",
   "display_name": "Spec 02: wechat-channel",
   "directory": "spec/02_wechat-channel",
-  "session_count": 4,
+  "session_count": 6,
   "sessions": [
+    {
+      "session_id": "b86636af-795b-446c-9b1a-232cf343c760",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/b86636af-795b-446c-9b1a-232cf343c760.jsonl",
+      "confidence": 0.14,
+      "start_time": "2026-02-19T20:46:30.536Z",
+      "end_time": "2026-02-19T20:47:19.065Z",
+      "message_count": 38,
+      "matched_message_count": 1,
+      "matched_messages": [
+        {
+          "uuid": "938f6093-bfbd-4396-ac77-e5b0a233f0d5",
+          "line_number": 1,
+          "msg_type": "user",
+          "timestamp": "2026-02-19T20:46:30.536Z",
+          "preview": "Implement the following plan:\n\n# Plan: Three-Tier Session History + TASK Entity Type\n\n## Context\n\nTh"
+        }
+      ],
+      "evidence": [
+        "Text: ...Implement the following plan:  # Plan: Three-Tier Session History + TASK Entity ..."
+      ]
+    },
+    {
+      "session_id": "9347e2ce-4961-4b2d-8722-cdfcbda16ccf",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/9347e2ce-4961-4b2d-8722-cdfcbda16ccf.jsonl",
+      "confidence": 0.251,
+      "start_time": "2026-02-19T20:04:19.073Z",
+      "end_time": "2026-02-19T20:46:30.564Z",
+      "message_count": 132,
+      "matched_message_count": 8,
+      "matched_messages": [
+        {
+          "uuid": "c71814c1-bb4a-4cb6-844f-db87e30771f0",
+          "line_number": 1,
+          "msg_type": "user",
+          "timestamp": "2026-02-19T20:04:19.073Z",
+          "preview": "can you asseses whether spec 02 is fully implemented? if not, what is missing? and what is the plan "
+        },
+        {
+          "uuid": "6b34158d-7c4e-4b8a-9065-6c6533928771",
+          "line_number": 4,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T20:04:23.060Z",
+          "preview": "Let me find spec 02 and assess the implementation status."
+        },
+        {
+          "uuid": "351ad716-39ac-4057-848f-1fa69109b835",
+          "line_number": 23,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T20:04:32.034Z",
+          "preview": "There's no spec 02 directory in the `specs/` folder. Let me search more broadly for it."
+        },
+        {
+          "uuid": "8090af10-5295-4b4b-9f17-def13fb11268",
+          "line_number": 33,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T20:04:38.452Z",
+          "preview": "Found it at `spec/02_wechat-channel/`. Let me read the spec and status files, plus the implementatio"
+        },
+        {
+          "uuid": "6463d799-e89b-4ba7-b561-d83b0ddd4ac3",
+          "line_number": 134,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T20:06:15.042Z",
+          "preview": "## Assessment: Spec 02 (WeChat Channel Extension)\n\n### Implementation Status: Code Complete, Not Yet"
+        },
+        {
+          "uuid": "bb46dda1-9b4e-41a1-beb8-d25f92cdbc26",
+          "line_number": 220,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T20:14:19.242Z",
+          "preview": "Now I understand the full picture. Here's the analysis:\n\n## How Session History Association Works To"
+        },
+        {
+          "uuid": "7fa443ff-6d07-4fd2-bf02-602c8bdb7a95",
+          "line_number": 263,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T20:23:16.551Z",
+          "preview": "This is very revealing. Here's what the data shows:\n\n## Problem 1: History files polluting source di"
+        },
+        {
+          "uuid": "a731e1e1-f2c3-4033-8f06-52afc1f43445",
+          "line_number": 616,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T20:43:37.477Z",
+          "preview": "Replay generated for **Spec 02: wechat-channel** — 4 session files:\n\n| File | Date |\n|------|------|"
+        }
+      ],
+      "evidence": [
+        "Text: ...can you asseses whether spec 02 is fully implemented? if not, what is missing? a...",
+        "Text: ...Let me find spec 02 and assess the implementation status....",
+        "Text: ...There's no spec 02 directory in the `specs/` folder. Let me search more broadly ...",
+        "Text: ...Found it at `spec/02_wechat-channel/`. Let me read the spec and status files, pl...",
+        "Text: ...## Assessment: Spec 02 (WeChat Channel Extension)  ### Implementation Status: Co..."
+      ]
+    },
     {
       "session_id": "fc3bb687-9c4c-4080-a849-a1507a0d6259",
       "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/fc3bb687-9c4c-4080-a849-a1507a0d6259.jsonl",
-      "confidence": 0.286,
+      "confidence": 0.283,
       "start_time": "2026-02-19T14:47:24.847Z",
-      "end_time": "2026-02-19T20:03:19.335Z",
-      "message_count": 467,
-      "matched_message_count": 16,
+      "end_time": "2026-02-19T20:47:20.489Z",
+      "message_count": 663,
+      "matched_message_count": 22,
       "matched_messages": [
         {
           "uuid": "dbf37a4e-51f6-47ea-b763-3311d36fb321",
@@ -125,6 +220,48 @@
           "msg_type": "assistant",
           "timestamp": "2026-02-19T20:03:10.499Z",
           "preview": "Spec 02 now includes `extensions/wechat/` in its path patterns. Now let me re-run the scan and repla"
+        },
+        {
+          "uuid": "97333846-2d68-46a1-9f9d-82ad9489c061",
+          "line_number": 696,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T20:03:26.073Z",
+          "preview": "Spec 02 now has **4 sessions** (up from 2 before). Now let me run the replay."
+        },
+        {
+          "uuid": "df7ae8c3-7129-40cc-b9b2-72a89196681e",
+          "line_number": 725,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T20:04:29.909Z",
+          "preview": "Done. Here's what was fixed:\n\n**Problem**: Only 2 of 4 WeChat-related sessions produced replay files"
+        },
+        {
+          "uuid": "9b1eccee-4028-446a-9bad-fc81dda21e7f",
+          "line_number": 820,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T20:37:03.691Z",
+          "preview": "Here's the session history:\n\n**8 sessions total** — 5 classified, 3 uncategorized. All from 2026-02-"
+        },
+        {
+          "uuid": "eefc54eb-d179-4f4d-af1f-fe1115badcf8",
+          "line_number": 828,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T20:37:34.567Z",
+          "preview": "Replay generated for **Spec 02: wechat-channel** — 4 session files:\n\n| Session | File |\n|---------|-"
+        },
+        {
+          "uuid": "45fa207c-629c-41f6-9c9d-f56499ad8502",
+          "line_number": 832,
+          "msg_type": "user",
+          "timestamp": "2026-02-19T20:42:46.876Z",
+          "preview": "\"  What's Missing / Blockers\n\n  Per spec/02_wechat-channel/status.md:70-79, there are 4 blockers:\n\n "
+        },
+        {
+          "uuid": "0dcefc77-4a7c-46ed-8d4c-0a625d280eb1",
+          "line_number": 923,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T20:47:10.632Z",
+          "preview": "The current session (`9347e2ce`) was classified as **Spec 02: wechat-channel (0.25)**. Let me regene"
         }
       ],
       "evidence": [
@@ -231,5 +368,5 @@
       ]
     }
   ],
-  "last_updated": "2026-02-20T04:03:21.647953"
+  "last_updated": "2026-02-20T04:47:21.829926"
 }
