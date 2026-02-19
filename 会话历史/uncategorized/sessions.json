@@ -1,0 +1,35 @@
+{
+  "sessions": [
+    {
+      "session_id": "0bc52021-94c8-4557-9c99-069ca5e35337",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/0bc52021-94c8-4557-9c99-069ca5e35337.jsonl",
+      "start_time": "2026-02-19T12:53:06.570Z",
+      "end_time": "2026-02-19T13:06:26.423Z",
+      "message_count": 14,
+      "user_message_count": 6,
+      "primary_entity": "Uncategorized",
+      "matches": []
+    },
+    {
+      "session_id": "89b1d4ca-4af5-4832-80ad-27c4dcbe9622",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/89b1d4ca-4af5-4832-80ad-27c4dcbe9622.jsonl",
+      "start_time": "2026-02-19T13:56:38.026Z",
+      "end_time": "2026-02-19T14:45:42.869Z",
+      "message_count": 62,
+      "user_message_count": 22,
+      "primary_entity": "Uncategorized",
+      "matches": []
+    },
+    {
+      "session_id": "aab111eb-ab92-490c-b041-8b42c5e90fe3",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/aab111eb-ab92-490c-b041-8b42c5e90fe3.jsonl",
+      "start_time": "2026-02-19T12:34:10.166Z",
+      "end_time": "2026-02-19T12:43:44.412Z",
+      "message_count": 58,
+      "user_message_count": 24,
+      "primary_entity": "Uncategorized",
+      "matches": []
+    }
+  ],
+  "count": 3
+}

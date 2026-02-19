@@ -1,0 +1,137 @@
+{
+  "entity_id": "knowledge:channels",
+  "entity_type": "knowledge",
+  "display_name": "Knowledge: channels",
+  "directory": "docs/channels",
+  "session_count": 5,
+  "sessions": [
+    {
+      "session_id": "b86636af-795b-446c-9b1a-232cf343c760",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/b86636af-795b-446c-9b1a-232cf343c760.jsonl",
+      "confidence": 0.14,
+      "start_time": "2026-02-19T20:46:30.536Z",
+      "end_time": "2026-02-19T20:47:19.065Z",
+      "message_count": 38,
+      "matched_message_count": 1,
+      "matched_messages": [
+        {
+          "uuid": "938f6093-bfbd-4396-ac77-e5b0a233f0d5",
+          "line_number": 1,
+          "msg_type": "user",
+          "timestamp": "2026-02-19T20:46:30.536Z",
+          "preview": "Implement the following plan:\n\n# Plan: Three-Tier Session History + TASK Entity Type\n\n## Context\n\nTh"
+        }
+      ],
+      "evidence": [
+        "Text: ...Implement the following plan:  # Plan: Three-Tier Session History + TASK Entity ..."
+      ]
+    },
+    {
+      "session_id": "9347e2ce-4961-4b2d-8722-cdfcbda16ccf",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/9347e2ce-4961-4b2d-8722-cdfcbda16ccf.jsonl",
+      "confidence": 0.119,
+      "start_time": "2026-02-19T20:04:19.073Z",
+      "end_time": "2026-02-19T20:46:30.564Z",
+      "message_count": 132,
+      "matched_message_count": 2,
+      "matched_messages": [
+        {
+          "uuid": "6463d799-e89b-4ba7-b561-d83b0ddd4ac3",
+          "line_number": 134,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T20:06:15.042Z",
+          "preview": "## Assessment: Spec 02 (WeChat Channel Extension)\n\n### Implementation Status: Code Complete, Not Yet"
+        },
+        {
+          "uuid": "7fa443ff-6d07-4fd2-bf02-602c8bdb7a95",
+          "line_number": 263,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T20:23:16.551Z",
+          "preview": "This is very revealing. Here's what the data shows:\n\n## Problem 1: History files polluting source di"
+        }
+      ],
+      "evidence": [
+        "Text: ...## Assessment: Spec 02 (WeChat Channel Extension)  ### Implementation Status: Co...",
+        "Text: ...This is very revealing. Here's what the data shows:  ## Problem 1: History files..."
+      ]
+    },
+    {
+      "session_id": "fc3bb687-9c4c-4080-a849-a1507a0d6259",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/fc3bb687-9c4c-4080-a849-a1507a0d6259.jsonl",
+      "confidence": 0.11,
+      "start_time": "2026-02-19T14:47:24.847Z",
+      "end_time": "2026-02-19T20:47:20.489Z",
+      "message_count": 663,
+      "matched_message_count": 2,
+      "matched_messages": [
+        {
+          "uuid": "4f31f7cb-f41e-443f-8208-43335de0f51b",
+          "line_number": 74,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T15:19:54.253Z",
+          "preview": "Good — there are already 5 test files. The implementation is complete. Let me check what the user wa"
+        },
+        {
+          "uuid": "12307611-5ce2-404a-8d79-ad6dc6c39dc3",
+          "line_number": 172,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T15:24:17.646Z",
+          "preview": "Now I have full context. Let me address your questions and then continue working.\n\n**Is it following"
+        }
+      ],
+      "evidence": [
+        "Text: ...Good — there are already 5 test files. The implementation is complete. Let me ch...",
+        "Text: ...Now I have full context. Let me address your questions and then continue working..."
+      ]
+    },
+    {
+      "session_id": "1013e624-062b-465c-ba10-87a60a78dbde",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/1013e624-062b-465c-ba10-87a60a78dbde.jsonl",
+      "confidence": 0.125,
+      "start_time": "2026-02-19T12:52:03.268Z",
+      "end_time": "2026-02-19T13:18:18.515Z",
+      "message_count": 64,
+      "matched_message_count": 0,
+      "matched_messages": [],
+      "evidence": []
+    },
+    {
+      "session_id": "2dc7e455-39a3-4673-b15a-43f89aaea877",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/2dc7e455-39a3-4673-b15a-43f89aaea877.jsonl",
+      "confidence": 0.11,
+      "start_time": "2026-02-19T12:43:44.402Z",
+      "end_time": "2026-02-19T13:56:09.472Z",
+      "message_count": 490,
+      "matched_message_count": 3,
+      "matched_messages": [
+        {
+          "uuid": "bb547b67-97df-4d0e-9e35-dcf6829af17d",
+          "line_number": 1,
+          "msg_type": "user",
+          "timestamp": "2026-02-19T12:43:44.402Z",
+          "preview": "Implement the following plan:\n\n# Implementation Plan: WeChat Channel Extension (Spec 02)\n\n## Context"
+        },
+        {
+          "uuid": "196df990-f43b-4d29-a6cd-51818b935c06",
+          "line_number": 251,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T12:57:17.962Z",
+          "preview": "All 20 files created (18 extension + 1 docs + 1 status update), totaling ~2,363 lines of TypeScript."
+        },
+        {
+          "uuid": "71674095-2724-48f5-86d4-388ac2c5d384",
+          "line_number": 677,
+          "msg_type": "user",
+          "timestamp": "2026-02-19T13:33:16.803Z",
+          "preview": "This session is being continued from a previous conversation that ran out of context. The summary be"
+        }
+      ],
+      "evidence": [
+        "Text: ...Implement the following plan:  # Implementation Plan: WeChat Channel Extension (...",
+        "Text: ...All 20 files created (18 extension + 1 docs + 1 status update), totaling ~2,363 ...",
+        "Text: ...This session is being continued from a previous conversation that ran out of con..."
+      ]
+    }
+  ],
+  "last_updated": "2026-02-20T04:47:21.831749"
+}

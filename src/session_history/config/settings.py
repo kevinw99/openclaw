@@ -52,6 +52,7 @@ class Settings:
     # 实体目录映射 (not used by EntityRegistry — kept for backward compat)
     entity_dirs: Dict[str, str] = field(default_factory=lambda: {
         "spec": "规格",
+        "task": "任务",
         "source": "源代码",
         "research": "研究",
         "knowledge": "知识库",

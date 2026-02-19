@@ -46,7 +46,7 @@ def cmd_scan(args):
     print("-" * 60)
 
     # 1. 发现实体
-    registry = EntityRegistry(settings.project_root)
+    registry = EntityRegistry(settings.project_root, history_root=settings.history_root)
     entities = registry.discover_all()
     print(f"\n[1/4] 发现 {len(entities)} 个实体")
     for e in entities:
@@ -171,7 +171,7 @@ def cmd_scan(args):
 
 def _load_entity_index(settings, entity_id):
     """查找实体并加载其索引, 返回 (entity, entity_index, history_dir) 或 None"""
-    registry = EntityRegistry(settings.project_root)
+    registry = EntityRegistry(settings.project_root, history_root=settings.history_root)
     entities = registry.discover_all()
 
     matched_entity = None

@@ -1,0 +1,207 @@
+{
+  "entity_id": "source:wechat",
+  "entity_type": "source",
+  "display_name": "Source: wechat",
+  "directory": "extensions/wechat",
+  "session_count": 6,
+  "sessions": [
+    {
+      "session_id": "b86636af-795b-446c-9b1a-232cf343c760",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/b86636af-795b-446c-9b1a-232cf343c760.jsonl",
+      "confidence": 0.14,
+      "start_time": "2026-02-19T20:46:30.536Z",
+      "end_time": "2026-02-19T20:47:19.065Z",
+      "message_count": 38,
+      "matched_message_count": 1,
+      "matched_messages": [
+        {
+          "uuid": "938f6093-bfbd-4396-ac77-e5b0a233f0d5",
+          "line_number": 1,
+          "msg_type": "user",
+          "timestamp": "2026-02-19T20:46:30.536Z",
+          "preview": "Implement the following plan:\n\n# Plan: Three-Tier Session History + TASK Entity Type\n\n## Context\n\nTh"
+        }
+      ],
+      "evidence": [
+        "Text: ...Implement the following plan:  # Plan: Three-Tier Session History + TASK Entity ..."
+      ]
+    },
+    {
+      "session_id": "9347e2ce-4961-4b2d-8722-cdfcbda16ccf",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/9347e2ce-4961-4b2d-8722-cdfcbda16ccf.jsonl",
+      "confidence": 0.158,
+      "start_time": "2026-02-19T20:04:19.073Z",
+      "end_time": "2026-02-19T20:46:30.564Z",
+      "message_count": 132,
+      "matched_message_count": 2,
+      "matched_messages": [
+        {
+          "uuid": "bb46dda1-9b4e-41a1-beb8-d25f92cdbc26",
+          "line_number": 220,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T20:14:19.242Z",
+          "preview": "Now I understand the full picture. Here's the analysis:\n\n## How Session History Association Works To"
+        },
+        {
+          "uuid": "7fa443ff-6d07-4fd2-bf02-602c8bdb7a95",
+          "line_number": 263,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T20:23:16.551Z",
+          "preview": "This is very revealing. Here's what the data shows:\n\n## Problem 1: History files polluting source di"
+        }
+      ],
+      "evidence": [
+        "Text: ...Now I understand the full picture. Here's the analysis:  ## How Session History ...",
+        "Text: ...This is very revealing. Here's what the data shows:  ## Problem 1: History files..."
+      ]
+    },
+    {
+      "session_id": "fc3bb687-9c4c-4080-a849-a1507a0d6259",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/fc3bb687-9c4c-4080-a849-a1507a0d6259.jsonl",
+      "confidence": 0.196,
+      "start_time": "2026-02-19T14:47:24.847Z",
+      "end_time": "2026-02-19T20:47:20.489Z",
+      "message_count": 663,
+      "matched_message_count": 6,
+      "matched_messages": [
+        {
+          "uuid": "8ba93380-338a-427d-b0ca-86e36ed3dace",
+          "line_number": 471,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T19:46:32.881Z",
+          "preview": "The wechat sessions exist but the classifier didn't map them to `spec/02_wechat-channel/`. The issue"
+        },
+        {
+          "uuid": "5d3c21b9-39df-46bd-8f68-280af0811de8",
+          "line_number": 512,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T19:48:21.116Z",
+          "preview": "The keyword_score is `0.227` and text_pattern_score is `0.200`. The issue is the weighted formula: `"
+        },
+        {
+          "uuid": "134fb1e4-d53e-4efa-bf1d-fd5401e42afd",
+          "line_number": 574,
+          "msg_type": "user",
+          "timestamp": "2026-02-19T19:59:24.539Z",
+          "preview": "This session is being continued from a previous conversation that ran out of context. The summary be"
+        },
+        {
+          "uuid": "beb87461-92d9-43b0-99df-4443cbcf0b6a",
+          "line_number": 632,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T20:01:13.984Z",
+          "preview": "Now I have a clear picture of the problem. Two issues need fixing:\n\n1. **Turn-level classifier can't"
+        },
+        {
+          "uuid": "a5175df0-6910-4cd8-9a4f-2d2dadac8f09",
+          "line_number": 689,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T20:03:10.499Z",
+          "preview": "Spec 02 now includes `extensions/wechat/` in its path patterns. Now let me re-run the scan and repla"
+        },
+        {
+          "uuid": "df7ae8c3-7129-40cc-b9b2-72a89196681e",
+          "line_number": 725,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T20:04:29.909Z",
+          "preview": "Done. Here's what was fixed:\n\n**Problem**: Only 2 of 4 WeChat-related sessions produced replay files"
+        }
+      ],
+      "evidence": [
+        "Text: ...The wechat sessions exist but the classifier didn't map them to `spec/02_wechat-...",
+        "Text: ...The keyword_score is `0.227` and text_pattern_score is `0.200`. The issue is the...",
+        "Text: ...This session is being continued from a previous conversation that ran out of con...",
+        "Text: ...Now I have a clear picture of the problem. Two issues need fixing:  1. **Turn-le...",
+        "Text: ...Spec 02 now includes `extensions/wechat/` in its path patterns. Now let me re-ru..."
+      ]
+    },
+    {
+      "session_id": "1013e624-062b-465c-ba10-87a60a78dbde",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/1013e624-062b-465c-ba10-87a60a78dbde.jsonl",
+      "confidence": 0.18,
+      "start_time": "2026-02-19T12:52:03.268Z",
+      "end_time": "2026-02-19T13:18:18.515Z",
+      "message_count": 64,
+      "matched_message_count": 2,
+      "matched_messages": [
+        {
+          "uuid": "ed895bc6-e442-4f06-b0f4-724b5b496063",
+          "line_number": 368,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T13:12:23.655Z",
+          "preview": "You're right to question this. There's a clear **two-tier architecture** in the project, and it's no"
+        },
+        {
+          "uuid": "e4584a46-8215-4086-9338-025814c6a981",
+          "line_number": 398,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T13:16:01.649Z",
+          "preview": "Clear picture now.\n\n## Timeline\n\n| Date | Event |\n|------|-------|\n| **2025-11-24** | Initial commit"
+        }
+      ],
+      "evidence": [
+        "Text: ...You're right to question this. There's a clear **two-tier architecture** in the ...",
+        "Text: ...Clear picture now.  ## Timeline  | Date | Event | |------|-------| | **2025-11-2..."
+      ]
+    },
+    {
+      "session_id": "2dc7e455-39a3-4673-b15a-43f89aaea877",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/2dc7e455-39a3-4673-b15a-43f89aaea877.jsonl",
+      "confidence": 0.116,
+      "start_time": "2026-02-19T12:43:44.402Z",
+      "end_time": "2026-02-19T13:56:09.472Z",
+      "message_count": 490,
+      "matched_message_count": 3,
+      "matched_messages": [
+        {
+          "uuid": "bb547b67-97df-4d0e-9e35-dcf6829af17d",
+          "line_number": 1,
+          "msg_type": "user",
+          "timestamp": "2026-02-19T12:43:44.402Z",
+          "preview": "Implement the following plan:\n\n# Implementation Plan: WeChat Channel Extension (Spec 02)\n\n## Context"
+        },
+        {
+          "uuid": "196df990-f43b-4d29-a6cd-51818b935c06",
+          "line_number": 251,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T12:57:17.962Z",
+          "preview": "All 20 files created (18 extension + 1 docs + 1 status update), totaling ~2,363 lines of TypeScript."
+        },
+        {
+          "uuid": "71674095-2724-48f5-86d4-388ac2c5d384",
+          "line_number": 677,
+          "msg_type": "user",
+          "timestamp": "2026-02-19T13:33:16.803Z",
+          "preview": "This session is being continued from a previous conversation that ran out of context. The summary be"
+        }
+      ],
+      "evidence": [
+        "Text: ...Implement the following plan:  # Implementation Plan: WeChat Channel Extension (...",
+        "Text: ...All 20 files created (18 extension + 1 docs + 1 status update), totaling ~2,363 ...",
+        "Text: ...This session is being continued from a previous conversation that ran out of con..."
+      ]
+    },
+    {
+      "session_id": "31181cd7-05a2-45ae-9f54-493a7774776e",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/31181cd7-05a2-45ae-9f54-493a7774776e.jsonl",
+      "confidence": 0.115,
+      "start_time": "2026-02-19T10:38:11.950Z",
+      "end_time": "2026-02-19T12:25:08.901Z",
+      "message_count": 142,
+      "matched_message_count": 1,
+      "matched_messages": [
+        {
+          "uuid": "15784e1a-a641-4129-b26a-bd58dfebf33f",
+          "line_number": 204,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T12:11:12.078Z",
+          "preview": "Now I have enough to design the full extension. Here's the complete architecture:\n\n---\n\n## WeChat Ex"
+        }
+      ],
+      "evidence": [
+        "Text: ...Now I have enough to design the full extension. Here's the complete architecture..."
+      ]
+    }
+  ],
+  "last_updated": "2026-02-20T04:47:21.831113"
+}

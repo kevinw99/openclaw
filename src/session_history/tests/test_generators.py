@@ -56,6 +56,7 @@ def test_index_generation():
         name="P12_内部数据收集系统",
         display_name="Spec P12",
         directory="规格/P12_内部数据收集系统",
+        history_dir="规格/P12_内部数据收集系统/history",
     )
 
     ref = SessionReference(
@@ -88,6 +89,7 @@ def test_master_index():
         name="test",
         display_name="Test Entity",
         directory="test",
+        history_dir="test/history",
     )
 
     classification = SessionClassification(

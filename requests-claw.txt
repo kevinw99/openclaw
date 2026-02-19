@@ -1,3 +1,40 @@
+No. "  │ src/, extensions/ │ SOURCE      │
+       ├───────────────────┼─────────────┤
+       │ research/         │ RESEARCH    │
+       ├───────────────────┼─────────────┤
+       │ docs/, knowledge/ │ KNOWLEDGE   │
+       ├───────────────────┼─────────────┤
+       │ tools/            │ TOOL        │"  generate session history under these source directory would be problemic. what would the location/directory for these session history files? can you scan this repo openclaw and the Enpack_CCC repo and show me some examples.
+
+       2. yes option B is great. but should I consider adding Option C as the fall back if no explicit entity (spec or task) is created for this session history? a catch all hanlder.
+
+
+can you asseses whether spec 02 is fully implemented? if not, what is missing? and what is the plan to implement the missing part?
+
+if done, can I run it? i would like to see if it can read some of my wechat messages. if so, what would be the storage for the content? I wnat to be able to view it. I mean just show me something for now so I can see it is working.
+
+Eventually, I want to understand how all wechat content is scraped, stored, and how the context is constructed. I want to be able to see the code and understand it. So that I can modify it if needed. So can you provide a learning plan for me to achieve this goal? What are the key components I need to understand? What are the key files in the repo that I should focus on?
+
+However I want to extend the discussion. I am thinking about the bigger picture, how do I have an entity for session history to be associated with. with spec, we already have it. So if we don't create a spec for this task, and I want to keep conversation history, how can I do it? I mean what are the options for me to create an entity for session history, and how can I associate it with the conversation? What are the pros and cons of each approach? Can you provide a detailed plan for me to implement this?
+
+1. can you see spec 01? that is my goal
+2. given that goal, my plan is learn how openclaw works, with the assumption that I can use similar approach to implement the spec 01. So how can I learn enough about openclaw to be able to implement spec 01? What level of details do I need to understand?   can you help me to analyze the openclaw repo and provide a learning plan for me to achieve this goal and provide the right level of abstration to understand the repo and implement spec 01, not too much details but enough to get the job done.
+
+I don't get the swabble. It seems swift related, which is mobile app development, but I don't see how it is related to openclaw or my spec 01. Can you clarify what swabble is and how it fits into the picture?
+
+of cource.
+One  key app is wechat. Does openclaw support it? If not, what does it take to support it? specifically, it should be able to:
+1. read all wechat messages, understand the relationships, content in every conversation or group
+2. be able to construct context of what the user is currently at
+3. can you list more reuqiremnts regarding with wechat, should be similar to apps like Whatsapp except wechat has:
+moments (twitter like sharing)
+
+
+Can you add one instruction page to the pdf how to activate the deployment on render for the links to be avialable? Move the originality link to the reference section, in the end of the file. The instruction page can be right there with the reference section. Actually move the reference section and the instuction to the begining of the pdf, right after the disclaimer. so that user can see how to activate them right away.
+is there a doc describe the repo structure and how to use it? i mean the base and vanilla openclaw
+
+
+
 this repo should contain these two parts:
 
 1. it should contain my own customization and extension, ie.e everyuthing in this project SenAI ~/AI/SenAI, excluding specs/02_paper-author-outreach, which is specifically for senAI. Acutally can you extract everything generic in ~/AI/Enpack_CCC to a new project ~/AI/base, and compare it to see if they match my description of generic parts here. The idea is for every new project, I can just clone ~/AI/base and then add project specific stuff on top of it. And base can continue to evolve as I add more generic capabilities. please analyze and propose a plan to do this refactoring.

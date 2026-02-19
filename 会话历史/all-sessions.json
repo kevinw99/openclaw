@@ -1,0 +1,715 @@
+{
+  "generated_at": "2026-02-20T04:47:21.834694",
+  "total_sessions": 10,
+  "categorized": 7,
+  "uncategorized": 3,
+  "sessions": [
+    {
+      "session_id": "0bc52021-94c8-4557-9c99-069ca5e35337",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/0bc52021-94c8-4557-9c99-069ca5e35337.jsonl",
+      "start_time": "2026-02-19T12:53:06.570Z",
+      "end_time": "2026-02-19T13:06:26.423Z",
+      "message_count": 14,
+      "user_message_count": 6,
+      "primary_entity": "Uncategorized",
+      "matches": []
+    },
+    {
+      "session_id": "1013e624-062b-465c-ba10-87a60a78dbde",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/1013e624-062b-465c-ba10-87a60a78dbde.jsonl",
+      "start_time": "2026-02-19T12:52:03.268Z",
+      "end_time": "2026-02-19T13:18:18.515Z",
+      "message_count": 64,
+      "user_message_count": 21,
+      "primary_entity": "Spec 02: wechat-channel",
+      "matches": [
+        {
+          "entity_id": "spec:02_wechat-channel",
+          "display_name": "Spec 02: wechat-channel",
+          "confidence": 0.205,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.2,
+          "keyword_score": 0.417,
+          "matched_messages": 2,
+          "total_messages": 64,
+          "evidence": [
+            "Text: ...You're right to question this. There's a clear **two-tier architecture** in the ...",
+            "Text: ...Clear picture now.  ## Timeline  | Date | Event | |------|-------| | **2025-11-2..."
+          ]
+        },
+        {
+          "entity_id": "source:channels",
+          "display_name": "Source: channels",
+          "confidence": 0.205,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.2,
+          "keyword_score": 0.417,
+          "matched_messages": 2,
+          "total_messages": 64,
+          "evidence": [
+            "Text: ...## Channel Overview  The project has **22 messaging channels** across two locati...",
+            "Text: ...You're right to question this. There's a clear **two-tier architecture** in the ..."
+          ]
+        },
+        {
+          "entity_id": "source:whatsapp",
+          "display_name": "Source: whatsapp",
+          "confidence": 0.205,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.2,
+          "keyword_score": 0.417,
+          "matched_messages": 2,
+          "total_messages": 64,
+          "evidence": [
+            "Text: ...## Channel Overview  The project has **22 messaging channels** across two locati...",
+            "Text: ...You're right to question this. There's a clear **two-tier architecture** in the ..."
+          ]
+        },
+        {
+          "entity_id": "source:whatsapp",
+          "display_name": "Source: whatsapp",
+          "confidence": 0.205,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.2,
+          "keyword_score": 0.417,
+          "matched_messages": 2,
+          "total_messages": 64,
+          "evidence": [
+            "Text: ...## Channel Overview  The project has **22 messaging channels** across two locati...",
+            "Text: ...You're right to question this. There's a clear **two-tier architecture** in the ..."
+          ]
+        },
+        {
+          "entity_id": "source:wechat",
+          "display_name": "Source: wechat",
+          "confidence": 0.18,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.2,
+          "keyword_score": 0.333,
+          "matched_messages": 2,
+          "total_messages": 64,
+          "evidence": [
+            "Text: ...You're right to question this. There's a clear **two-tier architecture** in the ...",
+            "Text: ...Clear picture now.  ## Timeline  | Date | Event | |------|-------| | **2025-11-2..."
+          ]
+        },
+        {
+          "entity_id": "source:feishu",
+          "display_name": "Source: feishu",
+          "confidence": 0.165,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.1,
+          "keyword_score": 0.417,
+          "matched_messages": 1,
+          "total_messages": 64,
+          "evidence": [
+            "Text: ...You're right to question this. There's a clear **two-tier architecture** in the ..."
+          ]
+        },
+        {
+          "entity_id": "source:web",
+          "display_name": "Source: web",
+          "confidence": 0.13,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.2,
+          "keyword_score": 0.167,
+          "matched_messages": 2,
+          "total_messages": 64,
+          "evidence": [
+            "Text: ...## Channel Overview  The project has **22 messaging channels** across two locati...",
+            "Text: ...You're right to question this. There's a clear **two-tier architecture** in the ..."
+          ]
+        },
+        {
+          "entity_id": "knowledge:channels",
+          "display_name": "Knowledge: channels",
+          "confidence": 0.125,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.0,
+          "keyword_score": 0.417,
+          "matched_messages": 0,
+          "total_messages": 64,
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "session_id": "2dc7e455-39a3-4673-b15a-43f89aaea877",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/2dc7e455-39a3-4673-b15a-43f89aaea877.jsonl",
+      "start_time": "2026-02-19T12:43:44.402Z",
+      "end_time": "2026-02-19T13:56:09.472Z",
+      "message_count": 490,
+      "user_message_count": 190,
+      "primary_entity": "Spec 02: wechat-channel",
+      "matches": [
+        {
+          "entity_id": "spec:02_wechat-channel",
+          "display_name": "Spec 02: wechat-channel",
+          "confidence": 0.148,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.2,
+          "keyword_score": 0.227,
+          "matched_messages": 3,
+          "total_messages": 490,
+          "evidence": [
+            "Text: ...Implement the following plan:  # Implementation Plan: WeChat Channel Extension (...",
+            "Text: ...All 20 files created (18 extension + 1 docs + 1 status update), totaling ~2,363 ...",
+            "Text: ...This session is being continued from a previous conversation that ran out of con..."
+          ]
+        },
+        {
+          "entity_id": "source:wechat",
+          "display_name": "Source: wechat",
+          "confidence": 0.116,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.2,
+          "keyword_score": 0.121,
+          "matched_messages": 3,
+          "total_messages": 490,
+          "evidence": [
+            "Text: ...Implement the following plan:  # Implementation Plan: WeChat Channel Extension (...",
+            "Text: ...All 20 files created (18 extension + 1 docs + 1 status update), totaling ~2,363 ...",
+            "Text: ...This session is being continued from a previous conversation that ran out of con..."
+          ]
+        },
+        {
+          "entity_id": "source:config",
+          "display_name": "Source: config",
+          "confidence": 0.11,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.2,
+          "keyword_score": 0.1,
+          "matched_messages": 3,
+          "total_messages": 490,
+          "evidence": [
+            "Text: ...Implement the following plan:  # Implementation Plan: WeChat Channel Extension (...",
+            "Text: ...All 20 files created (18 extension + 1 docs + 1 status update), totaling ~2,363 ...",
+            "Text: ...This session is being continued from a previous conversation that ran out of con..."
+          ]
+        },
+        {
+          "entity_id": "source:types",
+          "display_name": "Source: types",
+          "confidence": 0.11,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.2,
+          "keyword_score": 0.1,
+          "matched_messages": 3,
+          "total_messages": 490,
+          "evidence": [
+            "Text: ...Implement the following plan:  # Implementation Plan: WeChat Channel Extension (...",
+            "Text: ...All 20 files created (18 extension + 1 docs + 1 status update), totaling ~2,363 ...",
+            "Text: ...This session is being continued from a previous conversation that ran out of con..."
+          ]
+        },
+        {
+          "entity_id": "knowledge:channels",
+          "display_name": "Knowledge: channels",
+          "confidence": 0.11,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.2,
+          "keyword_score": 0.1,
+          "matched_messages": 3,
+          "total_messages": 490,
+          "evidence": [
+            "Text: ...Implement the following plan:  # Implementation Plan: WeChat Channel Extension (...",
+            "Text: ...All 20 files created (18 extension + 1 docs + 1 status update), totaling ~2,363 ...",
+            "Text: ...This session is being continued from a previous conversation that ran out of con..."
+          ]
+        }
+      ]
+    },
+    {
+      "session_id": "31181cd7-05a2-45ae-9f54-493a7774776e",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/31181cd7-05a2-45ae-9f54-493a7774776e.jsonl",
+      "start_time": "2026-02-19T10:38:11.950Z",
+      "end_time": "2026-02-19T12:25:08.901Z",
+      "message_count": 142,
+      "user_message_count": 55,
+      "primary_entity": "Spec 01: full-context-ai-assistant",
+      "matches": [
+        {
+          "entity_id": "spec:01_full-context-ai-assistant",
+          "display_name": "Spec 01: full-context-ai-assistant",
+          "confidence": 0.285,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.45,
+          "keyword_score": 0.35,
+          "matched_messages": 9,
+          "total_messages": 142,
+          "evidence": [
+            "Text: ...1. can you see spec 01? that is my goal 2. given that goal, my plan is learn how...",
+            "Text: ...Good, I can see spec 01 is `Swabble/docs/spec.md` — a macOS 26 speech hook daemo...",
+            "Text: ...Now I have a complete picture. Here's my analysis and learning plan:  ---  ## Ke...",
+            "Text: ...I don't get the swabble. It seems swift related, which is mobile app development...",
+            "Text: ...Good catch — let me find the actual \"spec 01\" file, since it seems I may have mi..."
+          ]
+        },
+        {
+          "entity_id": "spec:02_wechat-channel",
+          "display_name": "Spec 02: wechat-channel",
+          "confidence": 0.185,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.2,
+          "keyword_score": 0.35,
+          "matched_messages": 2,
+          "total_messages": 142,
+          "evidence": [
+            "Text: ...Now I have enough to design the full extension. Here's the complete architecture...",
+            "Text: ...Spec 02 is complete at `spec/02_wechat-channel/`. Here's what was created:  --- ..."
+          ]
+        },
+        {
+          "entity_id": "source:wechat",
+          "display_name": "Source: wechat",
+          "confidence": 0.115,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.1,
+          "keyword_score": 0.25,
+          "matched_messages": 1,
+          "total_messages": 142,
+          "evidence": [
+            "Text: ...Now I have enough to design the full extension. Here's the complete architecture..."
+          ]
+        }
+      ]
+    },
+    {
+      "session_id": "89b1d4ca-4af5-4832-80ad-27c4dcbe9622",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/89b1d4ca-4af5-4832-80ad-27c4dcbe9622.jsonl",
+      "start_time": "2026-02-19T13:56:38.026Z",
+      "end_time": "2026-02-19T14:45:42.869Z",
+      "message_count": 62,
+      "user_message_count": 22,
+      "primary_entity": "Uncategorized",
+      "matches": []
+    },
+    {
+      "session_id": "9347e2ce-4961-4b2d-8722-cdfcbda16ccf",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/9347e2ce-4961-4b2d-8722-cdfcbda16ccf.jsonl",
+      "start_time": "2026-02-19T20:04:19.073Z",
+      "end_time": "2026-02-19T20:46:30.564Z",
+      "message_count": 132,
+      "user_message_count": 48,
+      "primary_entity": "Spec 02: wechat-channel",
+      "matches": [
+        {
+          "entity_id": "spec:02_wechat-channel",
+          "display_name": "Spec 02: wechat-channel",
+          "confidence": 0.251,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.4,
+          "keyword_score": 0.304,
+          "matched_messages": 8,
+          "total_messages": 132,
+          "evidence": [
+            "Text: ...can you asseses whether spec 02 is fully implemented? if not, what is missing? a...",
+            "Text: ...Let me find spec 02 and assess the implementation status....",
+            "Text: ...There's no spec 02 directory in the `specs/` folder. Let me search more broadly ...",
+            "Text: ...Found it at `spec/02_wechat-channel/`. Let me read the spec and status files, pl...",
+            "Text: ...## Assessment: Spec 02 (WeChat Channel Extension)  ### Implementation Status: Co..."
+          ]
+        },
+        {
+          "entity_id": "source:wechat",
+          "display_name": "Source: wechat",
+          "confidence": 0.158,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.2,
+          "keyword_score": 0.261,
+          "matched_messages": 2,
+          "total_messages": 132,
+          "evidence": [
+            "Text: ...Now I understand the full picture. Here's the analysis:  ## How Session History ...",
+            "Text: ...This is very revealing. Here's what the data shows:  ## Problem 1: History files..."
+          ]
+        },
+        {
+          "entity_id": "source:channels",
+          "display_name": "Source: channels",
+          "confidence": 0.119,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.2,
+          "keyword_score": 0.13,
+          "matched_messages": 2,
+          "total_messages": 132,
+          "evidence": [
+            "Text: ...Now I understand the full picture. Here's the analysis:  ## How Session History ...",
+            "Text: ...This is very revealing. Here's what the data shows:  ## Problem 1: History files..."
+          ]
+        },
+        {
+          "entity_id": "knowledge:channels",
+          "display_name": "Knowledge: channels",
+          "confidence": 0.119,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.2,
+          "keyword_score": 0.13,
+          "matched_messages": 2,
+          "total_messages": 132,
+          "evidence": [
+            "Text: ...## Assessment: Spec 02 (WeChat Channel Extension)  ### Implementation Status: Co...",
+            "Text: ...This is very revealing. Here's what the data shows:  ## Problem 1: History files..."
+          ]
+        }
+      ]
+    },
+    {
+      "session_id": "aab111eb-ab92-490c-b041-8b42c5e90fe3",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/aab111eb-ab92-490c-b041-8b42c5e90fe3.jsonl",
+      "start_time": "2026-02-19T12:34:10.166Z",
+      "end_time": "2026-02-19T12:43:44.412Z",
+      "message_count": 58,
+      "user_message_count": 24,
+      "primary_entity": "Uncategorized",
+      "matches": []
+    },
+    {
+      "session_id": "b7bb0ff3-3787-40f4-9052-7e68dec75029",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/b7bb0ff3-3787-40f4-9052-7e68dec75029.jsonl",
+      "start_time": "2026-02-19T12:20:06.956Z",
+      "end_time": "2026-02-19T12:21:38.405Z",
+      "message_count": 7,
+      "user_message_count": 2,
+      "primary_entity": "Spec 01: full-context-ai-assistant",
+      "matches": [
+        {
+          "entity_id": "spec:01_full-context-ai-assistant",
+          "display_name": "Spec 01: full-context-ai-assistant",
+          "confidence": 0.15,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.0,
+          "keyword_score": 0.5,
+          "matched_messages": 0,
+          "total_messages": 7,
+          "evidence": []
+        },
+        {
+          "entity_id": "source:cli",
+          "display_name": "Source: cli",
+          "confidence": 0.15,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.0,
+          "keyword_score": 0.5,
+          "matched_messages": 0,
+          "total_messages": 7,
+          "evidence": []
+        },
+        {
+          "entity_id": "source:line",
+          "display_name": "Source: line",
+          "confidence": 0.15,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.0,
+          "keyword_score": 0.5,
+          "matched_messages": 0,
+          "total_messages": 7,
+          "evidence": []
+        },
+        {
+          "entity_id": "source:plugins",
+          "display_name": "Source: plugins",
+          "confidence": 0.15,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.0,
+          "keyword_score": 0.5,
+          "matched_messages": 0,
+          "total_messages": 7,
+          "evidence": []
+        },
+        {
+          "entity_id": "source:shared",
+          "display_name": "Source: shared",
+          "confidence": 0.15,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.0,
+          "keyword_score": 0.5,
+          "matched_messages": 0,
+          "total_messages": 7,
+          "evidence": []
+        },
+        {
+          "entity_id": "source:terminal",
+          "display_name": "Source: terminal",
+          "confidence": 0.15,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.0,
+          "keyword_score": 0.5,
+          "matched_messages": 0,
+          "total_messages": 7,
+          "evidence": []
+        },
+        {
+          "entity_id": "source:google-gemini-cli-auth",
+          "display_name": "Source: google-gemini-cli-auth",
+          "confidence": 0.15,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.0,
+          "keyword_score": 0.5,
+          "matched_messages": 0,
+          "total_messages": 7,
+          "evidence": []
+        },
+        {
+          "entity_id": "source:line",
+          "display_name": "Source: line",
+          "confidence": 0.15,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.0,
+          "keyword_score": 0.5,
+          "matched_messages": 0,
+          "total_messages": 7,
+          "evidence": []
+        },
+        {
+          "entity_id": "source:open-prose",
+          "display_name": "Source: open-prose",
+          "confidence": 0.15,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.0,
+          "keyword_score": 0.5,
+          "matched_messages": 0,
+          "total_messages": 7,
+          "evidence": []
+        },
+        {
+          "entity_id": "knowledge:cli",
+          "display_name": "Knowledge: cli",
+          "confidence": 0.15,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.0,
+          "keyword_score": 0.5,
+          "matched_messages": 0,
+          "total_messages": 7,
+          "evidence": []
+        },
+        {
+          "entity_id": "knowledge:install",
+          "display_name": "Knowledge: install",
+          "confidence": 0.15,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.0,
+          "keyword_score": 0.5,
+          "matched_messages": 0,
+          "total_messages": 7,
+          "evidence": []
+        },
+        {
+          "entity_id": "knowledge:plugins",
+          "display_name": "Knowledge: plugins",
+          "confidence": 0.15,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.0,
+          "keyword_score": 0.5,
+          "matched_messages": 0,
+          "total_messages": 7,
+          "evidence": []
+        },
+        {
+          "entity_id": "knowledge:tools",
+          "display_name": "Knowledge: tools",
+          "confidence": 0.15,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.0,
+          "keyword_score": 0.5,
+          "matched_messages": 0,
+          "total_messages": 7,
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "session_id": "b86636af-795b-446c-9b1a-232cf343c760",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/b86636af-795b-446c-9b1a-232cf343c760.jsonl",
+      "start_time": "2026-02-19T20:46:30.536Z",
+      "end_time": "2026-02-19T20:47:19.065Z",
+      "message_count": 38,
+      "user_message_count": 16,
+      "primary_entity": "Spec 02: wechat-channel",
+      "matches": [
+        {
+          "entity_id": "spec:02_wechat-channel",
+          "display_name": "Spec 02: wechat-channel",
+          "confidence": 0.14,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.2,
+          "keyword_score": 0.2,
+          "matched_messages": 1,
+          "total_messages": 38,
+          "evidence": [
+            "Text: ...Implement the following plan:  # Plan: Three-Tier Session History + TASK Entity ..."
+          ]
+        },
+        {
+          "entity_id": "source:whatsapp",
+          "display_name": "Source: whatsapp",
+          "confidence": 0.14,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.2,
+          "keyword_score": 0.2,
+          "matched_messages": 1,
+          "total_messages": 38,
+          "evidence": [
+            "Text: ...Implement the following plan:  # Plan: Three-Tier Session History + TASK Entity ..."
+          ]
+        },
+        {
+          "entity_id": "source:wechat",
+          "display_name": "Source: wechat",
+          "confidence": 0.14,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.2,
+          "keyword_score": 0.2,
+          "matched_messages": 1,
+          "total_messages": 38,
+          "evidence": [
+            "Text: ...Implement the following plan:  # Plan: Three-Tier Session History + TASK Entity ..."
+          ]
+        },
+        {
+          "entity_id": "source:whatsapp",
+          "display_name": "Source: whatsapp",
+          "confidence": 0.14,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.2,
+          "keyword_score": 0.2,
+          "matched_messages": 1,
+          "total_messages": 38,
+          "evidence": [
+            "Text: ...Implement the following plan:  # Plan: Three-Tier Session History + TASK Entity ..."
+          ]
+        },
+        {
+          "entity_id": "knowledge:channels",
+          "display_name": "Knowledge: channels",
+          "confidence": 0.14,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.2,
+          "keyword_score": 0.2,
+          "matched_messages": 1,
+          "total_messages": 38,
+          "evidence": [
+            "Text: ...Implement the following plan:  # Plan: Three-Tier Session History + TASK Entity ..."
+          ]
+        },
+        {
+          "entity_id": "source:test-helpers",
+          "display_name": "Source: test-helpers",
+          "confidence": 0.12,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.0,
+          "keyword_score": 0.4,
+          "matched_messages": 0,
+          "total_messages": 38,
+          "evidence": []
+        },
+        {
+          "entity_id": "source:test-utils",
+          "display_name": "Source: test-utils",
+          "confidence": 0.12,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.0,
+          "keyword_score": 0.4,
+          "matched_messages": 0,
+          "total_messages": 38,
+          "evidence": []
+        },
+        {
+          "entity_id": "source:llm-task",
+          "display_name": "Source: llm-task",
+          "confidence": 0.12,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.0,
+          "keyword_score": 0.4,
+          "matched_messages": 0,
+          "total_messages": 38,
+          "evidence": []
+        },
+        {
+          "entity_id": "knowledge:start",
+          "display_name": "Knowledge: start",
+          "confidence": 0.12,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.0,
+          "keyword_score": 0.4,
+          "matched_messages": 0,
+          "total_messages": 38,
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "session_id": "fc3bb687-9c4c-4080-a849-a1507a0d6259",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/fc3bb687-9c4c-4080-a849-a1507a0d6259.jsonl",
+      "start_time": "2026-02-19T14:47:24.847Z",
+      "end_time": "2026-02-19T20:47:20.489Z",
+      "message_count": 663,
+      "user_message_count": 260,
+      "primary_entity": "Spec 02: wechat-channel",
+      "matches": [
+        {
+          "entity_id": "spec:02_wechat-channel",
+          "display_name": "Spec 02: wechat-channel",
+          "confidence": 0.283,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.5,
+          "keyword_score": 0.277,
+          "matched_messages": 22,
+          "total_messages": 663,
+          "evidence": [
+            "Text: ...Here's a summary of everything done:  ## Completed  ### Bug fix: `sendWeChatMess...",
+            "Text: ...Now I see the issue. The entity registry is built for the old Enpack-CCC project...",
+            "Text: ...Entity 02 was found but no sessions matched it. That's because the WeChat work w...",
+            "Text: ...The wechat sessions exist but the classifier didn't map them to `spec/02_wechat-...",
+            "Text: ...The patterns look correct — `wechat`, `channel`, `spec 02`, `Spec 02` are all ke..."
+          ]
+        },
+        {
+          "entity_id": "source:wechat",
+          "display_name": "Source: wechat",
+          "confidence": 0.196,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.3,
+          "keyword_score": 0.254,
+          "matched_messages": 6,
+          "total_messages": 663,
+          "evidence": [
+            "Text: ...The wechat sessions exist but the classifier didn't map them to `spec/02_wechat-...",
+            "Text: ...The keyword_score is `0.227` and text_pattern_score is `0.200`. The issue is the...",
+            "Text: ...This session is being continued from a previous conversation that ran out of con...",
+            "Text: ...Now I have a clear picture of the problem. Two issues need fixing:  1. **Turn-le...",
+            "Text: ...Spec 02 now includes `extensions/wechat/` in its path patterns. Now let me re-ru..."
+          ]
+        },
+        {
+          "entity_id": "spec:01_full-context-ai-assistant",
+          "display_name": "Spec 01: full-context-ai-assistant",
+          "confidence": 0.119,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.2,
+          "keyword_score": 0.131,
+          "matched_messages": 2,
+          "total_messages": 663,
+          "evidence": [
+            "Text: ...It works. 111 entities discovered (2 specs, lots of source/knowledge from opencl...",
+            "Text: ...Here's the session history:  **8 sessions total** — 5 classified, 3 uncategorize..."
+          ]
+        },
+        {
+          "entity_id": "knowledge:channels",
+          "display_name": "Knowledge: channels",
+          "confidence": 0.11,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.2,
+          "keyword_score": 0.1,
+          "matched_messages": 2,
+          "total_messages": 663,
+          "evidence": [
+            "Text: ...Good — there are already 5 test files. The implementation is complete. Let me ch...",
+            "Text: ...Now I have full context. Let me address your questions and then continue working..."
+          ]
+        }
+      ]
+    }
+  ]
+}

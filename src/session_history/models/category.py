@@ -8,11 +8,15 @@ from typing import Any, Dict, List
 class EntityType(Enum):
     """实体类型"""
     SPEC = "spec"
+    TASK = "task"
     SOURCE = "source"
     RESEARCH = "research"
     KNOWLEDGE = "knowledge"
     TOOL = "tool"
     UNCATEGORIZED = "uncategorized"
+
+
+INLINE_HISTORY_TYPES = {EntityType.SPEC, EntityType.TASK}
 
 
 @dataclass
@@ -25,10 +29,7 @@ class Entity:
     keywords: List[str] = field(default_factory=list)
     path_patterns: List[str] = field(default_factory=list)  # 路径匹配模式
     text_patterns: List[str] = field(default_factory=list)  # 正则文本模式
-
-    @property
-    def history_dir(self) -> str:
-        return f"{self.directory}/history"
+    history_dir: str = ""
 
     @property
     def entity_id(self) -> str:

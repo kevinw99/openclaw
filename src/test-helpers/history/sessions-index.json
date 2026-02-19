@@ -1,0 +1,21 @@
+{
+  "entity_id": "source:test-helpers",
+  "entity_type": "source",
+  "display_name": "Source: test-helpers",
+  "directory": "src/test-helpers",
+  "session_count": 1,
+  "sessions": [
+    {
+      "session_id": "b86636af-795b-446c-9b1a-232cf343c760",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/b86636af-795b-446c-9b1a-232cf343c760.jsonl",
+      "confidence": 0.12,
+      "start_time": "2026-02-19T20:46:30.536Z",
+      "end_time": "2026-02-19T20:47:19.065Z",
+      "message_count": 38,
+      "matched_message_count": 0,
+      "matched_messages": [],
+      "evidence": []
+    }
+  ],
+  "last_updated": "2026-02-20T04:47:21.833777"
+}

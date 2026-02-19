@@ -1,0 +1,131 @@
+{
+  "entity_id": "spec:01_full-context-ai-assistant",
+  "entity_type": "spec",
+  "display_name": "Spec 01: full-context-ai-assistant",
+  "directory": "spec/01_full-context-ai-assistant",
+  "session_count": 3,
+  "sessions": [
+    {
+      "session_id": "fc3bb687-9c4c-4080-a849-a1507a0d6259",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/fc3bb687-9c4c-4080-a849-a1507a0d6259.jsonl",
+      "confidence": 0.119,
+      "start_time": "2026-02-19T14:47:24.847Z",
+      "end_time": "2026-02-19T20:47:20.489Z",
+      "message_count": 663,
+      "matched_message_count": 2,
+      "matched_messages": [
+        {
+          "uuid": "4b50ec4d-7cbd-4080-8452-6ca773684cfa",
+          "line_number": 465,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T19:46:19.756Z",
+          "preview": "It works. 111 entities discovered (2 specs, lots of source/knowledge from openclaw's directories). S"
+        },
+        {
+          "uuid": "9b1eccee-4028-446a-9bad-fc81dda21e7f",
+          "line_number": 820,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T20:37:03.691Z",
+          "preview": "Here's the session history:\n\n**8 sessions total** — 5 classified, 3 uncategorized. All from 2026-02-"
+        }
+      ],
+      "evidence": [
+        "Text: ...It works. 111 entities discovered (2 specs, lots of source/knowledge from opencl...",
+        "Text: ...Here's the session history:  **8 sessions total** — 5 classified, 3 uncategorize..."
+      ]
+    },
+    {
+      "session_id": "b7bb0ff3-3787-40f4-9052-7e68dec75029",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/b7bb0ff3-3787-40f4-9052-7e68dec75029.jsonl",
+      "confidence": 0.15,
+      "start_time": "2026-02-19T12:20:06.956Z",
+      "end_time": "2026-02-19T12:21:38.405Z",
+      "message_count": 7,
+      "matched_message_count": 0,
+      "matched_messages": [],
+      "evidence": []
+    },
+    {
+      "session_id": "31181cd7-05a2-45ae-9f54-493a7774776e",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/31181cd7-05a2-45ae-9f54-493a7774776e.jsonl",
+      "confidence": 0.285,
+      "start_time": "2026-02-19T10:38:11.950Z",
+      "end_time": "2026-02-19T12:25:08.901Z",
+      "message_count": 142,
+      "matched_message_count": 9,
+      "matched_messages": [
+        {
+          "uuid": "bfd88520-67af-4218-ad7d-0c101b3dc010",
+          "line_number": 5,
+          "msg_type": "user",
+          "timestamp": "2026-02-19T10:38:28.373Z",
+          "preview": "1. can you see spec 01? that is my goal\n2. given that goal, my plan is learn how openclaw works, wit"
+        },
+        {
+          "uuid": "ab1b4519-4621-41cf-8f77-393a26fa3fd2",
+          "line_number": 27,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T10:38:44.741Z",
+          "preview": "Good, I can see spec 01 is `Swabble/docs/spec.md` — a macOS 26 speech hook daemon in Swift 6.2. Now "
+        },
+        {
+          "uuid": "204ab3c3-d4fe-4792-aa1a-9e061e9305be",
+          "line_number": 111,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T10:41:15.350Z",
+          "preview": "Now I have a complete picture. Here's my analysis and learning plan:\n\n---\n\n## Key Finding: Swabble ("
+        },
+        {
+          "uuid": "b0606f80-9971-453f-83e2-132161a2aa11",
+          "line_number": 124,
+          "msg_type": "user",
+          "timestamp": "2026-02-19T11:56:19.277Z",
+          "preview": "I don't get the swabble. It seems swift related, which is mobile app development, but I don't see ho"
+        },
+        {
+          "uuid": "f3dcdb92-4439-4686-9a82-2508262ccfbd",
+          "line_number": 126,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T11:56:50.627Z",
+          "preview": "Good catch — let me find the actual \"spec 01\" file, since it seems I may have mis-identified it."
+        },
+        {
+          "uuid": "f791cd1f-4a23-4c52-8fe4-ffd87f7e272d",
+          "line_number": 142,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T11:58:20.787Z",
+          "preview": "My mistake from earlier — **Swabble is not spec 01**. Let me correct this clearly.\n\n---\n\n## Clarific"
+        },
+        {
+          "uuid": "78243886-b0a9-45e3-a575-de9737429b65",
+          "line_number": 169,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T12:04:35.393Z",
+          "preview": "Now I have everything I need. Here's the full picture:\n\n---\n\n## WeChat Support in OpenClaw: Current "
+        },
+        {
+          "uuid": "15784e1a-a641-4129-b26a-bd58dfebf33f",
+          "line_number": 204,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T12:11:12.078Z",
+          "preview": "Now I have enough to design the full extension. Here's the complete architecture:\n\n---\n\n## WeChat Ex"
+        },
+        {
+          "uuid": "8289309c-bf05-4f8f-a683-d07f8e7a45e7",
+          "line_number": 254,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T12:25:08.759Z",
+          "preview": "Spec 02 is complete at `spec/02_wechat-channel/`. Here's what was created:\n\n---\n\n**`README.md`** — O"
+        }
+      ],
+      "evidence": [
+        "Text: ...1. can you see spec 01? that is my goal 2. given that goal, my plan is learn how...",
+        "Text: ...Good, I can see spec 01 is `Swabble/docs/spec.md` — a macOS 26 speech hook daemo...",
+        "Text: ...Now I have a complete picture. Here's my analysis and learning plan:  ---  ## Ke...",
+        "Text: ...I don't get the swabble. It seems swift related, which is mobile app development...",
+        "Text: ...Good catch — let me find the actual \"spec 01\" file, since it seems I may have mi..."
+      ]
+    }
+  ],
+  "last_updated": "2026-02-20T04:47:21.832184"
+}
