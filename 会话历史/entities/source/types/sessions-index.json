@@ -1,0 +1,47 @@
+{
+  "entity_id": "source:types",
+  "entity_type": "source",
+  "display_name": "Source: types",
+  "directory": "src/types",
+  "session_count": 1,
+  "sessions": [
+    {
+      "session_id": "2dc7e455-39a3-4673-b15a-43f89aaea877",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/2dc7e455-39a3-4673-b15a-43f89aaea877.jsonl",
+      "confidence": 0.11,
+      "start_time": "2026-02-19T12:43:44.402Z",
+      "end_time": "2026-02-19T13:56:09.472Z",
+      "message_count": 490,
+      "matched_message_count": 3,
+      "matched_messages": [
+        {
+          "uuid": "bb547b67-97df-4d0e-9e35-dcf6829af17d",
+          "line_number": 1,
+          "msg_type": "user",
+          "timestamp": "2026-02-19T12:43:44.402Z",
+          "preview": "Implement the following plan:\n\n# Implementation Plan: WeChat Channel Extension (Spec 02)\n\n## Context"
+        },
+        {
+          "uuid": "196df990-f43b-4d29-a6cd-51818b935c06",
+          "line_number": 251,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T12:57:17.962Z",
+          "preview": "All 20 files created (18 extension + 1 docs + 1 status update), totaling ~2,363 lines of TypeScript."
+        },
+        {
+          "uuid": "71674095-2724-48f5-86d4-388ac2c5d384",
+          "line_number": 677,
+          "msg_type": "user",
+          "timestamp": "2026-02-19T13:33:16.803Z",
+          "preview": "This session is being continued from a previous conversation that ran out of context. The summary be"
+        }
+      ],
+      "evidence": [
+        "Text: ...Implement the following plan:  # Implementation Plan: WeChat Channel Extension (...",
+        "Text: ...All 20 files created (18 extension + 1 docs + 1 status update), totaling ~2,363 ...",
+        "Text: ...This session is being continued from a previous conversation that ran out of con..."
+      ]
+    }
+  ],
+  "last_updated": "2026-02-20T04:54:44.867928"
+}

@@ -1,23 +1,23 @@
 # 会话历史分类报告
 
-> 生成时间: 2026-02-20 04:47:21
+> 生成时间: 2026-02-20 04:54:44
 
 ## 概览
 
 - 总会话数: 10
-- 已分类: 7
-- 未分类: 3
+- 已分类: 6
+- 未分类: 4
 
 ## 按实体分类
 
 | 实体 | 类型 | 匹配会话数 | 最高置信度 |
 |------|------|-----------|----------|
-| Spec 02: wechat-channel | spec | 6 | 0.28 |
-| Source: wechat | source | 6 | 0.20 |
-| Knowledge: channels | knowledge | 5 | 0.14 |
-| Source: whatsapp | source | 4 | 0.21 |
+| Spec 02: wechat-channel | spec | 5 | 0.28 |
+| Source: wechat | source | 5 | 0.20 |
+| Knowledge: channels | knowledge | 4 | 0.12 |
 | Spec 01: full-context-ai-assistant | spec | 3 | 0.29 |
 | Source: channels | source | 2 | 0.21 |
+| Source: whatsapp | source | 2 | 0.21 |
 | Source: line | source | 2 | 0.15 |
 | Source: feishu | source | 1 | 0.17 |
 | Source: web | source | 1 | 0.13 |
@@ -33,18 +33,14 @@
 | Knowledge: install | knowledge | 1 | 0.15 |
 | Knowledge: plugins | knowledge | 1 | 0.15 |
 | Knowledge: tools | knowledge | 1 | 0.15 |
-| Source: test-helpers | source | 1 | 0.12 |
-| Source: test-utils | source | 1 | 0.12 |
-| Source: llm-task | source | 1 | 0.12 |
-| Knowledge: start | knowledge | 1 | 0.12 |
 
 ## 会话详情
 
 ### b86636af...
 - 文件: `/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/b86636af-795b-446c-9b1a-232cf343c760.jsonl`
-- 时间: 2026-02-19T20:46:30 ~ 2026-02-19T20:47:19
-- 消息数: 38 (用户: 16)
-- 分类: Spec 02: wechat-channel (0.14), Source: whatsapp (0.14), Source: wechat (0.14)
+- 时间: 2026-02-19T20:46:30 ~ 2026-02-19T20:54:42
+- 消息数: 180 (用户: 73)
+- 分类: Uncategorized
 
 ### 9347e2ce...
 - 文件: `/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/9347e2ce-4961-4b2d-8722-cdfcbda16ccf.jsonl`
@@ -54,8 +50,8 @@
 
 ### fc3bb687...
 - 文件: `/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/fc3bb687-9c4c-4080-a849-a1507a0d6259.jsonl`
-- 时间: 2026-02-19T14:47:24 ~ 2026-02-19T20:47:20
-- 消息数: 663 (用户: 260)
+- 时间: 2026-02-19T14:47:24 ~ 2026-02-19T20:48:18
+- 消息数: 687 (用户: 269)
 - 分类: Spec 02: wechat-channel (0.28), Source: wechat (0.20), Spec 01: full-context-ai-assistant (0.12)
 
 ### 89b1d4ca...

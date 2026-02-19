@@ -1,0 +1,21 @@
+{
+  "entity_id": "source:cli",
+  "entity_type": "source",
+  "display_name": "Source: cli",
+  "directory": "src/cli",
+  "session_count": 1,
+  "sessions": [
+    {
+      "session_id": "b7bb0ff3-3787-40f4-9052-7e68dec75029",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/b7bb0ff3-3787-40f4-9052-7e68dec75029.jsonl",
+      "confidence": 0.15,
+      "start_time": "2026-02-19T12:20:06.956Z",
+      "end_time": "2026-02-19T12:21:38.405Z",
+      "message_count": 7,
+      "matched_message_count": 0,
+      "matched_messages": [],
+      "evidence": []
+    }
+  ],
+  "last_updated": "2026-02-20T04:54:44.868216"
+}

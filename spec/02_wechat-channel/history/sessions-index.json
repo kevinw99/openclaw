@@ -3,29 +3,8 @@
   "entity_type": "spec",
   "display_name": "Spec 02: wechat-channel",
   "directory": "spec/02_wechat-channel",
-  "session_count": 6,
+  "session_count": 5,
   "sessions": [
-    {
-      "session_id": "b86636af-795b-446c-9b1a-232cf343c760",
-      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/b86636af-795b-446c-9b1a-232cf343c760.jsonl",
-      "confidence": 0.14,
-      "start_time": "2026-02-19T20:46:30.536Z",
-      "end_time": "2026-02-19T20:47:19.065Z",
-      "message_count": 38,
-      "matched_message_count": 1,
-      "matched_messages": [
-        {
-          "uuid": "938f6093-bfbd-4396-ac77-e5b0a233f0d5",
-          "line_number": 1,
-          "msg_type": "user",
-          "timestamp": "2026-02-19T20:46:30.536Z",
-          "preview": "Implement the following plan:\n\n# Plan: Three-Tier Session History + TASK Entity Type\n\n## Context\n\nTh"
-        }
-      ],
-      "evidence": [
-        "Text: ...Implement the following plan:  # Plan: Three-Tier Session History + TASK Entity ..."
-      ]
-    },
     {
       "session_id": "9347e2ce-4961-4b2d-8722-cdfcbda16ccf",
       "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/9347e2ce-4961-4b2d-8722-cdfcbda16ccf.jsonl",
@@ -103,11 +82,11 @@
     {
       "session_id": "fc3bb687-9c4c-4080-a849-a1507a0d6259",
       "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/fc3bb687-9c4c-4080-a849-a1507a0d6259.jsonl",
-      "confidence": 0.283,
+      "confidence": 0.284,
       "start_time": "2026-02-19T14:47:24.847Z",
-      "end_time": "2026-02-19T20:47:20.489Z",
-      "message_count": 663,
-      "matched_message_count": 22,
+      "end_time": "2026-02-19T20:48:18.785Z",
+      "message_count": 687,
+      "matched_message_count": 25,
       "matched_messages": [
         {
           "uuid": "dbf37a4e-51f6-47ea-b763-3311d36fb321",
@@ -262,6 +241,27 @@
           "msg_type": "assistant",
           "timestamp": "2026-02-19T20:47:10.632Z",
           "preview": "The current session (`9347e2ce`) was classified as **Spec 02: wechat-channel (0.25)**. Let me regene"
+        },
+        {
+          "uuid": "b428621c-22b6-447f-97a6-1efff0024434",
+          "line_number": 932,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T20:47:30.677Z",
+          "preview": "Now **6 session replays** for Spec 02 — including the current session (`20:46`) and the continuation"
+        },
+        {
+          "uuid": "f42dae33-b07a-462f-8f61-d286d090d08d",
+          "line_number": 947,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T20:47:53.305Z",
+          "preview": "There are many generated `history/` directories scattered across the repo from the full scan. I'll c"
+        },
+        {
+          "uuid": "af5a841c-6401-49bd-907c-a000bfb26005",
+          "line_number": 954,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T20:48:18.579Z",
+          "preview": "Here's a summary of what was accomplished:\n\n**Dependencies & Tests**\n- Installed pnpm and ran `pnpm "
         }
       ],
       "evidence": [
@@ -368,5 +368,5 @@
       ]
     }
   ],
-  "last_updated": "2026-02-20T04:47:21.829926"
+  "last_updated": "2026-02-20T04:54:44.865859"
 }

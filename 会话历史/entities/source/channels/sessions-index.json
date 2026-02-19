@@ -1,0 +1,68 @@
+{
+  "entity_id": "source:channels",
+  "entity_type": "source",
+  "display_name": "Source: channels",
+  "directory": "src/channels",
+  "session_count": 2,
+  "sessions": [
+    {
+      "session_id": "9347e2ce-4961-4b2d-8722-cdfcbda16ccf",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/9347e2ce-4961-4b2d-8722-cdfcbda16ccf.jsonl",
+      "confidence": 0.119,
+      "start_time": "2026-02-19T20:04:19.073Z",
+      "end_time": "2026-02-19T20:46:30.564Z",
+      "message_count": 132,
+      "matched_message_count": 2,
+      "matched_messages": [
+        {
+          "uuid": "bb46dda1-9b4e-41a1-beb8-d25f92cdbc26",
+          "line_number": 220,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T20:14:19.242Z",
+          "preview": "Now I understand the full picture. Here's the analysis:\n\n## How Session History Association Works To"
+        },
+        {
+          "uuid": "7fa443ff-6d07-4fd2-bf02-602c8bdb7a95",
+          "line_number": 263,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T20:23:16.551Z",
+          "preview": "This is very revealing. Here's what the data shows:\n\n## Problem 1: History files polluting source di"
+        }
+      ],
+      "evidence": [
+        "Text: ...Now I understand the full picture. Here's the analysis:  ## How Session History ...",
+        "Text: ...This is very revealing. Here's what the data shows:  ## Problem 1: History files..."
+      ]
+    },
+    {
+      "session_id": "1013e624-062b-465c-ba10-87a60a78dbde",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/1013e624-062b-465c-ba10-87a60a78dbde.jsonl",
+      "confidence": 0.205,
+      "start_time": "2026-02-19T12:52:03.268Z",
+      "end_time": "2026-02-19T13:18:18.515Z",
+      "message_count": 64,
+      "matched_message_count": 2,
+      "matched_messages": [
+        {
+          "uuid": "eb568bce-40bd-4e10-a4c8-86e463b8f3bc",
+          "line_number": 267,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T12:55:56.105Z",
+          "preview": "## Channel Overview\n\nThe project has **22 messaging channels** across two locations:\n\n### Core Chann"
+        },
+        {
+          "uuid": "ed895bc6-e442-4f06-b0f4-724b5b496063",
+          "line_number": 368,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T13:12:23.655Z",
+          "preview": "You're right to question this. There's a clear **two-tier architecture** in the project, and it's no"
+        }
+      ],
+      "evidence": [
+        "Text: ...## Channel Overview  The project has **22 messaging channels** across two locati...",
+        "Text: ...You're right to question this. There's a clear **two-tier architecture** in the ..."
+      ]
+    }
+  ],
+  "last_updated": "2026-02-20T04:54:44.866617"
+}
