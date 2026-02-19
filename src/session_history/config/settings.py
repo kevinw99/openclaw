@@ -5,26 +5,39 @@ from pathlib import Path
 from typing import Dict
 
 
+def _derive_sessions_dir() -> Path:
+    """Derive Claude Code sessions dir from project root.
+
+    Claude Code stores session JSONL files at:
+      ~/.claude/projects/-{absolute-path-with-dashes}/
+    e.g. /Users/kweng/AI/openclaw → -Users-kweng-AI-openclaw
+    """
+    project_root = Path(__file__).parent.parent.parent.parent
+    slug = str(project_root).replace("/", "-").lstrip("-")
+    return Path.home() / ".claude" / "projects" / f"-{slug}"
+
+
 @dataclass
 class Settings:
     """全局设置"""
     # 项目根目录
     project_root: Path = field(default_factory=lambda: Path(__file__).parent.parent.parent.parent)
 
-    # Claude Code session JSONL 目录
-    sessions_dir: Path = field(default_factory=lambda: Path.home() / ".claude" / "projects" / "-Users-kweng-AI-Enpack-CCC")
+    # Claude Code session JSONL 目录 (auto-derived from project root)
+    sessions_dir: Path = field(default_factory=_derive_sessions_dir)
 
     # 会话历史输出根目录
     history_root: str = "会话历史"
 
     # 分类阈值
-    classification_threshold: float = 0.15
+    classification_threshold: float = 0.10
 
-    # 信号权重
+    # 信号权重 — text_pattern and keyword carry more weight because
+    # Claude Code JSONL sessions rarely include structured file paths
     signal_weights: Dict[str, float] = field(default_factory=lambda: {
-        "file_path": 0.50,
-        "text_pattern": 0.35,
-        "keyword": 0.15,
+        "file_path": 0.30,
+        "text_pattern": 0.40,
+        "keyword": 0.30,
     })
 
     # 是否排除 thinking blocks
@@ -36,7 +49,7 @@ class Settings:
     # 增量扫描状态文件
     scan_state_file: str = ".scan-state.json"
 
-    # 实体目录映射
+    # 实体目录映射 (not used by EntityRegistry — kept for backward compat)
     entity_dirs: Dict[str, str] = field(default_factory=lambda: {
         "spec": "规格",
         "source": "源代码",

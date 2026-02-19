@@ -1,18 +1,51 @@
-"""Entity Registry - 自动发现项目实体"""
+"""Entity Registry - 自动发现项目实体
+
+Supports multiple directory naming conventions so the same tool works
+across projects without per-project configuration:
+
+  Specs:      规格/, spec/, specs/, RESTRICTED/规格/
+  Source:     源代码/, src/, extensions/
+  Research:   研究/, research/
+  Knowledge:  知识库/, knowledge/, docs/
+  Tools:      工具/, tools/
+
+Numbering patterns: P##_name, R##_name, ##_name (plain number prefix)
+"""
 
 import re
 from pathlib import Path
-from typing import List
+from typing import Dict, List, Optional, Tuple
 
 from ..models.category import Entity, EntityType
+
+
+# Directory name alternatives for each entity type.
+# First existing match wins per type; all are scanned for specs.
+_SPEC_DIRS = ["规格", "spec", "specs"]
+_SPEC_RESTRICTED_PARENTS = ["RESTRICTED"]
+_SOURCE_DIRS = ["源代码", "src", "extensions"]
+_RESEARCH_DIRS = ["研究", "research"]
+_KNOWLEDGE_DIRS = ["知识库", "knowledge", "docs"]
+_TOOL_DIRS = ["工具", "tools"]
+
+# Directories to skip when scanning
+_SKIP_NAMES = {
+    "README.md", "session_history", "__pycache__", ".git",
+    "node_modules", "dist", "build", ".DS_Store",
+    "00_template", "00_project-template.md",
+}
+
+# Spec numbering patterns: P##_name, R##_name, or plain ##_name
+_SPEC_NUMBER_RE = re.compile(r"^([PR]?\d+)_(.+)$")
 
 
 class EntityRegistry:
     """自动从项目目录结构发现实体"""
 
-    # Legacy directory names before P##/R## renumbering (2026-02-15)
-    # Used to match old references in JSONL session data
-    LEGACY_ALIASES = {
+    # Legacy directory names from Enpack-CCC project (before P##/R## renumbering).
+    # Used to match old references in JSONL session data. Projects that don't
+    # have these names simply ignore them — no harm.
+    LEGACY_ALIASES: Dict[str, List[str]] = {
         "P01_文档管理系统": ["01_文档管理系统"],
         "P02_电池材料关键绩效指标研究": ["01_电池材料关键绩效指标研究"],
         "P03_聊天会话持久化": ["01_聊天会话持久化"],
@@ -36,7 +69,7 @@ class EntityRegistry:
 
     def discover_all(self) -> List[Entity]:
         """发现所有实体"""
-        entities = []
+        entities: List[Entity] = []
         entities.extend(self._discover_specs())
         entities.extend(self._discover_sources())
         entities.extend(self._discover_research())
@@ -44,190 +77,235 @@ class EntityRegistry:
         entities.extend(self._discover_tools())
         return entities
 
+    # ------------------------------------------------------------------
+    # Helpers
+    # ------------------------------------------------------------------
+
+    def _find_existing_dirs(self, candidates: List[str]) -> List[Path]:
+        """Return all candidate directories that actually exist."""
+        found = []
+        for name in candidates:
+            d = self.project_root / name
+            if d.is_dir():
+                found.append(d)
+        return found
+
+    def _find_first_existing_dir(self, candidates: List[str]) -> Optional[Path]:
+        """Return the first candidate directory that exists, or None."""
+        for name in candidates:
+            d = self.project_root / name
+            if d.is_dir():
+                return d
+        return None
+
+    @staticmethod
+    def _parse_spec_number(dirname: str) -> Optional[Tuple[str, str]]:
+        """Parse a spec directory name into (number, description).
+
+        Supports: P01_name, R14_name, 02_name
+        Returns None if the name doesn't match.
+        """
+        m = _SPEC_NUMBER_RE.match(dirname)
+        if m:
+            return m.group(1), m.group(2)
+        return None
+
+    @staticmethod
+    def _should_skip(name: str) -> bool:
+        return name in _SKIP_NAMES or name.startswith(".")
+
+    # ------------------------------------------------------------------
+    # Entity type discovery
+    # ------------------------------------------------------------------
+
     def _discover_specs(self) -> List[Entity]:
-        """发现规格实体 (public P## and restricted R##)"""
-        entities = []
-        # Discover from both public and RESTRICTED spec directories
-        spec_dirs = [
-            self.project_root / "规格",
-            self.project_root / "RESTRICTED" / "规格",
-        ]
+        """Discover spec entities from all spec directory conventions."""
+        entities: List[Entity] = []
+
+        # Collect all spec directories (main + restricted)
+        spec_dirs: List[Path] = []
+        for name in _SPEC_DIRS:
+            d = self.project_root / name
+            if d.is_dir():
+                spec_dirs.append(d)
+            for parent in _SPEC_RESTRICTED_PARENTS:
+                rd = self.project_root / parent / name
+                if rd.is_dir():
+                    spec_dirs.append(rd)
+
         for specs_dir in spec_dirs:
-            if not specs_dir.exists():
-                continue
+            parent_rel = str(specs_dir.relative_to(self.project_root))
+
             for d in sorted(specs_dir.iterdir()):
-                if not d.is_dir():
+                if not d.is_dir() or self._should_skip(d.name):
                     continue
-                name = d.name
-                # 跳过模板
-                if name == "00_project-template.md":
+
+                parsed = self._parse_spec_number(d.name)
+                if not parsed:
                     continue
-                # 提取编号和名称 (P## or R## prefix)
-                match = re.match(r"([PR]\d+)_(.+)", name)
-                if match:
-                    num = match.group(1)
-                    desc = match.group(2)
-                    rel_dir = str(d.relative_to(self.project_root))
-                    # 生成关键词: 目录名, 中文名, 编号形式
-                    keywords = [
-                        name, desc,
-                        f"spec {num}", f"spec #{num}", f"Spec {num}", f"Spec #{num}",
-                        f"规格/{name}", f"规格{num}",
-                        f"project {num}", f"project #{num}",
-                    ]
-                    # 从名称中提取中文关键词
-                    for part in re.split(r"[_\-]", desc):
-                        if part:
-                            keywords.append(part)
 
-                    path_patterns = [
-                        f"{rel_dir}/",
-                        f"{rel_dir}",
-                    ]
-                    text_patterns = [
-                        rf"[Ss]pec\s*#?{re.escape(num)}\b",
-                        rf"规格/{re.escape(name)}",
-                        rf"规格.*{re.escape(num)}",
-                        rf"project\s*#?{re.escape(num)}\b",
-                    ]
+                num, desc = parsed
+                # Normalize: strip P/R prefix for display number
+                display_num = num.lstrip("PR") if num[0] in "PR" else num
+                rel_dir = str(d.relative_to(self.project_root))
 
-                    # Add legacy aliases for old directory names
-                    for old_name in self.LEGACY_ALIASES.get(name, []):
-                        old_match = re.match(r"(\d+)_(.+)", old_name)
-                        if old_match:
-                            old_num = old_match.group(1)
-                            keywords.extend([
-                                old_name,
-                                f"spec {old_num}", f"spec #{old_num}",
-                                f"Spec {old_num}", f"Spec #{old_num}",
-                            ])
-                            path_patterns.extend([
-                                f"规格/{old_name}/",
-                                f"规格/{old_name}",
-                            ])
-                            text_patterns.extend([
-                                rf"[Ss]pec\s*#?{old_num}\b",
-                                rf"规格/{re.escape(old_name)}",
-                                rf"规格.*{re.escape(old_num)}",
-                            ])
-
-                    entities.append(Entity(
-                        entity_type=EntityType.SPEC,
-                        name=name,
-                        display_name=f"Spec {num}: {desc}",
-                        directory=rel_dir,
-                        keywords=keywords,
-                        path_patterns=path_patterns,
-                        text_patterns=text_patterns,
-                    ))
-        return entities
-
-    def _discover_sources(self) -> List[Entity]:
-        """发现源代码项目实体"""
-        src_dir = self.project_root / "源代码"
-        if not src_dir.exists():
-            return []
-
-        entities = []
-        # 跳过非项目目录和本模块自身
-        skip = {"README.md", "session_history", "__pycache__"}
-        for d in sorted(src_dir.iterdir()):
-            if not d.is_dir() or d.name in skip or d.name.startswith("."):
-                continue
-            name = d.name
-            keywords = [name]
-            # 将连字符/下划线分词
-            for part in re.split(r"[-_]", name):
-                if part and len(part) > 2:
-                    keywords.append(part)
-
-            entities.append(Entity(
-                entity_type=EntityType.SOURCE,
-                name=name,
-                display_name=f"源代码: {name}",
-                directory=f"源代码/{name}",
-                keywords=keywords,
-                path_patterns=[
-                    f"源代码/{name}/",
-                    f"源代码/{name}",
-                ],
-                text_patterns=[
-                    rf"源代码/{re.escape(name)}",
-                ],
-            ))
-        return entities
-
-    def _discover_research(self) -> List[Entity]:
-        """发现研究主题实体"""
-        res_dir = self.project_root / "研究"
-        if not res_dir.exists():
-            return []
-
-        entities = []
-        skip = {"研究说明-EN.md", "指南", "__pycache__"}
-        for d in sorted(res_dir.iterdir()):
-            if not d.is_dir() or d.name in skip or d.name.startswith("."):
-                continue
-            name = d.name
-            keywords = [name]
-            for part in re.split(r"[-_]", name):
-                if part and len(part) > 1:
-                    keywords.append(part)
-
-            entities.append(Entity(
-                entity_type=EntityType.RESEARCH,
-                name=name,
-                display_name=f"研究: {name}",
-                directory=f"研究/{name}",
-                keywords=keywords,
-                path_patterns=[f"研究/{name}/", f"研究/{name}"],
-                text_patterns=[rf"研究/{re.escape(name)}"],
-            ))
-        return entities
-
-    def _discover_knowledge(self) -> List[Entity]:
-        """发现知识库实体"""
-        kb_dir = self.project_root / "知识库"
-        if not kb_dir.exists():
-            return []
-
-        entities = []
-        skip = {"知识库导航索引.md", "数据收集指南.md", "战略重点-EN.md", "__pycache__"}
-        for d in sorted(kb_dir.iterdir()):
-            if not d.is_dir() or d.name in skip or d.name.startswith("."):
-                continue
-            name = d.name
-            keywords = [name]
-            match = re.match(r"(\d+)_(.+)", name)
-            if match:
-                for part in re.split(r"[-_]", match.group(2)):
+                # Build keywords from directory name parts
+                keywords = [
+                    d.name, desc,
+                    f"spec {num}", f"spec #{num}", f"Spec {num}", f"Spec #{num}",
+                    f"spec {display_num}", f"spec #{display_num}",
+                    f"{parent_rel}/{d.name}",
+                ]
+                for part in re.split(r"[_\-]", desc):
                     if part:
                         keywords.append(part)
 
-            entities.append(Entity(
-                entity_type=EntityType.KNOWLEDGE,
-                name=name,
-                display_name=f"知识库: {name}",
-                directory=f"知识库/{name}",
-                keywords=keywords,
-                path_patterns=[f"知识库/{name}/", f"知识库/{name}"],
-                text_patterns=[rf"知识库/{re.escape(name)}"],
-            ))
+                path_patterns = [f"{rel_dir}/", rel_dir]
+                text_patterns = [
+                    rf"[Ss]pec\s*#?{re.escape(num)}\b",
+                    rf"[Ss]pec\s*#?{re.escape(display_num)}\b",
+                    rf"{re.escape(parent_rel)}/{re.escape(d.name)}",
+                ]
+
+                # Add legacy aliases (Enpack-CCC backward compat)
+                for old_name in self.LEGACY_ALIASES.get(d.name, []):
+                    old_match = re.match(r"(\d+)_(.+)", old_name)
+                    if old_match:
+                        old_num = old_match.group(1)
+                        keywords.extend([
+                            old_name,
+                            f"spec {old_num}", f"spec #{old_num}",
+                        ])
+                        path_patterns.extend([
+                            f"规格/{old_name}/",
+                            f"规格/{old_name}",
+                        ])
+                        text_patterns.extend([
+                            rf"[Ss]pec\s*#?{old_num}\b",
+                            rf"规格/{re.escape(old_name)}",
+                        ])
+
+                entities.append(Entity(
+                    entity_type=EntityType.SPEC,
+                    name=d.name,
+                    display_name=f"Spec {display_num}: {desc}",
+                    directory=rel_dir,
+                    keywords=keywords,
+                    path_patterns=path_patterns,
+                    text_patterns=text_patterns,
+                ))
+
+        return entities
+
+    def _discover_sources(self) -> List[Entity]:
+        """Discover source code entities."""
+        entities: List[Entity] = []
+        skip = _SKIP_NAMES | {"session_history", "plugin-sdk"}
+
+        for src_dir in self._find_existing_dirs(_SOURCE_DIRS):
+            parent_rel = str(src_dir.relative_to(self.project_root))
+
+            for d in sorted(src_dir.iterdir()):
+                if not d.is_dir() or d.name in skip or d.name.startswith("."):
+                    continue
+
+                name = d.name
+                rel_dir = f"{parent_rel}/{name}"
+                keywords = [name]
+                for part in re.split(r"[-_]", name):
+                    if part and len(part) > 2:
+                        keywords.append(part)
+
+                entities.append(Entity(
+                    entity_type=EntityType.SOURCE,
+                    name=name,
+                    display_name=f"Source: {name}",
+                    directory=rel_dir,
+                    keywords=keywords,
+                    path_patterns=[f"{rel_dir}/", rel_dir],
+                    text_patterns=[rf"{re.escape(rel_dir)}"],
+                ))
+
+        return entities
+
+    def _discover_research(self) -> List[Entity]:
+        """Discover research topic entities."""
+        entities: List[Entity] = []
+        skip = _SKIP_NAMES | {"研究说明-EN.md", "指南"}
+
+        for res_dir in self._find_existing_dirs(_RESEARCH_DIRS):
+            parent_rel = str(res_dir.relative_to(self.project_root))
+
+            for d in sorted(res_dir.iterdir()):
+                if not d.is_dir() or d.name in skip or d.name.startswith("."):
+                    continue
+
+                name = d.name
+                rel_dir = f"{parent_rel}/{name}"
+                keywords = [name]
+                for part in re.split(r"[-_]", name):
+                    if part and len(part) > 1:
+                        keywords.append(part)
+
+                entities.append(Entity(
+                    entity_type=EntityType.RESEARCH,
+                    name=name,
+                    display_name=f"Research: {name}",
+                    directory=rel_dir,
+                    keywords=keywords,
+                    path_patterns=[f"{rel_dir}/", rel_dir],
+                    text_patterns=[rf"{re.escape(rel_dir)}"],
+                ))
+
+        return entities
+
+    def _discover_knowledge(self) -> List[Entity]:
+        """Discover knowledge base entities."""
+        entities: List[Entity] = []
+        skip = _SKIP_NAMES | {"知识库导航索引.md", "数据收集指南.md", "战略重点-EN.md"}
+
+        for kb_dir in self._find_existing_dirs(_KNOWLEDGE_DIRS):
+            parent_rel = str(kb_dir.relative_to(self.project_root))
+
+            for d in sorted(kb_dir.iterdir()):
+                if not d.is_dir() or d.name in skip or d.name.startswith("."):
+                    continue
+
+                name = d.name
+                rel_dir = f"{parent_rel}/{name}"
+                keywords = [name]
+                parsed = self._parse_spec_number(name)
+                if parsed:
+                    for part in re.split(r"[-_]", parsed[1]):
+                        if part:
+                            keywords.append(part)
+
+                entities.append(Entity(
+                    entity_type=EntityType.KNOWLEDGE,
+                    name=name,
+                    display_name=f"Knowledge: {name}",
+                    directory=rel_dir,
+                    keywords=keywords,
+                    path_patterns=[f"{rel_dir}/", rel_dir],
+                    text_patterns=[rf"{re.escape(rel_dir)}"],
+                ))
+
         return entities
 
     def _discover_tools(self) -> List[Entity]:
-        """发现工具实体"""
-        tools_dir = self.project_root / "工具"
-        if not tools_dir.exists():
-            return []
+        """Discover tool entities."""
+        entities: List[Entity] = []
 
-        # 工具目录没有子目录结构，作为单个实体处理
-        return [Entity(
-            entity_type=EntityType.TOOL,
-            name="工具",
-            display_name="工具",
-            directory="工具",
-            keywords=["工具", "tool", "session persistence", "聊天会话持久化"],
-            path_patterns=["工具/"],
-            text_patterns=[r"工具/"],
-        )]
+        for tools_dir in self._find_existing_dirs(_TOOL_DIRS):
+            parent_rel = str(tools_dir.relative_to(self.project_root))
+            entities.append(Entity(
+                entity_type=EntityType.TOOL,
+                name=parent_rel,
+                display_name=f"Tools: {parent_rel}",
+                directory=parent_rel,
+                keywords=[parent_rel, "tool", "tools"],
+                path_patterns=[f"{parent_rel}/"],
+                text_patterns=[rf"{re.escape(parent_rel)}/"],
+            ))
+
+        return entities
