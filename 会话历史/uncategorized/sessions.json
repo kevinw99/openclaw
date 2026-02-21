@@ -31,12 +31,12 @@
       "matches": []
     },
     {
-      "session_id": "b86636af-795b-446c-9b1a-232cf343c760",
-      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/b86636af-795b-446c-9b1a-232cf343c760.jsonl",
-      "start_time": "2026-02-19T20:46:30.536Z",
-      "end_time": "2026-02-19T20:54:42.091Z",
-      "message_count": 180,
-      "user_message_count": 73,
+      "session_id": "c249636c-cfc7-4eab-8237-af9f7dc2d6e8",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/c249636c-cfc7-4eab-8237-af9f7dc2d6e8.jsonl",
+      "start_time": "2026-02-20T23:51:42.652Z",
+      "end_time": "2026-02-20T23:52:55.647Z",
+      "message_count": 16,
+      "user_message_count": 7,
       "primary_entity": "Uncategorized",
       "matches": []
     }

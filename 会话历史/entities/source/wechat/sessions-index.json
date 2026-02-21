@@ -3,8 +3,19 @@
   "entity_type": "source",
   "display_name": "Source: wechat",
   "directory": "extensions/wechat",
-  "session_count": 5,
+  "session_count": 6,
   "sessions": [
+    {
+      "session_id": "f0729cea-be3e-4a39-9670-0f841425809e",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/f0729cea-be3e-4a39-9670-0f841425809e.jsonl",
+      "confidence": 0.146,
+      "start_time": "2026-02-20T23:24:49.505Z",
+      "end_time": "2026-02-20T23:53:54.661Z",
+      "message_count": 242,
+      "matched_message_count": 0,
+      "matched_messages": [],
+      "evidence": []
+    },
     {
       "session_id": "9347e2ce-4961-4b2d-8722-cdfcbda16ccf",
       "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/9347e2ce-4961-4b2d-8722-cdfcbda16ccf.jsonl",
@@ -37,11 +48,11 @@
     {
       "session_id": "fc3bb687-9c4c-4080-a849-a1507a0d6259",
       "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/fc3bb687-9c4c-4080-a849-a1507a0d6259.jsonl",
-      "confidence": 0.198,
+      "confidence": 0.207,
       "start_time": "2026-02-19T14:47:24.847Z",
-      "end_time": "2026-02-19T20:48:18.785Z",
-      "message_count": 687,
-      "matched_message_count": 6,
+      "end_time": "2026-02-19T23:52:58.391Z",
+      "message_count": 781,
+      "matched_message_count": 7,
       "matched_messages": [
         {
           "uuid": "8ba93380-338a-427d-b0ca-86e36ed3dace",
@@ -84,6 +95,13 @@
           "msg_type": "assistant",
           "timestamp": "2026-02-19T20:04:29.909Z",
           "preview": "Done. Here's what was fixed:\n\n**Problem**: Only 2 of 4 WeChat-related sessions produced replay files"
+        },
+        {
+          "uuid": "e1504732-8463-4557-9a84-7f4c7ad8fd26",
+          "line_number": 1616,
+          "msg_type": "user",
+          "timestamp": "2026-02-19T23:35:41.611Z",
+          "preview": "This session is being continued from a previous conversation that ran out of context. The summary be"
         }
       ],
       "evidence": [
@@ -182,5 +200,5 @@
       ]
     }
   ],
-  "last_updated": "2026-02-20T04:54:44.867050"
+  "last_updated": "2026-02-21T08:18:23.891746"
 }

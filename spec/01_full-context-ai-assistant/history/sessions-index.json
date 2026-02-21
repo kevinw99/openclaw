@@ -3,16 +3,45 @@
   "entity_type": "spec",
   "display_name": "Spec 01: full-context-ai-assistant",
   "directory": "spec/01_full-context-ai-assistant",
-  "session_count": 3,
+  "session_count": 4,
   "sessions": [
+    {
+      "session_id": "36454a45-5d77-4883-a4b3-6c33550c0822",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/36454a45-5d77-4883-a4b3-6c33550c0822.jsonl",
+      "confidence": 0.11,
+      "start_time": "2026-02-19T23:52:58.354Z",
+      "end_time": "2026-02-20T23:05:29.827Z",
+      "message_count": 740,
+      "matched_message_count": 2,
+      "matched_messages": [
+        {
+          "uuid": "d2cad81e-614b-4c20-b7d9-d21e034b5631",
+          "line_number": 1,
+          "msg_type": "user",
+          "timestamp": "2026-02-19T23:52:58.354Z",
+          "preview": "Implement the following plan:\n\n# Plan: Implement Task 01 — Personal Knowledge Extraction\n\n## Context"
+        },
+        {
+          "uuid": "43834c96-e81a-4a3f-a7bf-f651cf23eea3",
+          "line_number": 1342,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-20T23:04:58.713Z",
+          "preview": "Scan complete. Found **11 sessions** (up from 2 last time):\n\n| Classification | Sessions |\n|---|---|"
+        }
+      ],
+      "evidence": [
+        "Text: ...Implement the following plan:  # Plan: Implement Task 01 — Personal Knowledge Ex...",
+        "Text: ...Scan complete. Found **11 sessions** (up from 2 last time):  | Classification | ..."
+      ]
+    },
     {
       "session_id": "fc3bb687-9c4c-4080-a849-a1507a0d6259",
       "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/fc3bb687-9c4c-4080-a849-a1507a0d6259.jsonl",
-      "confidence": 0.122,
+      "confidence": 0.126,
       "start_time": "2026-02-19T14:47:24.847Z",
-      "end_time": "2026-02-19T20:48:18.785Z",
-      "message_count": 687,
-      "matched_message_count": 2,
+      "end_time": "2026-02-19T23:52:58.391Z",
+      "message_count": 781,
+      "matched_message_count": 3,
       "matched_messages": [
         {
           "uuid": "4b50ec4d-7cbd-4080-8452-6ca773684cfa",
@@ -27,11 +56,19 @@
           "msg_type": "assistant",
           "timestamp": "2026-02-19T20:37:03.691Z",
           "preview": "Here's the session history:\n\n**8 sessions total** — 5 classified, 3 uncategorized. All from 2026-02-"
+        },
+        {
+          "uuid": "939a7ebe-2e59-477b-85c8-bf244bba9749",
+          "line_number": 1681,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T23:36:31.093Z",
+          "preview": "Let me also check Spec 01 to understand how this task fits into the bigger picture."
         }
       ],
       "evidence": [
         "Text: ...It works. 111 entities discovered (2 specs, lots of source/knowledge from opencl...",
-        "Text: ...Here's the session history:  **8 sessions total** — 5 classified, 3 uncategorize..."
+        "Text: ...Here's the session history:  **8 sessions total** — 5 classified, 3 uncategorize...",
+        "Text: ...Let me also check Spec 01 to understand how this task fits into the bigger pictu..."
       ]
     },
     {
@@ -127,5 +164,5 @@
       ]
     }
   ],
-  "last_updated": "2026-02-20T04:54:44.868046"
+  "last_updated": "2026-02-21T08:18:23.892542"
 }

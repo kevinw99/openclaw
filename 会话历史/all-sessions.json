@@ -1,9 +1,47 @@
 {
-  "generated_at": "2026-02-20T04:54:44.869892",
-  "total_sessions": 10,
-  "categorized": 6,
+  "generated_at": "2026-02-21T08:18:34.106175",
+  "total_sessions": 14,
+  "categorized": 10,
   "uncategorized": 4,
   "sessions": [
+    {
+      "session_id": "4bf580be-ce57-48bc-a59b-82ef6d38cd13",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/4bf580be-ce57-48bc-a59b-82ef6d38cd13.jsonl",
+      "start_time": "2026-02-20T23:54:25.252Z",
+      "end_time": "2026-02-21T00:18:33.068Z",
+      "message_count": 121,
+      "user_message_count": 45,
+      "primary_entity": "Spec 02: wechat-channel",
+      "matches": [
+        {
+          "entity_id": "spec:02_wechat-channel",
+          "display_name": "Spec 02: wechat-channel",
+          "confidence": 0.159,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.3,
+          "keyword_score": 0.132,
+          "matched_messages": 4,
+          "total_messages": 121,
+          "evidence": [
+            "Text: ...The `replay` command needs an entity name. Here are the available entities:  **S...",
+            "Text: ...Replay generated for **Spec 02: wechat-channel** — 6 session files:  | File | Ti...",
+            "Text: ...Found it. That prompt is in session **`c249636c...`** from **2026-02-20**. The r...",
+            "Text: ...Now I see the issue. Session `c249636c` (the one with your \"Agent Teams / Swarm ..."
+          ]
+        },
+        {
+          "entity_id": "source:sessions",
+          "display_name": "Source: sessions",
+          "confidence": 0.126,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.0,
+          "keyword_score": 0.421,
+          "matched_messages": 0,
+          "total_messages": 121,
+          "evidence": []
+        }
+      ]
+    },
     {
       "session_id": "0bc52021-94c8-4557-9c99-069ca5e35337",
       "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/0bc52021-94c8-4557-9c99-069ca5e35337.jsonl",
@@ -275,6 +313,82 @@
       ]
     },
     {
+      "session_id": "36454a45-5d77-4883-a4b3-6c33550c0822",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/36454a45-5d77-4883-a4b3-6c33550c0822.jsonl",
+      "start_time": "2026-02-19T23:52:58.354Z",
+      "end_time": "2026-02-20T23:05:29.827Z",
+      "message_count": 740,
+      "user_message_count": 288,
+      "primary_entity": "Spec 03: personal-knowledge-extraction",
+      "matches": [
+        {
+          "entity_id": "spec:03_personal-knowledge-extraction",
+          "display_name": "Spec 03: personal-knowledge-extraction",
+          "confidence": 0.259,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.5,
+          "keyword_score": 0.196,
+          "matched_messages": 19,
+          "total_messages": 740,
+          "evidence": [
+            "Text: ...I have a new spec from other session. Spec 03: personal-knowledge-extraction, . ...",
+            "Text: ...**Yes, they overlap significantly.** Spec 03 is a formalized version of exactly ...",
+            "Text: ...Let me first check how OpenClaw's browser automation works, since Spec 03 mentio...",
+            "Text: ...First, align the data model with Spec 03's schema (add `message_id`, `content_ty...",
+            "Text: ...Now update Spec 03 status and Task 01 README to cross-reference:..."
+          ]
+        },
+        {
+          "entity_id": "spec:02_wechat-channel",
+          "display_name": "Spec 02: wechat-channel",
+          "confidence": 0.172,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.3,
+          "keyword_score": 0.175,
+          "matched_messages": 5,
+          "total_messages": 740,
+          "evidence": [
+            "Text: ...Two sessions found:  | Session | Date | Messages | Classification | |---------|-...",
+            "Text: ...Scan complete. Found **11 sessions** (up from 2 last time):  | Classification | ...",
+            "Text: ...Both replays generated:  **Spec 02: wechat-channel** — 6 sessions | File | Time ...",
+            "Text: ...<task-notification> <task-id>bac3c49</task-id> <tool-use-id>toolu_013CF24kffXcuE...",
+            "Text: ...Already retrieved that output — Spec 02 replay generated 6 session files success..."
+          ]
+        },
+        {
+          "entity_id": "source:knowledge_harvester",
+          "display_name": "Source: knowledge_harvester",
+          "confidence": 0.154,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.3,
+          "keyword_score": 0.112,
+          "matched_messages": 5,
+          "total_messages": 740,
+          "evidence": [
+            "Text: ...Implement the following plan:  # Plan: Implement Task 01 — Personal Knowledge Ex...",
+            "Text: ...All done. Here's a summary of what was implemented:  ## Phase 1 Complete: Knowle...",
+            "Text: ...**Yes, they overlap significantly.** Spec 03 is a formalized version of exactly ...",
+            "Text: ...Done. Removed `tasks/01_personal-knowledge-extraction/` and cleaned up the refer...",
+            "Text: ...This session is being continued from a previous conversation that ran out of con..."
+          ]
+        },
+        {
+          "entity_id": "spec:01_full-context-ai-assistant",
+          "display_name": "Spec 01: full-context-ai-assistant",
+          "confidence": 0.11,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.2,
+          "keyword_score": 0.1,
+          "matched_messages": 2,
+          "total_messages": 740,
+          "evidence": [
+            "Text: ...Implement the following plan:  # Plan: Implement Task 01 — Personal Knowledge Ex...",
+            "Text: ...Scan complete. Found **11 sessions** (up from 2 last time):  | Classification | ..."
+          ]
+        }
+      ]
+    },
+    {
       "session_id": "89b1d4ca-4af5-4832-80ad-27c4dcbe9622",
       "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/89b1d4ca-4af5-4832-80ad-27c4dcbe9622.jsonl",
       "start_time": "2026-02-19T13:56:38.026Z",
@@ -522,30 +636,108 @@
       "session_id": "b86636af-795b-446c-9b1a-232cf343c760",
       "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/b86636af-795b-446c-9b1a-232cf343c760.jsonl",
       "start_time": "2026-02-19T20:46:30.536Z",
-      "end_time": "2026-02-19T20:54:42.091Z",
-      "message_count": 180,
-      "user_message_count": 73,
+      "end_time": "2026-02-20T23:02:02.606Z",
+      "message_count": 424,
+      "user_message_count": 165,
+      "primary_entity": "Spec 03: personal-knowledge-extraction",
+      "matches": [
+        {
+          "entity_id": "spec:03_personal-knowledge-extraction",
+          "display_name": "Spec 03: personal-knowledge-extraction",
+          "confidence": 0.154,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.3,
+          "keyword_score": 0.115,
+          "matched_messages": 6,
+          "total_messages": 424,
+          "evidence": [
+            "Text: ...You're right — this is a spec, not a task. The distinction:  - **Task**: Operati...",
+            "Text: ...Spec 03 is created. Let me verify the structure looks right:...",
+            "Text: ...Done. `spec/03_personal-knowledge-extraction/` is set up with all 5 files:  | Fi...",
+            "Text: ...Incremental scan picked up 2 new/modified sessions:  - **`36454a45`** (377 msgs)...",
+            "Text: ...2 sessions, both classified:  | Session | Date | Msgs | Primary Entity | Seconda..."
+          ]
+        },
+        {
+          "entity_id": "spec:02_wechat-channel",
+          "display_name": "Spec 02: wechat-channel",
+          "confidence": 0.15,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.3,
+          "keyword_score": 0.1,
+          "matched_messages": 5,
+          "total_messages": 424,
+          "evidence": [
+            "Text: ...Implement the following plan:  # Plan: Three-Tier Session History + TASK Entity ...",
+            "Text: ...Let me also check Spec 02 as a real-world example to match the style:...",
+            "Text: ...Incremental scan picked up 2 new/modified sessions:  - **`36454a45`** (377 msgs)...",
+            "Text: ...2 sessions, both classified:  | Session | Date | Msgs | Primary Entity | Seconda...",
+            "Text: ...Full scan complete. **11 sessions**, 8 classified, 3 uncategorized:  | Session |..."
+          ]
+        }
+      ]
+    },
+    {
+      "session_id": "c249636c-cfc7-4eab-8237-af9f7dc2d6e8",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/c249636c-cfc7-4eab-8237-af9f7dc2d6e8.jsonl",
+      "start_time": "2026-02-20T23:51:42.652Z",
+      "end_time": "2026-02-20T23:52:55.647Z",
+      "message_count": 16,
+      "user_message_count": 7,
       "primary_entity": "Uncategorized",
       "matches": []
     },
     {
-      "session_id": "fc3bb687-9c4c-4080-a849-a1507a0d6259",
-      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/fc3bb687-9c4c-4080-a849-a1507a0d6259.jsonl",
-      "start_time": "2026-02-19T14:47:24.847Z",
-      "end_time": "2026-02-19T20:48:18.785Z",
-      "message_count": 687,
-      "user_message_count": 269,
+      "session_id": "f0729cea-be3e-4a39-9670-0f841425809e",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/f0729cea-be3e-4a39-9670-0f841425809e.jsonl",
+      "start_time": "2026-02-20T23:24:49.505Z",
+      "end_time": "2026-02-20T23:53:54.661Z",
+      "message_count": 242,
+      "user_message_count": 90,
       "primary_entity": "Spec 02: wechat-channel",
       "matches": [
         {
           "entity_id": "spec:02_wechat-channel",
           "display_name": "Spec 02: wechat-channel",
-          "confidence": 0.284,
+          "confidence": 0.146,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.0,
+          "keyword_score": 0.488,
+          "matched_messages": 0,
+          "total_messages": 242,
+          "evidence": []
+        },
+        {
+          "entity_id": "source:wechat",
+          "display_name": "Source: wechat",
+          "confidence": 0.146,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.0,
+          "keyword_score": 0.488,
+          "matched_messages": 0,
+          "total_messages": 242,
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "session_id": "fc3bb687-9c4c-4080-a849-a1507a0d6259",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/fc3bb687-9c4c-4080-a849-a1507a0d6259.jsonl",
+      "start_time": "2026-02-19T14:47:24.847Z",
+      "end_time": "2026-02-19T23:52:58.391Z",
+      "message_count": 781,
+      "user_message_count": 299,
+      "primary_entity": "Spec 02: wechat-channel",
+      "matches": [
+        {
+          "entity_id": "spec:02_wechat-channel",
+          "display_name": "Spec 02: wechat-channel",
+          "confidence": 0.292,
           "file_path_score": 0.0,
           "text_pattern_score": 0.5,
-          "keyword_score": 0.281,
-          "matched_messages": 25,
-          "total_messages": 687,
+          "keyword_score": 0.308,
+          "matched_messages": 28,
+          "total_messages": 781,
           "evidence": [
             "Text: ...Here's a summary of everything done:  ## Completed  ### Bug fix: `sendWeChatMess...",
             "Text: ...Now I see the issue. The entity registry is built for the old Enpack-CCC project...",
@@ -557,12 +749,12 @@
         {
           "entity_id": "source:wechat",
           "display_name": "Source: wechat",
-          "confidence": 0.198,
+          "confidence": 0.207,
           "file_path_score": 0.0,
           "text_pattern_score": 0.3,
-          "keyword_score": 0.259,
-          "matched_messages": 6,
-          "total_messages": 687,
+          "keyword_score": 0.288,
+          "matched_messages": 7,
+          "total_messages": 781,
           "evidence": [
             "Text: ...The wechat sessions exist but the classifier didn't map them to `spec/02_wechat-...",
             "Text: ...The keyword_score is `0.227` and text_pattern_score is `0.200`. The issue is the...",
@@ -574,15 +766,45 @@
         {
           "entity_id": "spec:01_full-context-ai-assistant",
           "display_name": "Spec 01: full-context-ai-assistant",
-          "confidence": 0.122,
+          "confidence": 0.126,
           "file_path_score": 0.0,
           "text_pattern_score": 0.2,
-          "keyword_score": 0.141,
-          "matched_messages": 2,
-          "total_messages": 687,
+          "keyword_score": 0.154,
+          "matched_messages": 3,
+          "total_messages": 781,
           "evidence": [
             "Text: ...It works. 111 entities discovered (2 specs, lots of source/knowledge from opencl...",
-            "Text: ...Here's the session history:  **8 sessions total** — 5 classified, 3 uncategorize..."
+            "Text: ...Here's the session history:  **8 sessions total** — 5 classified, 3 uncategorize...",
+            "Text: ...Let me also check Spec 01 to understand how this task fits into the bigger pictu..."
+          ]
+        },
+        {
+          "entity_id": "spec:03_personal-knowledge-extraction",
+          "display_name": "Spec 03: personal-knowledge-extraction",
+          "confidence": 0.11,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.2,
+          "keyword_score": 0.1,
+          "matched_messages": 3,
+          "total_messages": 781,
+          "evidence": [
+            "Text: ...This session is being continued from a previous conversation that ran out of con...",
+            "Text: ...Good — the task already exists at `tasks/01_personal-knowledge-extraction/`. Let...",
+            "Text: ...Now I have the full picture. Task 01 (`tasks/01_personal-knowledge-extraction/`)..."
+          ]
+        },
+        {
+          "entity_id": "source:knowledge_harvester",
+          "display_name": "Source: knowledge_harvester",
+          "confidence": 0.11,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.2,
+          "keyword_score": 0.1,
+          "matched_messages": 2,
+          "total_messages": 781,
+          "evidence": [
+            "Text: ...This session is being continued from a previous conversation that ran out of con...",
+            "Text: ...The plan is written. Here's a summary of what it covers:  **Plan: Implement Task..."
           ]
         },
         {
@@ -593,7 +815,7 @@
           "text_pattern_score": 0.2,
           "keyword_score": 0.1,
           "matched_messages": 2,
-          "total_messages": 687,
+          "total_messages": 781,
           "evidence": [
             "Text: ...Good — there are already 5 test files. The implementation is complete. Let me ch...",
             "Text: ...Now I have full context. Let me address your questions and then continue working..."

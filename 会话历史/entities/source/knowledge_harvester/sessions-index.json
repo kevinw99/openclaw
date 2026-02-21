@@ -1,0 +1,92 @@
+{
+  "entity_id": "source:knowledge_harvester",
+  "entity_type": "source",
+  "display_name": "Source: knowledge_harvester",
+  "directory": "src/knowledge_harvester",
+  "session_count": 2,
+  "sessions": [
+    {
+      "session_id": "36454a45-5d77-4883-a4b3-6c33550c0822",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/36454a45-5d77-4883-a4b3-6c33550c0822.jsonl",
+      "confidence": 0.154,
+      "start_time": "2026-02-19T23:52:58.354Z",
+      "end_time": "2026-02-20T23:05:29.827Z",
+      "message_count": 740,
+      "matched_message_count": 5,
+      "matched_messages": [
+        {
+          "uuid": "d2cad81e-614b-4c20-b7d9-d21e034b5631",
+          "line_number": 1,
+          "msg_type": "user",
+          "timestamp": "2026-02-19T23:52:58.354Z",
+          "preview": "Implement the following plan:\n\n# Plan: Implement Task 01 — Personal Knowledge Extraction\n\n## Context"
+        },
+        {
+          "uuid": "9fd061d9-de97-4dcc-b2c3-a577cd207882",
+          "line_number": 304,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-20T00:05:43.962Z",
+          "preview": "All done. Here's a summary of what was implemented:\n\n## Phase 1 Complete: Knowledge Harvester\n\n### F"
+        },
+        {
+          "uuid": "75abbb7c-2832-4f6b-b213-6eda762560dd",
+          "line_number": 340,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-20T00:40:52.457Z",
+          "preview": "**Yes, they overlap significantly.** Spec 03 is a formalized version of exactly what Task 01 and our"
+        },
+        {
+          "uuid": "b43c1095-e6fb-4c01-b1ff-bbf7eaf3b09e",
+          "line_number": 591,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-20T01:41:15.661Z",
+          "preview": "Done. Removed `tasks/01_personal-knowledge-extraction/` and cleaned up the reference in Spec 03's st"
+        },
+        {
+          "uuid": "7b08d28b-e438-417d-a4ba-a54f935c14a0",
+          "line_number": 722,
+          "msg_type": "user",
+          "timestamp": "2026-02-20T07:38:28.028Z",
+          "preview": "This session is being continued from a previous conversation that ran out of context. The summary be"
+        }
+      ],
+      "evidence": [
+        "Text: ...Implement the following plan:  # Plan: Implement Task 01 — Personal Knowledge Ex...",
+        "Text: ...All done. Here's a summary of what was implemented:  ## Phase 1 Complete: Knowle...",
+        "Text: ...**Yes, they overlap significantly.** Spec 03 is a formalized version of exactly ...",
+        "Text: ...Done. Removed `tasks/01_personal-knowledge-extraction/` and cleaned up the refer...",
+        "Text: ...This session is being continued from a previous conversation that ran out of con..."
+      ]
+    },
+    {
+      "session_id": "fc3bb687-9c4c-4080-a849-a1507a0d6259",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/fc3bb687-9c4c-4080-a849-a1507a0d6259.jsonl",
+      "confidence": 0.11,
+      "start_time": "2026-02-19T14:47:24.847Z",
+      "end_time": "2026-02-19T23:52:58.391Z",
+      "message_count": 781,
+      "matched_message_count": 2,
+      "matched_messages": [
+        {
+          "uuid": "e1504732-8463-4557-9a84-7f4c7ad8fd26",
+          "line_number": 1616,
+          "msg_type": "user",
+          "timestamp": "2026-02-19T23:35:41.611Z",
+          "preview": "This session is being continued from a previous conversation that ran out of context. The summary be"
+        },
+        {
+          "uuid": "485591c2-b332-4463-b10f-492b1158426b",
+          "line_number": 1691,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-19T23:37:22.622Z",
+          "preview": "The plan is written. Here's a summary of what it covers:\n\n**Plan: Implement Task 01 — Personal Knowl"
+        }
+      ],
+      "evidence": [
+        "Text: ...This session is being continued from a previous conversation that ran out of con...",
+        "Text: ...The plan is written. Here's a summary of what it covers:  **Plan: Implement Task..."
+      ]
+    }
+  ],
+  "last_updated": "2026-02-21T08:18:23.892968"
+}

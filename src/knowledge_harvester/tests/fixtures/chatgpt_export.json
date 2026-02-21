@@ -1,0 +1,189 @@
+[
+  {
+    "title": "Python 装饰器教程",
+    "create_time": 1700000000.0,
+    "update_time": 1700001000.0,
+    "id": "conv-001-decorators",
+    "default_model_slug": "gpt-4",
+    "mapping": {
+      "node-root": {
+        "id": "node-root",
+        "message": null,
+        "parent": null,
+        "children": ["node-system"]
+      },
+      "node-system": {
+        "id": "node-system",
+        "message": {
+          "id": "msg-system",
+          "author": {"role": "system", "metadata": {}},
+          "content": {"content_type": "text", "parts": [""]},
+          "create_time": 1700000000.0,
+          "status": "finished_successfully",
+          "metadata": {}
+        },
+        "parent": "node-root",
+        "children": ["node-user-1"]
+      },
+      "node-user-1": {
+        "id": "node-user-1",
+        "message": {
+          "id": "msg-user-1",
+          "author": {"role": "user", "metadata": {}},
+          "content": {"content_type": "text", "parts": ["什么是 Python 装饰器？请举例说明。"]},
+          "create_time": 1700000010.0,
+          "status": "finished_successfully",
+          "metadata": {}
+        },
+        "parent": "node-system",
+        "children": ["node-assistant-1"]
+      },
+      "node-assistant-1": {
+        "id": "node-assistant-1",
+        "message": {
+          "id": "msg-assistant-1",
+          "author": {"role": "assistant", "metadata": {}},
+          "content": {"content_type": "text", "parts": ["Python 装饰器是一种特殊的函数，它可以修改其他函数的行为。\n\n```python\ndef my_decorator(func):\n    def wrapper():\n        print('Before')\n        func()\n        print('After')\n    return wrapper\n\n@my_decorator\ndef say_hello():\n    print('Hello!')\n```"]},
+          "create_time": 1700000020.0,
+          "status": "finished_successfully",
+          "metadata": {"model_slug": "gpt-4"}
+        },
+        "parent": "node-user-1",
+        "children": ["node-user-2"]
+      },
+      "node-user-2": {
+        "id": "node-user-2",
+        "message": {
+          "id": "msg-user-2",
+          "author": {"role": "user", "metadata": {}},
+          "content": {"content_type": "text", "parts": ["能再给一个实际项目中的例子吗？"]},
+          "create_time": 1700000100.0,
+          "status": "finished_successfully",
+          "metadata": {}
+        },
+        "parent": "node-assistant-1",
+        "children": ["node-assistant-2"]
+      },
+      "node-assistant-2": {
+        "id": "node-assistant-2",
+        "message": {
+          "id": "msg-assistant-2",
+          "author": {"role": "assistant", "metadata": {}},
+          "content": {"content_type": "text", "parts": ["当然！在 Web 开发中，装饰器常用于权限检查：\n\n```python\ndef require_auth(func):\n    def wrapper(request, *args, **kwargs):\n        if not request.user.is_authenticated:\n            return redirect('/login')\n        return func(request, *args, **kwargs)\n    return wrapper\n```"]},
+          "create_time": 1700000110.0,
+          "status": "finished_successfully",
+          "metadata": {"model_slug": "gpt-4"}
+        },
+        "parent": "node-user-2",
+        "children": []
+      }
+    }
+  },
+  {
+    "title": "React Hooks 入门",
+    "create_time": 1700100000.0,
+    "update_time": 1700101000.0,
+    "id": "conv-002-react-hooks",
+    "default_model_slug": "gpt-4o",
+    "mapping": {
+      "root": {
+        "id": "root",
+        "message": null,
+        "parent": null,
+        "children": ["sys"]
+      },
+      "sys": {
+        "id": "sys",
+        "message": {
+          "id": "msg-sys",
+          "author": {"role": "system", "metadata": {}},
+          "content": {"content_type": "text", "parts": [""]},
+          "create_time": 1700100000.0,
+          "status": "finished_successfully",
+          "metadata": {}
+        },
+        "parent": "root",
+        "children": ["u1"]
+      },
+      "u1": {
+        "id": "u1",
+        "message": {
+          "id": "msg-u1",
+          "author": {"role": "user", "metadata": {}},
+          "content": {"content_type": "text", "parts": ["React useState 和 useEffect 有什么区别？"]},
+          "create_time": 1700100010.0,
+          "status": "finished_successfully",
+          "metadata": {}
+        },
+        "parent": "sys",
+        "children": ["a1"]
+      },
+      "a1": {
+        "id": "a1",
+        "message": {
+          "id": "msg-a1",
+          "author": {"role": "assistant", "metadata": {}},
+          "content": {"content_type": "text", "parts": ["useState 用于管理组件状态，useEffect 用于处理副作用。\n\nuseState 返回一个状态值和更新函数。\nuseEffect 在组件渲染后执行副作用操作。"]},
+          "create_time": 1700100020.0,
+          "status": "finished_successfully",
+          "metadata": {"model_slug": "gpt-4o"}
+        },
+        "parent": "u1",
+        "children": []
+      }
+    }
+  },
+  {
+    "title": "图片生成测试",
+    "create_time": 1700200000.0,
+    "update_time": 1700200500.0,
+    "id": "conv-003-image",
+    "default_model_slug": "gpt-4",
+    "mapping": {
+      "root": {
+        "id": "root",
+        "message": null,
+        "parent": null,
+        "children": ["u1"]
+      },
+      "u1": {
+        "id": "u1",
+        "message": {
+          "id": "msg-u1",
+          "author": {"role": "user", "metadata": {}},
+          "content": {"content_type": "text", "parts": ["画一只猫"]},
+          "create_time": 1700200010.0,
+          "status": "finished_successfully",
+          "metadata": {}
+        },
+        "parent": "root",
+        "children": ["a1"]
+      },
+      "a1": {
+        "id": "a1",
+        "message": {
+          "id": "msg-a1",
+          "author": {"role": "assistant", "metadata": {}},
+          "content": {
+            "content_type": "multimodal_text",
+            "parts": [
+              "这是一只可爱的猫咪：",
+              {
+                "content_type": "image_asset_pointer",
+                "asset_pointer": "file-service://file-abc123",
+                "size_bytes": 50000,
+                "width": 1024,
+                "height": 1024
+              }
+            ]
+          },
+          "create_time": 1700200020.0,
+          "status": "finished_successfully",
+          "metadata": {"model_slug": "gpt-4"}
+        },
+        "parent": "u1",
+        "children": []
+      }
+    }
+  }
+]

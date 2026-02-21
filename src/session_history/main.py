@@ -19,7 +19,8 @@ from session_history.generator.html_generator import HtmlGenerator
 from session_history.generator.markdown_generator import MarkdownGenerator
 from session_history.generator.readable_replay_generator import ReadableReplayGenerator
 from session_history.generator.replay_index_generator import ReplayIndexGenerator
-from session_history.models.category import SessionClassification
+from session_history.models.category import Entity, EntityMatch, EntityType, SessionClassification
+from session_history.models.index import SessionReference
 
 
 def cmd_scan(args):
@@ -87,10 +88,10 @@ def cmd_scan(args):
     # 3. 分类
     print(f"\n[3/4] 分类 {len(sessions)} 个会话...")
     classifier = CompositeClassifier(settings)
-    classifications = []
+    new_classifications = []
     for session in sessions:
         classification = classifier.classify(session, entities)
-        classifications.append(classification)
+        new_classifications.append(classification)
         if classification.matches:
             top = classification.matches[0]
             print(f"  {session.session_id[:8]}... -> {top.entity.display_name} ({top.confidence:.2f})")
@@ -99,12 +100,21 @@ def cmd_scan(args):
         else:
             print(f"  {session.session_id[:8]}... -> Uncategorized")
 
+    # 增量模式: 合并新分类到已有分类
+    history_dir = settings.history_dir
+    if args.incremental:
+        classifications = _merge_classifications(new_classifications, history_dir)
+    else:
+        classifications = new_classifications
+
     # 4. 生成索引
     print(f"\n[4/4] 生成索引...")
     index_gen = IndexGenerator(settings.project_root)
 
     # 按实体生成索引 (session 归入所有匹配的实体, 支持多实体 session 拆分)
     entity_refs = {}  # entity_id -> [SessionReference]
+    # 为合并后的全量分类构建引用, 需要加载所有 session 对象
+    all_sessions_map = {s.session_id: s for s in sessions}  # 已加载的 session
     for classification in classifications:
         if not classification.matches:
             continue
@@ -112,10 +122,19 @@ def cmd_scan(args):
             eid = match.entity.entity_id
             if eid not in entity_refs:
                 entity_refs[eid] = {"entity": match.entity, "refs": []}
-            ref = classifier.build_session_reference(
-                next(s for s in sessions if s.session_id == classification.session_id),
-                match,
-            )
+            # 尝试从已加载 session 获取, 否则从分类记录构建 ref
+            loaded_session = all_sessions_map.get(classification.session_id)
+            if loaded_session:
+                ref = classifier.build_session_reference(loaded_session, match)
+            else:
+                ref = SessionReference(
+                    session_id=classification.session_id,
+                    file_path=classification.file_path,
+                    confidence=match.confidence,
+                    start_time=classification.start_time,
+                    end_time=classification.end_time,
+                    message_count=classification.message_count,
+                )
             entity_refs[eid]["refs"].append(ref)
 
     for eid, data in entity_refs.items():
@@ -134,7 +153,6 @@ def cmd_scan(args):
                 print(f"  ✗ {entity.display_name}: 已移除空索引")
 
     # 主索引和报告
-    history_dir = settings.history_dir
     index_gen.write_master_index(classifications, history_dir)
     index_gen.write_categorization_report(classifications, entities, history_dir)
 
@@ -149,7 +167,32 @@ def cmd_scan(args):
         }
         with open(uncat_dir / "sessions.json", "w", encoding="utf-8") as f:
             json.dump(uncat_data, f, ensure_ascii=False, indent=2)
-        print(f"  ✓ Uncategorized: {len(uncategorized)} 会话")
+
+        # 生成未分类会话的回放文件
+        uncat_sessions = []
+        for c in uncategorized:
+            s = all_sessions_map.get(c.session_id)
+            if not s:
+                # 增量模式: 从文件加载未重新扫描的 session
+                fp = c.file_path
+                if fp and Path(fp).exists():
+                    s = reader.read_session(fp)
+            if s:
+                uncat_sessions.append(s)
+        if uncat_sessions:
+            replay_gen = ReadableReplayGenerator(exclude_thinking=settings.exclude_thinking)
+            uncat_files = replay_gen.generate_uncategorized(uncat_sessions, history_dir)
+            print(f"  ✓ Uncategorized: {len(uncategorized)} 会话, {len(uncat_files)} 回放文件")
+    else:
+        # 清理空的 uncategorized 目录
+        uncat_replay = history_dir / "uncategorized" / "replay"
+        if uncat_replay.exists():
+            for old_file in uncat_replay.glob("*.md"):
+                old_file.unlink()
+        uncat_json = history_dir / "uncategorized" / "sessions.json"
+        if uncat_json.exists():
+            with open(uncat_json, "w", encoding="utf-8") as f:
+                json.dump({"sessions": [], "count": 0}, f, ensure_ascii=False, indent=2)
 
     # 保存扫描状态 (用于增量扫描)
     scan_state = {
@@ -167,6 +210,62 @@ def cmd_scan(args):
     print(f"  未分类: {len(uncategorized)}")
     print(f"  主索引: {history_dir / 'all-sessions.json'}")
     print(f"  报告: {history_dir / 'categorization-report.md'}")
+
+
+def _merge_classifications(new_classifications, history_dir):
+    """增量扫描时, 合并新分类到已有的 all-sessions.json"""
+    master_path = history_dir / "all-sessions.json"
+    if not master_path.exists():
+        return new_classifications
+
+    with open(master_path, "r", encoding="utf-8") as f:
+        existing_data = json.load(f)
+
+    # 用 session_id 做 key, 新分类覆盖旧分类
+    new_ids = {c.session_id for c in new_classifications}
+
+    # 从旧数据重建 SessionClassification 对象 (仅保留未被重新扫描的)
+    merged = list(new_classifications)
+    for s in existing_data.get("sessions", []):
+        if s["session_id"] in new_ids:
+            continue  # 已被重新扫描, 使用新结果
+        # 重建 SessionClassification
+        matches = []
+        for m in s.get("matches", []):
+            eid = m.get("entity_id", "")
+            etype_str, _, ename = eid.partition(":")
+            try:
+                etype = EntityType(etype_str)
+            except ValueError:
+                continue
+            entity = Entity(
+                entity_type=etype,
+                name=ename,
+                display_name=m.get("display_name", ename),
+                directory="",
+            )
+            matches.append(EntityMatch(
+                entity=entity,
+                confidence=m.get("confidence", 0),
+                file_path_score=m.get("file_path_score", 0),
+                text_pattern_score=m.get("text_pattern_score", 0),
+                keyword_score=m.get("keyword_score", 0),
+                matched_messages=m.get("matched_messages", 0),
+                total_messages=m.get("total_messages", 0),
+                evidence=m.get("evidence", []),
+            ))
+        classification = SessionClassification(
+            session_id=s["session_id"],
+            file_path=s.get("file_path", ""),
+            matches=matches,
+            start_time=s.get("start_time", ""),
+            end_time=s.get("end_time", ""),
+            message_count=s.get("message_count", 0),
+            user_message_count=s.get("user_message_count", 0),
+        )
+        merged.append(classification)
+
+    return merged
 
 
 def _load_entity_index(settings, entity_id):
@@ -228,6 +327,11 @@ def cmd_replay(args):
     settings = Settings()
     entity_id = args.entity
 
+    # 特殊处理: replay uncategorized
+    if entity_id.lower() in ("uncategorized", "uncat"):
+        _replay_uncategorized(settings)
+        return
+
     result = _load_entity_index(settings, entity_id)
     if result is None:
         return
@@ -260,6 +364,44 @@ def cmd_replay(args):
         print(f"Total: {len(generated_files)} session file(s)")
 
     print(f"\n完成! 为 {matched_entity.display_name} 生成了回放文件")
+
+
+def _replay_uncategorized(settings):
+    """生成未分类会话的回放"""
+    history_dir = settings.history_dir
+    uncat_json = history_dir / "uncategorized" / "sessions.json"
+
+    if not uncat_json.exists():
+        print("没有未分类会话。请先运行 scan。")
+        return
+
+    with open(uncat_json, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    reader = JsonlReader(
+        exclude_thinking=settings.exclude_thinking,
+        exclude_sidechains=settings.exclude_sidechains,
+    )
+
+    sessions = []
+    for s in data.get("sessions", []):
+        fp = s.get("file_path", "")
+        if fp and Path(fp).exists():
+            sessions.append(reader.read_session(fp))
+
+    if not sessions:
+        print("未分类会话的 JSONL 文件不存在。")
+        return
+
+    replay_gen = ReadableReplayGenerator(exclude_thinking=settings.exclude_thinking)
+    generated_files = replay_gen.generate_uncategorized(sessions, history_dir)
+
+    print(f"Readable replay for Uncategorized sessions:")
+    for fp in generated_files:
+        print(f"  {fp.name}")
+    print(f"Output: {history_dir / 'uncategorized' / 'replay'}")
+    print(f"Total: {len(generated_files)} session file(s)")
+    print(f"\n完成! 为 {len(generated_files)} 个未分类会话生成了回放文件")
 
 
 def cmd_search(args):

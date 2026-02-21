@@ -39,8 +39,8 @@
       "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/fc3bb687-9c4c-4080-a849-a1507a0d6259.jsonl",
       "confidence": 0.11,
       "start_time": "2026-02-19T14:47:24.847Z",
-      "end_time": "2026-02-19T20:48:18.785Z",
-      "message_count": 687,
+      "end_time": "2026-02-19T23:52:58.391Z",
+      "message_count": 781,
       "matched_message_count": 2,
       "matched_messages": [
         {
@@ -112,5 +112,5 @@
       ]
     }
   ],
-  "last_updated": "2026-02-20T04:54:44.867578"
+  "last_updated": "2026-02-21T08:18:23.892246"
 }
