@@ -55,6 +55,7 @@ Build an OpenClaw plugin with a layered architecture: platform-specific adapters
 ```
 
 Fields:
+
 - `platform`: chatgpt | grok | doubao | wechat | claude
 - `conversation_id`: Platform-specific conversation identifier
 - `conversation_title`: Human-readable title (if available)
@@ -98,6 +99,7 @@ Steps:
 ```
 
 Key challenges:
+
 - Infinite scroll handling (scroll up to load older messages)
 - Dynamic rendering (React, content loads async)
 - Rate limiting between conversations
@@ -105,6 +107,7 @@ Key challenges:
 ### Doubao Adapter (Playwright)
 
 Similar to Grok but with additional challenges:
+
 - Bytedance anti-bot detection (fingerprinting, behavioral analysis)
 - Use Chrome extension profile (existing cookies) to avoid login flow
 - Slower extraction pace needed
@@ -115,14 +118,17 @@ Similar to Grok but with additional challenges:
 Three possible approaches to evaluate:
 
 **Option A: wxauto (GUI automation)**
+
 - Pros: Known working, community maintained
 - Cons: Windows only, very slow, fragile
 
 **Option B: Local DB decryption**
+
 - Pros: Fast, offline, complete history
 - Cons: Requires key extraction from memory, version-dependent
 
 **Option C: Web WeChat + Playwright**
+
 - Pros: Cross-platform, consistent with other adapters
 - Cons: Web WeChat has limited history, may be deprecated
 

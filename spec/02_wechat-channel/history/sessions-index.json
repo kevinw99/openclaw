@@ -3,15 +3,36 @@
   "entity_type": "spec",
   "display_name": "Spec 02: wechat-channel",
   "directory": "spec/02_wechat-channel",
-  "session_count": 9,
+  "session_count": 10,
   "sessions": [
+    {
+      "session_id": "59e39b64-c71d-420a-a01f-95343bd20f88",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/59e39b64-c71d-420a-a01f-95343bd20f88.jsonl",
+      "confidence": 0.113,
+      "start_time": "2026-02-21T00:22:24.097Z",
+      "end_time": "2026-02-21T01:09:08.833Z",
+      "message_count": 247,
+      "matched_message_count": 1,
+      "matched_messages": [
+        {
+          "uuid": "afaa4352-ac40-45a5-bf44-e6ffb3557b83",
+          "line_number": 256,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-21T01:05:32.703Z",
+          "preview": "Here are all **14 sessions** in the history. Key ones for this project:\n\n| Session | Date | Msgs | P"
+        }
+      ],
+      "evidence": [
+        "Text: ...Here are all **14 sessions** in the history. Key ones for this project:  | Sessi..."
+      ]
+    },
     {
       "session_id": "4bf580be-ce57-48bc-a59b-82ef6d38cd13",
       "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/4bf580be-ce57-48bc-a59b-82ef6d38cd13.jsonl",
-      "confidence": 0.159,
+      "confidence": 0.158,
       "start_time": "2026-02-20T23:54:25.252Z",
-      "end_time": "2026-02-21T00:18:33.068Z",
-      "message_count": 121,
+      "end_time": "2026-02-21T00:18:41.280Z",
+      "message_count": 126,
       "matched_message_count": 4,
       "matched_messages": [
         {
@@ -53,10 +74,10 @@
     {
       "session_id": "f0729cea-be3e-4a39-9670-0f841425809e",
       "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/f0729cea-be3e-4a39-9670-0f841425809e.jsonl",
-      "confidence": 0.146,
+      "confidence": 0.14,
       "start_time": "2026-02-20T23:24:49.505Z",
-      "end_time": "2026-02-20T23:53:54.661Z",
-      "message_count": 242,
+      "end_time": "2026-02-21T00:21:05.811Z",
+      "message_count": 244,
       "matched_message_count": 0,
       "matched_messages": [],
       "evidence": []
@@ -139,5 +160,5 @@
       "evidence": []
     }
   ],
-  "last_updated": "2026-02-21T08:18:34.103372"
+  "last_updated": "2026-02-21T09:09:13.956347"
 }

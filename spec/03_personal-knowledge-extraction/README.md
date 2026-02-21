@@ -3,6 +3,7 @@
 > Extract conversation history from multiple AI platforms and chat apps into a unified local knowledge base, using official APIs where available and browser automation as fallback.
 
 ## Quick Links
+
 - [Requirements](./requirements.md)
 - [Design](./design.md)
 - [Tasks](./tasks.md)
@@ -25,6 +26,7 @@ Users accumulate valuable personal knowledge across many AI tools — ChatGPT, C
 ## Scope
 
 **In scope:**
+
 - ChatGPT conversation export (official JSON → JSONL parser)
 - Grok web conversation extraction (Playwright)
 - Doubao (豆包) web conversation extraction (Playwright)
@@ -34,6 +36,7 @@ Users accumulate valuable personal knowledge across many AI tools — ChatGPT, C
 - OpenClaw skill: `/extract-history <platform>`
 
 **Out of scope (initial cut):**
+
 - Real-time sync / live monitoring
 - Sending messages or interacting with platforms
 - Cloud storage or cross-device sync
@@ -43,6 +46,7 @@ Users accumulate valuable personal knowledge across many AI tools — ChatGPT, C
 ## References
 
 ### Internal
+
 - `[ref-browser]` /Users/kweng/AI/openclaw/src/browser/ — Playwright browser automation
 - `[ref-chrome-ext]` /Users/kweng/AI/openclaw/assets/chrome-extension/ — Chrome extension for controlling existing tabs
 - `[ref-media-understanding]` /Users/kweng/AI/openclaw/src/media-understanding/ — Vision AI for screenshot analysis
@@ -50,6 +54,7 @@ Users accumulate valuable personal knowledge across many AI tools — ChatGPT, C
 - `[ref-spec-01]` /Users/kweng/AI/openclaw/spec/01_full-context-ai-assistant/ — consumer of extracted knowledge
 
 ### External
+
 - `[ref-chatgpt-export]` ChatGPT Settings → Data controls → Export data
 - `[ref-playwright]` https://playwright.dev/docs/api/class-page
 - `[ref-wxauto]` https://github.com/cluic/wxauto — WeChat desktop GUI automation (Windows)

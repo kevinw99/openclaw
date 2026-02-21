@@ -1,0 +1,70 @@
+{
+  "entity_id": "knowledge:conversations",
+  "entity_type": "knowledge",
+  "display_name": "Knowledge: conversations",
+  "directory": "知识库/conversations",
+  "session_count": 1,
+  "sessions": [
+    {
+      "session_id": "59e39b64-c71d-420a-a01f-95343bd20f88",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/59e39b64-c71d-420a-a01f-95343bd20f88.jsonl",
+      "confidence": 0.493,
+      "start_time": "2026-02-21T00:22:24.097Z",
+      "end_time": "2026-02-21T01:09:08.833Z",
+      "message_count": 247,
+      "matched_message_count": 6,
+      "matched_messages": [
+        {
+          "uuid": "1b5582ac-f6a4-40e8-8176-24feee0296fd",
+          "line_number": 239,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-21T00:58:50.068Z",
+          "preview": "The data is saved as JSONL files under `知识库/conversations/wechat/`. Here's how to access them:\n\n**1."
+        },
+        {
+          "uuid": "f0231f5f-ea28-4728-a6d8-7a5d0bbe72c2",
+          "line_number": 242,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-21T00:58:52.249Z",
+          "preview": ""
+        },
+        {
+          "uuid": "887163bf-959f-480f-b715-40edaf83a3a5",
+          "line_number": 246,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-21T00:59:03.693Z",
+          "preview": "Here's a summary of how to read the messages:\n\n| Method | Command |\n|--------|---------|\n| **Search*"
+        },
+        {
+          "uuid": "0c7ecad6-851d-4daa-998d-9f73edea99f2",
+          "line_number": 294,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-21T01:06:39.054Z",
+          "preview": "The remaining 430 untracked files are the extracted WeChat conversation data (`知识库/conversations/wec"
+        },
+        {
+          "uuid": "0dd28c0b-c3ca-4fcd-8343-cff3e80e03de",
+          "line_number": 295,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-21T01:06:39.592Z",
+          "preview": ""
+        },
+        {
+          "uuid": "8dffed8d-b404-4d78-a7f6-e31c5e4f14a7",
+          "line_number": 303,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-21T01:07:08.740Z",
+          "preview": "Committed and pushed. **74 files changed, 15,762 insertions** including:\n\n- WeChat WCDB decryption a"
+        }
+      ],
+      "evidence": [
+        "File: 知识库/conversations/wechat/*.jsonl",
+        "File: 知识库/conversations/wechat/*.jsonl",
+        "File: 知识库/conversations/wechat/index.json",
+        "Text: ...The data is saved as JSONL files under `知识库/conversations/wechat/`. Here's how t...",
+        "Text: ...Here's a summary of how to read the messages:  | Method | Command | |--------|--..."
+      ]
+    }
+  ],
+  "last_updated": "2026-02-21T09:09:13.958328"
+}

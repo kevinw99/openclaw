@@ -15,21 +15,25 @@ Users have valuable personal data scattered across multiple AI platforms with no
 ## Platform Analysis
 
 ### ChatGPT
+
 - **Official export**: Yes — Settings → Data controls → Export. Delivers ZIP with `conversations.json`
 - **API**: Conversations API exists but doesn't expose full history
 - **Strategy**: Parse official export JSON (Phase 1, easiest)
 
 ### Claude
+
 - **Local data**: Session JSONL already at `~/.claude/projects/`
 - **Strategy**: Already handled by session_history — no new work needed
 
 ### Grok (x.ai)
+
 - **Official export**: No
 - **API**: Limited, no conversation history endpoint
 - **Web UI**: `grok.com` — standard React app, conversations in sidebar
 - **Strategy**: Playwright browser automation
 
 ### Doubao (豆包)
+
 - **Official export**: No
 - **API**: No public API for conversation history
 - **Web UI**: `doubao.com` — Bytedance product, heavy anti-bot measures
@@ -37,6 +41,7 @@ Users have valuable personal data scattered across multiple AI platforms with no
 - **Risk**: Aggressive anti-automation detection
 
 ### WeChat
+
 - **Official export**: No
 - **API**: No personal account API
 - **Desktop client**: Win32 native app (not browser-based)

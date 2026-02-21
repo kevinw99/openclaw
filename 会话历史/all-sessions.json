@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-02-21T08:18:34.106175",
-  "total_sessions": 14,
-  "categorized": 10,
+  "generated_at": "2026-02-21T09:09:13.961333",
+  "total_sessions": 15,
+  "categorized": 11,
   "uncategorized": 4,
   "sessions": [
     {
       "session_id": "4bf580be-ce57-48bc-a59b-82ef6d38cd13",
       "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/4bf580be-ce57-48bc-a59b-82ef6d38cd13.jsonl",
       "start_time": "2026-02-20T23:54:25.252Z",
-      "end_time": "2026-02-21T00:18:33.068Z",
-      "message_count": 121,
-      "user_message_count": 45,
+      "end_time": "2026-02-21T00:18:41.280Z",
+      "message_count": 126,
+      "user_message_count": 46,
       "primary_entity": "Spec 02: wechat-channel",
       "matches": [
         {
           "entity_id": "spec:02_wechat-channel",
           "display_name": "Spec 02: wechat-channel",
-          "confidence": 0.159,
+          "confidence": 0.158,
           "file_path_score": 0.0,
           "text_pattern_score": 0.3,
-          "keyword_score": 0.132,
+          "keyword_score": 0.128,
           "matched_messages": 4,
-          "total_messages": 121,
+          "total_messages": 126,
           "evidence": [
             "Text: ...The `replay` command needs an entity name. Here are the available entities:  **S...",
             "Text: ...Replay generated for **Spec 02: wechat-channel** — 6 session files:  | File | Ti...",
@@ -32,12 +32,100 @@
         {
           "entity_id": "source:sessions",
           "display_name": "Source: sessions",
-          "confidence": 0.126,
+          "confidence": 0.131,
           "file_path_score": 0.0,
           "text_pattern_score": 0.0,
-          "keyword_score": 0.421,
+          "keyword_score": 0.436,
           "matched_messages": 0,
-          "total_messages": 121,
+          "total_messages": 126,
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "session_id": "59e39b64-c71d-420a-a01f-95343bd20f88",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/59e39b64-c71d-420a-a01f-95343bd20f88.jsonl",
+      "start_time": "2026-02-21T00:22:24.097Z",
+      "end_time": "2026-02-21T01:09:08.833Z",
+      "message_count": 247,
+      "user_message_count": 92,
+      "primary_entity": "Knowledge: conversations",
+      "matches": [
+        {
+          "entity_id": "knowledge:conversations",
+          "display_name": "Knowledge: conversations",
+          "confidence": 0.493,
+          "file_path_score": 1.0,
+          "text_pattern_score": 0.3,
+          "keyword_score": 0.245,
+          "matched_messages": 6,
+          "total_messages": 247,
+          "evidence": [
+            "File: 知识库/conversations/wechat/*.jsonl",
+            "File: 知识库/conversations/wechat/*.jsonl",
+            "File: 知识库/conversations/wechat/index.json",
+            "Text: ...The data is saved as JSONL files under `知识库/conversations/wechat/`. Here's how t...",
+            "Text: ...Here's a summary of how to read the messages:  | Method | Command | |--------|--..."
+          ]
+        },
+        {
+          "entity_id": "spec:03_personal-knowledge-extraction",
+          "display_name": "Spec 03: personal-knowledge-extraction",
+          "confidence": 0.172,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.2,
+          "keyword_score": 0.306,
+          "matched_messages": 2,
+          "total_messages": 247,
+          "evidence": [
+            "Text: ...Here are all **14 sessions** in the history. Key ones for this project:  | Sessi...",
+            "Text: ...Committed and pushed. **74 files changed, 15,762 insertions** including:  - WeCh..."
+          ]
+        },
+        {
+          "entity_id": "spec:02_wechat-channel",
+          "display_name": "Spec 02: wechat-channel",
+          "confidence": 0.113,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.1,
+          "keyword_score": 0.245,
+          "matched_messages": 1,
+          "total_messages": 247,
+          "evidence": [
+            "Text: ...Here are all **14 sessions** in the history. Key ones for this project:  | Sessi..."
+          ]
+        }
+      ]
+    },
+    {
+      "session_id": "f0729cea-be3e-4a39-9670-0f841425809e",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/f0729cea-be3e-4a39-9670-0f841425809e.jsonl",
+      "start_time": "2026-02-20T23:24:49.505Z",
+      "end_time": "2026-02-21T00:21:05.811Z",
+      "message_count": 244,
+      "user_message_count": 92,
+      "primary_entity": "Spec 02: wechat-channel",
+      "matches": [
+        {
+          "entity_id": "spec:02_wechat-channel",
+          "display_name": "Spec 02: wechat-channel",
+          "confidence": 0.14,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.0,
+          "keyword_score": 0.465,
+          "matched_messages": 0,
+          "total_messages": 244,
+          "evidence": []
+        },
+        {
+          "entity_id": "source:wechat",
+          "display_name": "Source: wechat",
+          "confidence": 0.14,
+          "file_path_score": 0.0,
+          "text_pattern_score": 0.0,
+          "keyword_score": 0.465,
+          "matched_messages": 0,
+          "total_messages": 244,
           "evidence": []
         }
       ]
@@ -686,39 +774,6 @@
       "user_message_count": 7,
       "primary_entity": "Uncategorized",
       "matches": []
-    },
-    {
-      "session_id": "f0729cea-be3e-4a39-9670-0f841425809e",
-      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/f0729cea-be3e-4a39-9670-0f841425809e.jsonl",
-      "start_time": "2026-02-20T23:24:49.505Z",
-      "end_time": "2026-02-20T23:53:54.661Z",
-      "message_count": 242,
-      "user_message_count": 90,
-      "primary_entity": "Spec 02: wechat-channel",
-      "matches": [
-        {
-          "entity_id": "spec:02_wechat-channel",
-          "display_name": "Spec 02: wechat-channel",
-          "confidence": 0.146,
-          "file_path_score": 0.0,
-          "text_pattern_score": 0.0,
-          "keyword_score": 0.488,
-          "matched_messages": 0,
-          "total_messages": 242,
-          "evidence": []
-        },
-        {
-          "entity_id": "source:wechat",
-          "display_name": "Source: wechat",
-          "confidence": 0.146,
-          "file_path_score": 0.0,
-          "text_pattern_score": 0.0,
-          "keyword_score": 0.488,
-          "matched_messages": 0,
-          "total_messages": 242,
-          "evidence": []
-        }
-      ]
     },
     {
       "session_id": "fc3bb687-9c4c-4080-a849-a1507a0d6259",

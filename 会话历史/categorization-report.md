@@ -1,27 +1,28 @@
 # 会话历史分类报告
 
-> 生成时间: 2026-02-21 08:18:34
+> 生成时间: 2026-02-21 09:09:13
 
 ## 概览
 
-- 总会话数: 14
-- 已分类: 10
+- 总会话数: 15
+- 已分类: 11
 - 未分类: 4
 
 ## 按实体分类
 
 | 实体 | 类型 | 匹配会话数 | 最高置信度 |
 |------|------|-----------|----------|
-| Spec 02: wechat-channel | spec | 9 | 0.29 |
+| Spec 02: wechat-channel | spec | 10 | 0.29 |
 | Source: wechat | source | 6 | 0.21 |
+| Spec 03: personal-knowledge-extraction | spec | 4 | 0.26 |
 | Knowledge: channels | knowledge | 4 | 0.12 |
 | Spec 01: full-context-ai-assistant | spec | 4 | 0.28 |
-| Spec 03: personal-knowledge-extraction | spec | 3 | 0.26 |
 | Source: channels | source | 2 | 0.20 |
 | Source: whatsapp | source | 2 | 0.20 |
 | Source: knowledge_harvester | source | 2 | 0.15 |
 | Source: line | source | 2 | 0.15 |
 | Source: sessions | source | 1 | 0.13 |
+| Knowledge: conversations | knowledge | 1 | 0.49 |
 | Source: feishu | source | 1 | 0.17 |
 | Source: web | source | 1 | 0.13 |
 | Source: config | source | 1 | 0.11 |
@@ -39,10 +40,16 @@
 
 ## 会话详情
 
+### 59e39b64...
+- 文件: `/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/59e39b64-c71d-420a-a01f-95343bd20f88.jsonl`
+- 时间: 2026-02-21T00:22:24 ~ 2026-02-21T01:09:08
+- 消息数: 247 (用户: 92)
+- 分类: Knowledge: conversations (0.49), Spec 03: personal-knowledge-extraction (0.17), Spec 02: wechat-channel (0.11)
+
 ### 4bf580be...
 - 文件: `/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/4bf580be-ce57-48bc-a59b-82ef6d38cd13.jsonl`
-- 时间: 2026-02-20T23:54:25 ~ 2026-02-21T00:18:33
-- 消息数: 121 (用户: 45)
+- 时间: 2026-02-20T23:54:25 ~ 2026-02-21T00:18:41
+- 消息数: 126 (用户: 46)
 - 分类: Spec 02: wechat-channel (0.16), Source: sessions (0.13)
 
 ### c249636c...
@@ -53,9 +60,9 @@
 
 ### f0729cea...
 - 文件: `/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/f0729cea-be3e-4a39-9670-0f841425809e.jsonl`
-- 时间: 2026-02-20T23:24:49 ~ 2026-02-20T23:53:54
-- 消息数: 242 (用户: 90)
-- 分类: Spec 02: wechat-channel (0.15), Source: wechat (0.15)
+- 时间: 2026-02-20T23:24:49 ~ 2026-02-21T00:21:05
+- 消息数: 244 (用户: 92)
+- 分类: Spec 02: wechat-channel (0.14), Source: wechat (0.14)
 
 ### 36454a45...
 - 文件: `/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/36454a45-5d77-4883-a4b3-6c33550c0822.jsonl`

@@ -40,26 +40,6 @@ _SKIP_NAMES = {
 _SPEC_NUMBER_RE = re.compile(r"^([PR]?\d+)_(.+)$")
 
 
-# Directory name alternatives for each entity type.
-# First existing match wins per type; all are scanned for specs.
-_SPEC_DIRS = ["规格", "spec", "specs"]
-_SPEC_RESTRICTED_PARENTS = ["RESTRICTED"]
-_SOURCE_DIRS = ["源代码", "src", "extensions"]
-_RESEARCH_DIRS = ["研究", "research"]
-_KNOWLEDGE_DIRS = ["知识库", "knowledge", "docs"]
-_TOOL_DIRS = ["工具", "tools"]
-
-# Directories to skip when scanning
-_SKIP_NAMES = {
-    "README.md", "session_history", "__pycache__", ".git",
-    "node_modules", "dist", "build", ".DS_Store",
-    "00_template", "00_project-template.md",
-}
-
-# Spec numbering patterns: P##_name, R##_name, or plain ##_name
-_SPEC_NUMBER_RE = re.compile(r"^([PR]?\d+)_(.+)$")
-
-
 class EntityRegistry:
     """自动从项目目录结构发现实体"""
 

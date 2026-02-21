@@ -1,15 +1,18 @@
 # Status: Personal Knowledge Extraction
 
 ## Current Status
+
 **Overall**: Complete — All 6 phases implemented (55 tests: 45 unit + 10 e2e)
 **Started**: 2026-02-20
 **Last Updated**: 2026-02-20
 
 ## Implementation
+
 Source code: `src/knowledge_harvester/`
 Task tracking: see `tasks.md` in this directory
 
 ## Completed Work
+
 - 2026-02-20: Spec created with requirements, design, and task breakdown
 - 2026-02-20: Phase 1 — ChatGPT export parser (ZIP/JSON → JSONL)
 - 2026-02-20: Phase 2 — Grok browser scraper (via OpenClaw browser HTTP API)
@@ -26,6 +29,7 @@ Task tracking: see `tasks.md` in this directory
   - End-to-end test framework (10 tests, env-gated with `KH_E2E=1`)
 
 ## Architecture Notes
+
 - **Browser adapters** (Grok, Doubao) use OpenClaw's built-in browser HTTP API (port 18791) + Chrome extension relay for session reuse. No separate Playwright Python dependency needed.
 - **WeChat** on macOS: direct key extraction is blocked by SIP/Hardened Runtime. The adapter supports: (a) user-provided SQLCipher key, (b) unencrypted/pre-decrypted DB files. WeChat 4.x path structure: `xwechat_files/{wxid}_{hash}/db_storage/message/`.
 - **Search** is keyword-based full-text search over JSONL files. No vector DB yet.
@@ -33,6 +37,7 @@ Task tracking: see `tasks.md` in this directory
 - **Version detection**: `check_compatibility()` on browser adapters checks DOM structure before extraction.
 
 ## Remaining Work (Future)
+
 - [x] Phase 1: ChatGPT export parser
 - [x] Phase 2: Grok web extraction
 - [x] Phase 3: Doubao web extraction
@@ -44,6 +49,7 @@ Task tracking: see `tasks.md` in this directory
 - [ ] Future: Vector DB integration for semantic search
 
 ## Verification
+
 ```bash
 # Unit tests (45 passed, 10 e2e skipped)
 cd src && python3 -m pytest knowledge_harvester/tests/ -v
