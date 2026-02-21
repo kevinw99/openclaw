@@ -34,6 +34,9 @@ Parse the user's arguments to determine which subcommand to run:
 - **`search <query>`** — Search across all imported conversations
   - `--platform <name>` — Filter by platform
   - `--limit N` — Max results (default: 20)
+- **`view <name>`** — View full conversation by title or ID
+  - `--limit N` — Max messages to show (default: 100, 0 = all)
+  - `--all` — Show all matching conversations
 - **`list`** — List all imported conversations by platform
 - **`stats`** — Show knowledge base statistics
 
@@ -45,8 +48,10 @@ Parse the user's arguments to determine which subcommand to run:
 /extract-history search "Python 装饰器"
 /extract-history search "React hooks" --platform chatgpt
 /extract-history stats
+/extract-history view "翁子航"
+/extract-history view "网球" --limit 20
 /extract-history list
-/extract-history extract-wechat --key abc123...
+/extract-history extract-wechat --key-file ~/.wechat_db_key -i
 ```
 
 ## Instructions

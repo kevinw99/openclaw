@@ -2,9 +2,9 @@
 
 ## Current Status
 
-**Overall**: Complete — All 6 phases implemented (55 tests: 45 unit + 10 e2e)
+**Overall**: Complete — All 6 phases implemented (55 tests: 45 unit + 10 e2e). WeChat live extraction verified.
 **Started**: 2026-02-20
-**Last Updated**: 2026-02-20
+**Last Updated**: 2026-02-21
 
 ## Implementation
 
@@ -31,7 +31,7 @@ Task tracking: see `tasks.md` in this directory
 ## Architecture Notes
 
 - **Browser adapters** (Grok, Doubao) use OpenClaw's built-in browser HTTP API (port 18791) + Chrome extension relay for session reuse. No separate Playwright Python dependency needed.
-- **WeChat** on macOS: direct key extraction is blocked by SIP/Hardened Runtime. The adapter supports: (a) user-provided SQLCipher key, (b) unencrypted/pre-decrypted DB files. WeChat 4.x path structure: `xwechat_files/{wxid}_{hash}/db_storage/message/`.
+- **WeChat** on macOS: LLDB-based key extraction (`scripts/extract_wechat_key.py`) captures the PBKDF2 master password from WeChat process memory. Each DB uses SQLCipher 4 with per-file salt (first 16 bytes) + 256K rounds PBKDF2-HMAC-SHA512. Master key stored at `~/.wechat_db_key`. WeChat 4.x path structure: `xwechat_files/{wxid}_{hash}/db_storage/message/`.
 - **Search** is keyword-based full-text search over JSONL files. No vector DB yet.
 - **Incremental extraction**: `state.json` per platform tracks known conversation IDs and last message times. Use `--incremental` / `-i` on any extraction command.
 - **Version detection**: `check_compatibility()` on browser adapters checks DOM structure before extraction.
@@ -45,8 +45,10 @@ Task tracking: see `tasks.md` in this directory
 - [x] Phase 5: Knowledge base search
 - [x] Phase 6: Polish & maintenance
 - [ ] Future: Live testing with real Grok/Doubao accounts
-- [ ] Future: Live testing with real WeChat DB (requires SQLCipher key)
+- [x] Live: WeChat DB decryption verified — 431 conversations, 41,814 messages extracted
 - [ ] Future: Vector DB integration for semantic search
+- [ ] Future: Incremental sync automation (cron/launchd)
+- [ ] Future: Cross-AI-tool accessibility (MCP server / RAG)
 
 ## Verification
 

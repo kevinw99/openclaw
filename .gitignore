@@ -39,3 +39,7 @@ npm-debug.log*
 credentials.json
 *.pem
 *.key
+
+# Personal data - extracted conversations (privacy)
+知识库/conversations/**/*.jsonl
+知识库/conversations/**/state.json

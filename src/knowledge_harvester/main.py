@@ -188,6 +188,87 @@ def cmd_list(args):
             print(f"  {conv['id'][:8]}... | {title} | {msg_count} msgs")
 
 
+def cmd_view(args):
+    """查看完整对话"""
+    import json as _json
+    config = _get_config(args)
+    storage = Storage(config)
+
+    query = args.conversation.lower()
+    limit = args.limit
+
+    # Search across all platforms for matching conversation
+    platforms = storage.list_platforms()
+    matches = []
+    for platform in platforms:
+        for conv in storage.list_conversations(platform):
+            conv_id = conv["id"]
+            title = conv.get("title", "")
+            # Match by ID prefix or title substring
+            if (query in conv_id.lower() or query in title.lower()):
+                matches.append((platform, conv))
+
+    if not matches:
+        print(f"未找到匹配 \"{args.conversation}\" 的对话。")
+        print("提示: 使用 'list' 命令查看所有对话, 或 'search' 搜索消息内容。")
+        return
+
+    if len(matches) > 1 and not args.all:
+        print(f"找到 {len(matches)} 段匹配的对话:")
+        for platform, conv in matches[:20]:
+            title = conv.get("title", "(无标题)")[:50]
+            msg_count = conv.get("message_count", 0)
+            print(f"  [{platform}] {conv['id'][:30]}... | {title} | {msg_count} msgs")
+        if len(matches) > 20:
+            print(f"  ... 还有 {len(matches) - 20} 段")
+        print("\n请使用更具体的名称, 或加 --all 查看所有匹配。")
+        return
+
+    for platform, conv in matches[:5] if not args.all else matches:
+        conv_id = conv["id"]
+        title = conv.get("title", "(无标题)")
+        msg_count = conv.get("message_count", 0)
+
+        print(f"\n{'=' * 60}")
+        print(f"[{platform}] {title}")
+        print(f"ID: {conv_id} | {msg_count} 条消息")
+        print(f"{'=' * 60}")
+
+        path = config.conversation_path(platform, conv_id)
+        if not path.exists():
+            print("  (文件不存在)")
+            continue
+
+        shown = 0
+        with open(path, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    data = _json.loads(line)
+                except _json.JSONDecodeError:
+                    continue
+
+                role = data.get("role", "?")
+                ts = data.get("timestamp", "")[:19]
+                content = data.get("content", "")
+
+                # Truncate very long messages
+                if len(content) > 500:
+                    content = content[:500] + "..."
+
+                marker = "→" if role == "user" else "←"
+                print(f"\n{marker} [{ts}] {role}")
+                print(f"  {content}")
+                shown += 1
+                if limit and shown >= limit:
+                    remaining = msg_count - shown
+                    if remaining > 0:
+                        print(f"\n  ... 还有 {remaining} 条消息 (使用 --limit 0 查看全部)")
+                    break
+
+
 def cmd_stats(args):
     """显示统计信息"""
     from knowledge_harvester.search import SearchEngine
@@ -270,6 +351,12 @@ def main():
     p_search.add_argument("--platform", "-p", help="限定搜索平台")
     p_search.add_argument("--limit", "-n", type=int, default=20, help="最大结果数")
 
+    # view
+    p_view = subparsers.add_parser("view", help="查看完整对话")
+    p_view.add_argument("conversation", help="对话 ID 或标题关键词")
+    p_view.add_argument("--limit", "-n", type=int, default=100, help="显示消息数 (0=全部)")
+    p_view.add_argument("--all", "-a", action="store_true", help="查看所有匹配的对话")
+
     # list
     subparsers.add_parser("list", help="列出已导入的对话")
 
@@ -284,6 +371,7 @@ def main():
         "scrape-doubao": cmd_scrape_doubao,
         "extract-wechat": cmd_extract_wechat,
         "search": cmd_search,
+        "view": cmd_view,
         "list": cmd_list,
         "stats": cmd_stats,
     }
