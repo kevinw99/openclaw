@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "default_tier": "archive",
+  "rules": [
+    {
+      "name": "exclude-tiny-conversations",
+      "match": { "max_messages": 4 },
+      "tier": "exclude",
+      "priority": 5,
+      "reason": "Conversations with <5 messages are usually noise"
+    },
+    {
+      "name": "exclude-low-activity-groups",
+      "match": { "is_group": true, "max_messages": 19 },
+      "tier": "exclude",
+      "priority": 8,
+      "reason": "Group chats with <20 messages are usually dead"
+    },
+    {
+      "name": "keep-substantial-dms",
+      "match": { "is_group": false, "min_messages": 50 },
+      "tier": "keep",
+      "priority": 20,
+      "reason": "Personal conversations with substance (50+ messages)"
+    },
+    {
+      "name": "keep-active-groups",
+      "match": { "is_group": true, "min_messages": 200 },
+      "tier": "keep",
+      "priority": 20,
+      "reason": "High-activity groups (200+ messages)"
+    }
+  ]
+}

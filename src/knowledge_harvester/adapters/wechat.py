@@ -42,6 +42,12 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Iterator, List, Optional, Tuple
 
+try:
+    import zstandard as _zstd
+    _zstd_decompressor = _zstd.ZstdDecompressor()
+except ImportError:
+    _zstd_decompressor = None
+
 from .base import BaseAdapter
 from ..models import Conversation, MediaRef, Message
 
@@ -203,6 +209,34 @@ def _parse_type49_xml(raw_content: str) -> Tuple[str, List[MediaRef]]:
     return label, media
 
 
+def _decompress_content(hex_content: str) -> Optional[str]:
+    """解压 WCDB 压缩内容 (Zstandard).
+
+    WeChat WCDB 使用 WCDB_CT_message_content 标记压缩:
+    - CT=4: Zstandard 压缩 (magic bytes: 28 B5 2F FD)
+
+    Args:
+        hex_content: 消息内容的十六进制编码
+
+    Returns:
+        解压后的文本, 或 None 如果解压失败
+    """
+    if not hex_content or not _zstd_decompressor:
+        return None
+    try:
+        raw = bytes.fromhex(hex_content)
+    except ValueError:
+        return None
+    # Zstandard magic: 28 B5 2F FD
+    if len(raw) >= 4 and raw[:4] == b'\x28\xb5\x2f\xfd':
+        try:
+            decoded = _zstd_decompressor.decompress(raw)
+            return decoded.decode('utf-8', errors='replace')
+        except Exception:
+            pass
+    return None
+
+
 def _derive_raw_key(master_password_hex: str, db_path: Path) -> str:
     """从 master password 和 DB 文件的 salt 派生 SQLCipher raw key.
 
@@ -237,6 +271,7 @@ class WeChatAdapter(BaseAdapter):
         self._data_dir = Path(data_dir) if data_dir else None
         self._sqlcipher_bin = shutil.which("sqlcipher") or ""
         self._contact_map: dict = {}  # md5_hash → {username, nick_name, remark}
+        self._wechat_user_root: Optional[Path] = None  # WeChat user data root
 
     @property
     def platform(self) -> str:
@@ -350,6 +385,7 @@ class WeChatAdapter(BaseAdapter):
                 msg_dir = user_dir / "db_storage" / "message"
                 if msg_dir.exists():
                     db_files.extend(msg_dir.glob("*.db"))
+                    self._wechat_user_root = user_dir
 
         # 2. 旧版路径: Application Support/com.tencent.xinWeChat/{version}/{uuid}/Message/
         if not db_files and WECHAT_DATA_LEGACY.exists():
@@ -592,11 +628,14 @@ class WeChatAdapter(BaseAdapter):
                     pass
 
         for table_name in msg_tables:
+            # Include hex(message_content) for compressed message recovery
             rows = self._sqlcipher_query(
                 db_path, raw_key,
                 f"SELECT local_id, server_id, local_type, real_sender_id, "
                 f"create_time, status, message_content, "
-                f"WCDB_CT_message_content "
+                f"WCDB_CT_message_content, "
+                f"CASE WHEN WCDB_CT_message_content != 0 "
+                f"THEN hex(message_content) ELSE '' END "
                 f"FROM {table_name} ORDER BY create_time ASC;"
             )
             if not rows:
@@ -611,8 +650,11 @@ class WeChatAdapter(BaseAdapter):
             if not messages:
                 continue
 
-            # Map Msg_<md5> → contact name via MD5(username)
+            # Resolve media file paths on disk
             table_hash = table_name.replace("Msg_", "")
+            self._resolve_media_paths(messages, table_hash)
+
+            # Map Msg_<md5> → contact name via MD5(username)
             contact = self._contact_map.get(table_hash, {})
             username = contact.get("username", "")
             display_name = contact.get("display", table_hash)
@@ -633,11 +675,79 @@ class WeChatAdapter(BaseAdapter):
                 },
             )
 
+    def _resolve_media_paths(self, messages: List[Message],
+                              contact_hash: str) -> None:
+        """为消息中的 MediaRef 解析本地文件路径.
+
+        WeChat 本地媒体文件结构:
+          msg/attach/<contact_hash>/YYYY-MM/Img/  → 图片 (.dat)
+          msg/video/YYYY-MM/                       → 视频 (.mp4)
+          msg/file/YYYY-MM/                        → 文件
+          cache/YYYY-MM/Message/<contact_hash>/Thumb/{local_id}_{ts}_thumb.jpg
+        """
+        root = self._wechat_user_root
+        if not root:
+            return
+
+        for msg in messages:
+            if not msg.media:
+                continue
+            for m in msg.media:
+                if m.path:  # Already resolved
+                    continue
+
+                # Parse timestamp for YYYY-MM directory
+                yyyy_mm = ""
+                if msg.timestamp:
+                    yyyy_mm = msg.timestamp[:7]  # "2026-01" from ISO
+
+                if m.type == "file" and m.filename and yyyy_mm:
+                    # Files: msg/file/YYYY-MM/<filename>
+                    candidate = root / "msg" / "file" / yyyy_mm / m.filename
+                    if candidate.exists():
+                        m.path = str(candidate)
+
+                elif m.type == "video" and yyyy_mm:
+                    # Videos: msg/video/YYYY-MM/ — match by nearby timestamps
+                    video_dir = root / "msg" / "video" / yyyy_mm
+                    if video_dir.exists():
+                        # Look for .mp4 files (not _thumb.jpg)
+                        mp4s = list(video_dir.glob("*.mp4"))
+                        if mp4s:
+                            # Best-effort: can't reliably map without msg_id,
+                            # but we can confirm videos exist for this month
+                            m.path = str(video_dir)
+
+                elif m.type == "image":
+                    # Cache thumbnails: identifiable by local_id
+                    if msg.message_id and yyyy_mm:
+                        thumb = self._find_cache_thumbnail(
+                            contact_hash, yyyy_mm, msg.message_id)
+                        if thumb:
+                            m.path = str(thumb)
+
+    def _find_cache_thumbnail(self, contact_hash: str, yyyy_mm: str,
+                               local_id: str) -> Optional[Path]:
+        """Find cache thumbnail by local_id pattern.
+
+        Thumbnails are at: cache/YYYY-MM/Message/<hash>/Thumb/{local_id}_{ts}_thumb.jpg
+        """
+        root = self._wechat_user_root
+        if not root:
+            return None
+        thumb_dir = root / "cache" / yyyy_mm / "Message" / contact_hash / "Thumb"
+        if not thumb_dir.exists():
+            return None
+        pattern = f"{local_id}_*_thumb.jpg"
+        matches = list(thumb_dir.glob(pattern))
+        return matches[0] if matches else None
+
     def _parse_v4_msg_row(self, row) -> Optional[Message]:
         """解析 WCDB v4 Msg_<hash> 表的一行
 
         Schema: local_id, server_id, local_type, real_sender_id,
-                create_time, status, message_content, WCDB_CT_message_content
+                create_time, status, message_content, WCDB_CT_message_content,
+                hex_content (CASE WHEN compressed)
         """
         try:
             local_id = row[0] or ""
@@ -646,17 +756,21 @@ class WeChatAdapter(BaseAdapter):
             status = int(row[5] or 0)
             content = str(row[6] or "")
             compression = int(row[7] or 0) if len(row) > 7 else 0
+            hex_content = str(row[8] or "") if len(row) > 8 else ""
         except (ValueError, IndexError):
             return None
 
         # local_type: low 16 bits = message type, high bits = sub-type
         msg_type = raw_type & 0xFFFF
 
-        # Skip compressed content we can't decode (WCDB_CT != 0)
-        if compression != 0:
-            if msg_type == 1:
+        # Decompress content (Zstandard) if compressed
+        if compression != 0 and hex_content:
+            decompressed = _decompress_content(hex_content)
+            if decompressed:
+                content = decompressed
+                compression = 0  # Treat as uncompressed from here on
+            elif msg_type == 1:
                 content = "[压缩文本]"
-            # For non-text types, we already replace content below
 
         if not content.strip() and msg_type == 1:
             return None

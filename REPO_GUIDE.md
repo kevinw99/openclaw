@@ -4,11 +4,11 @@ This is a fork of [openclaw/openclaw](https://github.com/openclaw/openclaw) with
 
 ## Git Remotes
 
-| Remote | URL | Purpose |
-|--------|-----|---------|
-| `origin` | `kevinw99/openclaw` | Your fork — push your work here |
-| `upstream` | `openclaw/openclaw` | Original project — pull updates from here |
-| `base` | `kevinw99/ai-project-base` | Workflow template — pull workflow improvements |
+| Remote     | URL                        | Purpose                                        |
+| ---------- | -------------------------- | ---------------------------------------------- |
+| `origin`   | `kevinw99/openclaw`        | Your fork — push your work here                |
+| `upstream` | `openclaw/openclaw`        | Original project — pull updates from here      |
+| `base`     | `kevinw99/ai-project-base` | Workflow template — pull workflow improvements |
 
 ## Repo Structure
 
@@ -60,13 +60,14 @@ Your files don't exist in upstream, so `git merge upstream/main` won't touch the
 
 This repo has three layers. **Always edit in the layer that owns the code.**
 
-| Layer | Source remote | What it contains | Edit where? |
-|-------|-------------|------------------|-------------|
-| **Upstream** | `upstream` (openclaw/openclaw) | OpenClaw source code (`src/`, `apps/`, `docs/`, `CLAUDE.md`, etc.) | In this repo if you're modifying openclaw. Push to `origin`. |
-| **Base** | `base` (ai-project-base) | Generic workflow tools and templates (`PROJECT_GUIDELINES.md`, `specs/00_template/`, `.claude/commands/`, `.claude/skills/`, `src/session_history/`) | **In `~/AI/base`, not here.** Then pull via `git fetch base && git merge base/main`. |
-| **Project** | `origin` (this fork) | Project-specific files (`REPO_GUIDE.md`, `WORK_LOG.md`, `specs/01_*`, `requests-claw.txt`) | In this repo. Push to `origin`. |
+| Layer        | Source remote                  | What it contains                                                                                                                                     | Edit where?                                                                          |
+| ------------ | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| **Upstream** | `upstream` (openclaw/openclaw) | OpenClaw source code (`src/`, `apps/`, `docs/`, `CLAUDE.md`, etc.)                                                                                   | In this repo if you're modifying openclaw. Push to `origin`.                         |
+| **Base**     | `base` (ai-project-base)       | Generic workflow tools and templates (`PROJECT_GUIDELINES.md`, `specs/00_template/`, `.claude/commands/`, `.claude/skills/`, `src/session_history/`) | **In `~/AI/base`, not here.** Then pull via `git fetch base && git merge base/main`. |
+| **Project**  | `origin` (this fork)           | Project-specific files (`REPO_GUIDE.md`, `WORK_LOG.md`, `specs/01_*`, `requests-claw.txt`)                                                           | In this repo. Push to `origin`.                                                      |
 
 **Key rules:**
+
 - **Don't modify base-owned files here.** If you need to fix `PROJECT_GUIDELINES.md`, `src/session_history/`, `.claude/skills/log.md`, or spec templates — do it in `~/AI/base` and pull the change into this repo. This keeps all projects in sync.
 - **Don't modify `CLAUDE.md` / `AGENTS.md`** — that's upstream's file and will cause merge conflicts. Keep your conventions in `PROJECT_GUIDELINES.md`.
 

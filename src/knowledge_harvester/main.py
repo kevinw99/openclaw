@@ -19,8 +19,8 @@ def _get_config(args) -> Config:
 
 
 def _run_extraction(storage, adapter, platform, source="", incremental=False,
-                    skip_compat_check=False):
-    """通用提取逻辑 (支持增量模式)"""
+                    skip_compat_check=False, filter_policy=None):
+    """通用提取逻辑 (支持增量模式和过滤)"""
     # 兼容性检查
     if not skip_compat_check:
         warnings = adapter.check_compatibility()
@@ -38,12 +38,33 @@ def _run_extraction(storage, adapter, platform, source="", incremental=False,
         if state.get("last_run"):
             print(f"上次提取: {state['last_run']}")
 
+    if filter_policy:
+        print(f"过滤模式: {len(filter_policy.rules)} 条规则, 默认分层: {filter_policy.default_tier}")
+
     count = 0
     skipped = 0
+    filtered = 0
     for conversation in adapter.extract(source):
         if incremental and not storage.is_conversation_changed(platform, conversation):
             skipped += 1
             continue
+
+        # Apply filter policy if provided
+        if filter_policy:
+            meta = {
+                "is_group": conversation.metadata.get("is_group", False),
+                "username": conversation.metadata.get("username", ""),
+                "title": conversation.title,
+                "message_count": conversation.message_count,
+                "last_message_time": conversation.metadata.get("last_message_time", ""),
+            }
+            tier, rule = filter_policy.evaluate(meta)
+            conversation.metadata["tier"] = tier
+            conversation.metadata["filter_rule"] = rule
+
+            if tier == "exclude":
+                filtered += 1
+                continue
 
         storage.save_conversation(conversation)
         storage.update_state_for_conversation(state, conversation)
@@ -54,7 +75,12 @@ def _run_extraction(storage, adapter, platform, source="", incremental=False,
         storage.save_state(platform, state)
 
     print("-" * 60)
-    print(f"完成! 导入 {count} 段对话" + (f", 跳过 {skipped} 段未变化" if skipped else ""))
+    parts = [f"完成! 导入 {count} 段对话"]
+    if skipped:
+        parts.append(f"跳过 {skipped} 段未变化")
+    if filtered:
+        parts.append(f"过滤 {filtered} 段")
+    print(", ".join(parts))
     return count
 
 
@@ -120,6 +146,7 @@ def cmd_scrape_doubao(args):
 def cmd_extract_wechat(args):
     """提取微信对话"""
     from knowledge_harvester.adapters.wechat import WeChatAdapter
+    from knowledge_harvester.filters.wechat_filter import FilterPolicy, FilterRule
 
     config = _get_config(args)
     storage = Storage(config)
@@ -130,6 +157,40 @@ def cmd_extract_wechat(args):
 
     adapter = WeChatAdapter(db_key=db_key, data_dir=args.data_dir or "")
 
+    # Build filter policy from CLI flags and/or policy file
+    filter_policy = None
+    policy_path = getattr(args, "policy", None)
+    cli_rules = []
+
+    if getattr(args, "exclude_groups", False):
+        cli_rules.append(FilterRule(
+            name="cli-exclude-groups",
+            match={"is_group": True},
+            tier="exclude",
+            priority=50,
+        ))
+    if getattr(args, "min_messages", None):
+        cli_rules.append(FilterRule(
+            name="cli-min-messages",
+            match={"max_messages": args.min_messages - 1},
+            tier="exclude",
+            priority=30,
+        ))
+    if getattr(args, "include_users", None):
+        usernames = [u.strip() for u in args.include_users.split(",")]
+        cli_rules.append(FilterRule(
+            name="cli-include-users",
+            match={"username": usernames},
+            tier="keep",
+            priority=100,
+        ))
+
+    if policy_path:
+        filter_policy = FilterPolicy.load(policy_path)
+        filter_policy.rules.extend(cli_rules)
+    elif cli_rules:
+        filter_policy = FilterPolicy(rules=cli_rules)
+
     print("=" * 60)
     print("知识收割机 - 提取微信对话")
     print("=" * 60)
@@ -138,7 +199,8 @@ def cmd_extract_wechat(args):
     print("-" * 60)
 
     _run_extraction(storage, adapter, "wechat", source=args.source or "",
-                    incremental=getattr(args, "incremental", False))
+                    incremental=getattr(args, "incremental", False),
+                    filter_policy=filter_policy)
 
 
 def cmd_search(args):
@@ -316,6 +378,28 @@ def cmd_stats(args):
     print(f"平台数: {len(s['platforms'])}")
 
 
+def cmd_wechat_manage(args):
+    """WeChat conversation management commands."""
+    from knowledge_harvester.wechat_manage import (
+        cmd_audit, cmd_apply_policy, cmd_stats as wechat_stats, cmd_add_rule,
+    )
+
+    config = _get_config(args)
+    subcmd = args.manage_command
+
+    if subcmd == "audit":
+        cmd_audit(config, verbose=getattr(args, "verbose", False))
+    elif subcmd == "apply-policy":
+        cmd_apply_policy(config, args.policy, dry_run=args.dry_run)
+    elif subcmd == "stats":
+        wechat_stats(config)
+    elif subcmd == "add-rule":
+        cmd_add_rule(config, args.policy, args.name, args.match,
+                     args.tier, priority=args.priority, reason=args.reason or "")
+    else:
+        args._parser.print_help()
+
+
 def main():
     """主入口"""
     parser = argparse.ArgumentParser(
@@ -332,6 +416,7 @@ def main():
   python3 -m knowledge_harvester import-chatgpt ~/Downloads/chatgpt-export.zip
   python3 -m knowledge_harvester scrape-grok
   python3 -m knowledge_harvester search "Python 装饰器"
+  python3 -m knowledge_harvester wechat-manage audit
         """,
     )
     parser.add_argument("--output", "-o", help="输出目录 (默认: 知识库/conversations)")
@@ -366,8 +451,38 @@ def main():
     p_wechat.add_argument("--key-file", help="包含密钥的文件路径")
     p_wechat.add_argument("--data-dir", help="微信数据目录 (默认自动检测)")
     p_wechat.add_argument("--incremental", "-i", action="store_true", help=_incremental_help)
+    p_wechat.add_argument("--policy", help="过滤策略文件路径")
+    p_wechat.add_argument("--exclude-groups", action="store_true", help="排除所有群聊")
+    p_wechat.add_argument("--min-messages", type=int, help="最小消息数阈值")
+    p_wechat.add_argument("--include-users", help="仅包含指定用户 (逗号分隔)")
     p_wechat.add_argument("source", nargs="?", default="",
                           help="数据库文件或目录路径 (默认自动检测)")
+
+    # wechat-manage
+    p_manage = subparsers.add_parser("wechat-manage", help="微信对话管理")
+    manage_subs = p_manage.add_subparsers(dest="manage_command", help="管理命令")
+
+    # wechat-manage audit
+    p_audit = manage_subs.add_parser("audit", help="审计对话数据")
+    p_audit.add_argument("--verbose", "-v", action="store_true", help="详细输出")
+
+    # wechat-manage apply-policy
+    p_apply = manage_subs.add_parser("apply-policy", help="应用过滤策略")
+    p_apply.add_argument("--policy", required=True, help="策略文件路径")
+    p_apply.add_argument("--dry-run", action="store_true", help="仅预览, 不实际执行")
+
+    # wechat-manage stats
+    manage_subs.add_parser("stats", help="按分层统计")
+
+    # wechat-manage add-rule
+    p_rule = manage_subs.add_parser("add-rule", help="添加过滤规则")
+    p_rule.add_argument("--policy", required=True, help="策略文件路径")
+    p_rule.add_argument("--name", required=True, help="规则名称")
+    p_rule.add_argument("--match", required=True, help="匹配条件 (JSON)")
+    p_rule.add_argument("--tier", required=True, choices=["keep", "archive", "exclude"],
+                        help="分层")
+    p_rule.add_argument("--priority", type=int, default=50, help="优先级 (默认50)")
+    p_rule.add_argument("--reason", default="", help="规则说明")
 
     # search
     p_search = subparsers.add_parser("search", help="搜索对话内容")
@@ -399,6 +514,7 @@ def main():
         "view": cmd_view,
         "list": cmd_list,
         "stats": cmd_stats,
+        "wechat-manage": cmd_wechat_manage,
     }
 
     handler = commands.get(args.command)

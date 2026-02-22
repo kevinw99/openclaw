@@ -5,12 +5,14 @@
 ### How It Works
 
 WeChat desktop stores messages in encrypted SQLite (WCDB) files at:
+
 ```
 ~/Library/Containers/com.tencent.xinWeChat/Data/Documents/
   xwechat_files/{wxid}_{hash}/db_storage/message/
 ```
 
 The existing `knowledge_harvester` WeChat adapter already handles:
+
 - WCDB v4 detection (`Msg_<hash>` tables)
 - Legacy format fallback (`MSG` table)
 - SQLCipher decryption (PBKDF2-HMAC-SHA512)
@@ -42,7 +44,7 @@ File: `~/.openclaw/knowledge/extractions/wechat/sync-state.json`
   "conversations_synced": 431,
   "total_messages": 41814,
   "sync_history": [
-    {"timestamp": "2026-02-21T08:00:00Z", "new_messages": 127, "new_conversations": 2}
+    { "timestamp": "2026-02-21T08:00:00Z", "new_messages": 127, "new_conversations": 2 }
   ]
 }
 ```
@@ -89,6 +91,7 @@ The WeChat WCDB uses auto-incrementing `local_id` as primary key. We track the h
 **Option 2: fswatch (event-driven)**
 
 Watch for DB file changes and trigger extraction:
+
 ```bash
 fswatch -o ~/Library/Containers/com.tencent.xinWeChat/ \
   --include '\.db$' --exclude '.*' \
@@ -180,6 +183,7 @@ Capabilities: Full — send/receive, contacts, groups, files
 ```
 
 **Evaluation path**:
+
 1. Set up Windows VM with pinned WeChat version
 2. Install WeChatFerry with a secondary/test WeChat account
 3. Run for 2 weeks, monitor for ban/restrictions
@@ -198,6 +202,7 @@ Capabilities: Full messaging, no Moments
 ```
 
 **Evaluation path**:
+
 1. Purchase WeChatPadPro token (cheapest tier)
 2. Deploy AstrBot via Docker
 3. Test with secondary account for 2 weeks
@@ -205,28 +210,29 @@ Capabilities: Full messaging, no Moments
 
 ### Decision Criteria
 
-| Criterion | Weight | WeChatFerry | AstrBot+PadPro |
-|-----------|--------|-------------|----------------|
-| Ban risk | 30% | High (hook) | Medium (pad) |
-| Maintenance likelihood | 25% | Good (OSS, org-backed) | Good (large community) |
-| Platform compatibility | 20% | Poor (Windows only) | Good (Docker) |
-| Cost | 15% | Free | Paid token |
-| Feature completeness | 10% | Full | Full minus Moments |
+| Criterion              | Weight | WeChatFerry            | AstrBot+PadPro         |
+| ---------------------- | ------ | ---------------------- | ---------------------- |
+| Ban risk               | 30%    | High (hook)            | Medium (pad)           |
+| Maintenance likelihood | 25%    | Good (OSS, org-backed) | Good (large community) |
+| Platform compatibility | 20%    | Poor (Windows only)    | Good (Docker)          |
+| Cost                   | 15%    | Free                   | Paid token             |
+| Feature completeness   | 10%    | Full                   | Full minus Moments     |
 
 ---
 
 ## Track D: Media & Compressed Content Extraction
 
-### Current Gap
+### Current Gap (Updated 2026-02-22)
 
-The WeChat adapter outputs placeholders for all non-text content:
-- `[图片]` — images (msg_type 3)
-- `[语音]` — voice messages (msg_type 34)
-- `[视频]` — videos (msg_type 43)
-- `[链接/文件]` — links/files (msg_type 49)
-- `[压缩文本]` — compressed text (compression != 0)
+**Resolved:**
+- `[压缩文本]` — **FIXED**: 225K messages recovered via Zstandard decompression
+- `[链接/文件]` — **FIXED**: Type-49 XML parsing extracts filename, URL, size, description
+- Media file paths — **FIXED**: 3,909 files/videos linked to messages via `MediaRef.path`
 
-This means **most rich content in conversations is invisible** to the knowledge base.
+**Still placeholders:**
+- `[图片]` — images (msg_type 3) — .dat files use proprietary format (NOT simple XOR on macOS)
+- `[语音]` — voice messages (msg_type 34) — unknown format
+- `[视频]` — videos (msg_type 43) — files exist unencrypted, path resolved to directory level
 
 ### WeChat Media Storage Map
 
@@ -252,19 +258,20 @@ This means **most rich content in conversations is invisible** to the knowledge 
 
 ### What's Extractable
 
-| Content | Location | Encryption | Difficulty | Priority |
-|---------|----------|-----------|------------|----------|
-| **Videos** | `msg/video/` | None (plain MP4) | Easy | P1 |
-| **Files (PDF/DOC/XLS)** | `msg/file/` | None (original format) | Easy | P1 |
-| **Image thumbnails** | `cache/*/Thumb/` | None (JPEG) | Easy | P1 |
-| **Images (full)** | `msg/attach/*/Img/*.dat` | XOR (single byte key) | Easy | P1 |
-| **Compressed text** | DB `message_content` | zlib/protobuf | Medium | P2 |
-| **Voice messages** | `msg/attach/*/Rec/*.dat` | Unknown | Hard | P3 |
-| **Link previews** | DB (type 49, compressed) | protobuf | Hard | P3 |
+| Content                 | Location                 | Encryption             | Difficulty | Priority |
+| ----------------------- | ------------------------ | ---------------------- | ---------- | -------- |
+| **Videos**              | `msg/video/`             | None (plain MP4)       | Easy       | P1       |
+| **Files (PDF/DOC/XLS)** | `msg/file/`              | None (original format) | Easy       | P1       |
+| **Image thumbnails**    | `cache/*/Thumb/`         | None (JPEG)            | Easy       | P1       |
+| **Images (full)**       | `msg/attach/*/Img/*.dat` | Proprietary (NOT XOR on macOS) | Hard | P3 |
+| **Compressed text**     | DB `message_content`     | ~~zlib~~ **Zstandard** | ~~Medium~~ **Done** | ✅ |
+| **Voice messages**      | `msg/attach/*/Rec/*.dat` | Unknown                | Hard       | P3       |
+| **Link previews**       | DB (type 49, compressed) | protobuf               | Hard       | P3       |
 
 ### Phase D1: Files, Videos, Image Decryption (Easy Wins)
 
 #### Video & File Extraction
+
 Videos (`msg/video/`) and files (`msg/file/`) are stored **unencrypted** in their original formats. Simply copy and index them.
 
 ```python
@@ -280,41 +287,27 @@ def extract_media_files(wechat_root, output_dir):
         # Copy PDFs, DOCX, etc. to knowledge base
 ```
 
-#### Image .dat Decryption (XOR)
+#### Image .dat Format — macOS (Research Needed)
 
-WeChat images use **single-byte XOR encryption**. The key can be derived by checking the first bytes against known JPEG/PNG magic bytes:
+> **2026-02-22 Finding**: The widely-documented "single-byte XOR" approach applies to **Windows WeChat only**. macOS WeChat 4.x .dat files use a **different proprietary format**.
 
-```python
-# JPEG starts with FF D8 FF
-# PNG starts with  89 50 4E 47
-# The XOR key = first_byte_of_dat ^ 0xFF (for JPEG) or ^ 0x89 (for PNG)
+Investigation results:
+- All .dat files share a fixed 10-byte header: `07 08 56 32 08 07 00 04 00 00`
+- Data diverges from byte 10 (file-specific content)
+- The header is per-user (same key `0x45` would produce "BM" BMP signature, but the decoded content is invalid)
+- 60,054 image .dat files on disk, none decodable with simple XOR
+- Windows tools (wx-image-decoder, wechat_decrypt, imgrecall) do NOT work on macOS .dat files
 
-def detect_xor_key(dat_path):
-    """Detect XOR key by comparing first bytes to known file signatures"""
-    with open(dat_path, 'rb') as f:
-        first_byte = f.read(1)[0]
-
-    # Try JPEG signature (most common)
-    key = first_byte ^ 0xFF
-    return key
-
-def decrypt_image(dat_path, output_path, key):
-    """Decrypt XOR-encrypted WeChat image"""
-    with open(dat_path, 'rb') as f:
-        data = f.read()
-    decrypted = bytes(b ^ key for b in data)
-    with open(output_path, 'wb') as f:
-        f.write(decrypted)
-```
-
-Tools/references:
-- [wx-image-decoder](https://github.com/kenpusney/wx-image-decoder) — XOR key detection + decode
-- [wechat_decrypt](https://github.com/leechau926/wechat_decrypt) — Batch .dat decryption
-- [imgrecall](https://github.com/user-74/imgrecall) — Auto-calculates per-user XOR key
+**Next steps for image decryption**:
+1. Investigate if macOS uses AES or another block cipher
+2. Check if `media_0.db` contains decryption keys or image metadata
+3. Look for macOS-specific WeChat reverse engineering resources
+4. Consider using cache thumbnails (JPEG, 160x160) as fallback for image content
 
 #### Message-to-File Mapping
 
 The cache directory contains thumbnails named `{message_id}_timestamp_thumb.jpg`, providing a direct mapping from messages to media. For files and videos, correlation is by:
+
 1. Contact hash (MD5 of username) → directory
 2. Timestamp from message DB → YYYY-MM directory
 3. Filename patterns within that directory
@@ -323,56 +316,38 @@ The cache directory contains thumbnails named `{message_id}_timestamp_thumb.jpg`
 
 To avoid flooding AI context windows with media metadata that isn't needed, content is organized into tiers:
 
-| Tier | What | Where | Loaded When | Context Cost |
-|------|------|-------|-------------|-------------|
-| **0 — Inline label** | `[文件: AI计划.pdf (2.3MB)]` | `Message.content` | Always | ~50 chars |
-| **1 — Metadata** | filename, URL, size, description | `Message.media[]` in JSONL | On `view --media` | ~300 bytes |
-| **2 — Summary** | AI-generated text summary of file | `MediaRef.summary` | On explicit request | ~200 words |
-| **3 — Full content** | Actual file bytes (PDF, image, etc.) | Filesystem `media/` dir | Deep-dive only | Variable |
+| Tier                 | What                                 | Where                      | Loaded When         | Context Cost |
+| -------------------- | ------------------------------------ | -------------------------- | ------------------- | ------------ |
+| **0 — Inline label** | `[文件: AI计划.pdf (2.3MB)]`         | `Message.content`          | Always              | ~50 chars    |
+| **1 — Metadata**     | filename, URL, size, description     | `Message.media[]` in JSONL | On `view --media`   | ~300 bytes   |
+| **2 — Summary**      | AI-generated text summary of file    | `MediaRef.summary`         | On explicit request | ~200 words   |
+| **3 — Full content** | Actual file bytes (PDF, image, etc.) | Filesystem `media/` dir    | Deep-dive only      | Variable     |
 
 **Implementation status** (2026-02-22):
+
 - Tier 0: Implemented — `_parse_type49_xml()` generates rich inline labels from appmsg XML
 - Tier 1: Implemented — `MediaRef` stores filename, URL, size, description; `view --media` displays it
 - Tier 2: Not yet implemented — requires AI summarization pipeline
-- Tier 3: Not yet implemented — requires Phase D1 media file extraction
+- Tier 3: Partially implemented — `MediaRef.path` resolved for 3,909 files/videos; full image extraction blocked on .dat format research
 
 **Search integration**: Search engine matches keywords against `media[].filename` and `media[].description`, so `search "AI计划"` finds messages containing `英联股份AI计划.pdf`.
 
-### Phase D2: Compressed Text Recovery
+### Phase D2: Compressed Text Recovery — COMPLETE ✅
 
-Many messages show as `[压缩文本]` because `WCDB_CT_message_content != 0`. The content is in the DB but compressed.
+**Implemented 2026-02-22.** 225,182 messages recovered (64% of all messages were compressed).
 
-Approach:
-1. Read the raw binary content from the DB column
-2. Try zlib decompression first (most common)
-3. If that fails, try protobuf deserialization
-4. Extract readable text from the result
+**Key finding**: Compression is **Zstandard** (NOT zlib). Magic bytes: `28 B5 2F FD`. WCDB_CT=4 indicates zstd.
 
-```python
-import zlib
-
-def try_decompress(raw_bytes):
-    """Attempt to recover compressed message content"""
-    # Try zlib
-    try:
-        return zlib.decompress(raw_bytes).decode('utf-8', errors='replace')
-    except zlib.error:
-        pass
-
-    # Try zlib with wbits variations
-    for wbits in [-15, 15, 31, 47]:
-        try:
-            return zlib.decompress(raw_bytes, wbits).decode('utf-8', errors='replace')
-        except:
-            pass
-
-    # Fallback: try to extract any UTF-8 strings from binary
-    return extract_utf8_strings(raw_bytes)
-```
+Implementation in `src/knowledge_harvester/adapters/wechat.py`:
+- SQL query returns `hex(message_content)` for rows with `WCDB_CT != 0`
+- `_decompress_content()` detects zstd magic and decompresses via `zstandard` library
+- 100% success rate — zero decompression failures observed
+- **Dependency**: `pip install zstandard`
 
 ### Phase D3: Voice Messages (Research Required)
 
 Voice `.dat` files in `msg/attach/*/Rec/` use an unknown encryption format. Needs investigation:
+
 - May be same XOR as images
 - May be SILK codec (WeChat's audio format) wrapped in XOR
 - SILK → PCM conversion tools exist if we can decrypt
@@ -382,15 +357,26 @@ Voice `.dat` files in `msg/attach/*/Rec/` use an unknown encryption format. Need
 ## Implementation Priority (Updated)
 
 ```
-Priority 1 (Week 1):   Track A — launchd poller + incremental extraction
-Priority 1 (Week 1):   Track D1 — Extract videos, files, decrypt images
-Priority 2 (Week 2):   Track B — /sync-wechat skill + documentation
-Priority 2 (Week 2):   Track D2 — Compressed text recovery
-Priority 3 (Month 2+): Track C — Evaluate real-time alternatives
-Priority 3 (Month 2+): Track D3 — Voice message decryption
+✅ DONE:   Track A  — launchd poller (every 6 hours, deployed 2026-02-22)
+✅ DONE:   Track D2 — Compressed text recovery (225K messages, zstd)
+✅ DONE:   Track D1 — Media path resolution (3,909 files/videos linked)
+TODO:      Track B  — /sync-wechat skill + documentation
+TODO:      Track D1 — Image .dat decryption (macOS format differs from Windows)
+Later:     Track C  — Evaluate real-time alternatives
+Later:     Track D3 — Voice message decryption
+```
+
+## Stats (2026-02-22)
+
+```
+Messages:      352,190 (537 conversations)
+Compressed:    225,182 recovered (was [压缩文本], now full text)
+Media refs:     47,228 total
+  Resolved:      3,909 (files: 541, videos: 5,936 dir-level, thumbs: 3)
+  Unresolved:   43,319 (images: 27,601 .dat, links: 13,582, voice: 1,261)
 ```
 
 ---
 
 **Created**: 2026-02-21
-**Updated**: 2026-02-22 — Added Context Management Strategy (Tiered Content) in Track D
+**Updated**: 2026-02-22 — Track A deployed, D2 complete (zstd not zlib), D1 media paths resolved, macOS .dat format differs from Windows XOR

@@ -142,19 +142,20 @@ extensions/wechat/
 One Wechaty instance per account. The factory function selects puppet based on config.
 
 ```typescript
-import { WechatyBuilder } from 'wechaty'
-import { PuppetPadlocal } from 'wechaty-puppet-padlocal'
-import { PuppetWechat4u } from 'wechaty-puppet-wechat4u'
+import { WechatyBuilder } from "wechaty";
+import { PuppetPadlocal } from "wechaty-puppet-padlocal";
+import { PuppetWechat4u } from "wechaty-puppet-wechat4u";
 
 export function createWechatyBot(account: ResolvedWeChatAccount): Wechaty {
-  const puppet = account.puppet === 'padlocal'
-    ? new PuppetPadlocal({ token: account.padlocalToken })
-    : new PuppetWechat4u()
+  const puppet =
+    account.puppet === "padlocal"
+      ? new PuppetPadlocal({ token: account.padlocalToken })
+      : new PuppetWechat4u();
 
   return WechatyBuilder.build({
-    name: `openclaw-wechat-${account.accountId}`,  // → session file name
+    name: `openclaw-wechat-${account.accountId}`, // → session file name
     puppet,
-  })
+  });
 }
 // Session file auto-located by Wechaty at: ./${name}.memory-card.json
 // We symlink / configure to: ~/.openclaw/credentials/wechat/<accountId>/session.json
@@ -223,32 +224,32 @@ Unlike Zalo (REST call), WeChat send is via the live bot instance:
 
 ```typescript
 export async function sendWeChatMessage(params: {
-  to: string          // wxid for DM, room.id for group
-  text?: string
-  mediaPath?: string
-  bot: Wechaty
+  to: string; // wxid for DM, room.id for group
+  text?: string;
+  mediaPath?: string;
+  bot: Wechaty;
 }): Promise<{ ok: boolean; error?: string }> {
-  const isGroup = params.to.includes('@chatroom') || params.to.startsWith('@@')
+  const isGroup = params.to.includes("@chatroom") || params.to.startsWith("@@");
 
   try {
     if (isGroup) {
-      const room = await params.bot.Room.find({ id: params.to })
-      if (!room) throw new Error(`Room not found: ${params.to}`)
+      const room = await params.bot.Room.find({ id: params.to });
+      if (!room) throw new Error(`Room not found: ${params.to}`);
       if (params.mediaPath) {
-        await room.say(FileBox.fromFile(params.mediaPath))
+        await room.say(FileBox.fromFile(params.mediaPath));
       }
-      if (params.text) await room.say(params.text)
+      if (params.text) await room.say(params.text);
     } else {
-      const contact = await params.bot.Contact.find({ id: params.to })
-      if (!contact) throw new Error(`Contact not found: ${params.to}`)
+      const contact = await params.bot.Contact.find({ id: params.to });
+      if (!contact) throw new Error(`Contact not found: ${params.to}`);
       if (params.mediaPath) {
-        await contact.say(FileBox.fromFile(params.mediaPath))
+        await contact.say(FileBox.fromFile(params.mediaPath));
       }
-      if (params.text) await contact.say(params.text)
+      if (params.text) await contact.say(params.text);
     }
-    return { ok: true }
+    return { ok: true };
   } catch (err) {
-    return { ok: false, error: String(err) }
+    return { ok: false, error: String(err) };
   }
 }
 ```
@@ -299,14 +300,14 @@ Built on login; refreshed periodically:
 
 ```typescript
 type ContactNode = {
-  wxid: string
-  displayName: string      // WeChat name
-  remark: string           // user's custom remark (备注)
-  tags: string[]           // user-assigned tags
-  sharedGroupIds: string[] // room IDs shared with user
-  sharedGroupNames: string[]
-  lastMessageAt?: Date     // from session history
-}
+  wxid: string;
+  displayName: string; // WeChat name
+  remark: string; // user's custom remark (备注)
+  tags: string[]; // user-assigned tags
+  sharedGroupIds: string[]; // room IDs shared with user
+  sharedGroupNames: string[];
+  lastMessageAt?: Date; // from session history
+};
 
 // Persisted to: ~/.openclaw/credentials/wechat/<accountId>/contacts.json
 // Exposed as agent tool: wechat_contacts({ query: string }) → ContactNode[]
@@ -360,14 +361,17 @@ openclaw channels login --channel wechat
 ## Approach Comparison
 
 ### Approach A: Wechaty (Chosen)
+
 - **Pros**: TypeScript native, event-driven, multi-puppet, community-maintained, direct integration with OpenClaw's Node.js runtime
 - **Cons**: padlocal requires paid token; account ban risk; WeChat web accounts blocked
 
 ### Approach B: wxauto (Python bridge)
+
 - **Pros**: Free, reads Moments via UI automation
 - **Cons**: Windows-only, Python runtime required, brittle UI scraping, incompatible with OpenClaw's architecture
 
 ### Approach C: Protocol reverse engineering
+
 - **Pros**: Full control
 - **Cons**: Very high ban risk, enormous engineering effort, legally risky, maintenance burden
 

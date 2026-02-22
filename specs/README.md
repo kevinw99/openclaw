@@ -24,13 +24,16 @@
 
 ## Current Specs
 
-| # | Name | Status | Description |
-|---|------|--------|-------------|
-| 01 | [full-context-ai-assistant](./01_full-context-ai-assistant/) | Planning | Full context AI personal assistant |
-| 02 | [wechat-channel](./02_wechat-channel/) | BLOCKED | WeChat channel extension (PadLocal is dead) |
-| 03 | [personal-knowledge-extraction](./03_personal-knowledge-extraction/) | Complete | Multi-platform knowledge harvester |
-| 04 | [wechat-continuous-sync](./04_wechat-continuous-sync/) | Planning | Continuous WeChat message capture |
-| 05 | [personal-knowledge-base](./05_personal-knowledge-base/) | Draft | Unified PKB from WeChat/ChatGPT/Gmail/etc. |
+| #   | Name                                                                 | Status   | Description                                 |
+| --- | -------------------------------------------------------------------- | -------- | ------------------------------------------- |
+| 01  | [full-context-ai-assistant](./01_full-context-ai-assistant/)         | Planning | Full context AI personal assistant          |
+| 02  | [wechat-channel](./02_wechat-channel/)                               | BLOCKED  | WeChat channel extension (PadLocal is dead) |
+| 03  | [personal-knowledge-extraction](./03_personal-knowledge-extraction/) | Complete | Multi-platform knowledge harvester          |
+| 04  | [wechat-continuous-sync](./04_wechat-continuous-sync/)               | In Progress | Continuous WeChat message capture           |
+| 05  | [personal-knowledge-base](./05_personal-knowledge-base/)             | Draft    | Unified PKB from WeChat/ChatGPT/Gmail/etc.  |
+| 06  | [personal-data-backup](./06_personal-data-backup/)                   | Planning | Backup & storage strategy for personal data  |
+| 07  | [gmail-cleanup](./07_gmail-cleanup/)                                 | Planning | Gmail cleanup & intake pipeline for PKB      |
+| 08  | [wechat-message-management](./08_wechat-message-management/)         | Phase 1-4 Done | WeChat message filtering & organization      |
 
 ---
 

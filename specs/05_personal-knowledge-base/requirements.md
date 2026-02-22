@@ -17,6 +17,7 @@ The system sits on top of OpenClaw's existing infrastructure: the knowledge harv
 ## Scope
 
 ### In scope
+
 - Data extraction from: WeChat, ChatGPT, Grok, Doubao, Gmail, Google Docs, local files
 - Local-first storage with JSONL canonical format (extending existing knowledge_harvester)
 - Embedding pipeline with ChromaDB + BGE-M3 for semantic search
@@ -27,6 +28,7 @@ The system sits on top of OpenClaw's existing infrastructure: the knowledge harv
 - Safety system: rate limiting, human-like delays, approval mode, kill switch
 
 ### Out of scope
+
 - Cloud/server deployment (local-only for now)
 - Agents on platforms other than WeChat (future phase)
 - Real-time sync with WeChat (read-only from DB extraction; real-time via bot extension)
@@ -34,15 +36,15 @@ The system sits on top of OpenClaw's existing infrastructure: the knowledge harv
 
 ## Content Sources Inventory
 
-| Source | Type | Volume (est.) | Extraction Status | Adapter | Technical Details |
-|--------|------|---------------|-------------------|---------|-------------------|
-| **WeChat** | Chat (1:1 + group) | 538 convos, 232K+ messages, 41MB | Extracted | `wechat.py` (652 lines) | macOS SQLite + WCDB/SQLCipher4 decryption |
-| **ChatGPT** | AI conversations | ~100 convos, ~10K messages | Adapter ready, not run | `chatgpt.py` (244 lines) | Parses official ChatGPT ZIP export (`conversations.json`) |
-| **Grok** | AI conversations | ~50 convos, ~5K messages | Adapter ready, not run | `grok.py` (295 lines) | Browser automation via OpenClaw HTTP API (Chrome extension relay) |
-| **Doubao** | AI conversations | ~30 convos, ~3K messages | Adapter ready, not run | `doubao.py` (311 lines) | Browser automation, extra anti-bot delays (3-7s) |
-| **Gmail** | Email | TBD | No adapter | Needs `gmail.py` | Gmail API + OAuth2 |
-| **Google Docs** | Documents | TBD | No adapter | Needs `gdocs.py` | Drive API + export as markdown |
-| **Local Files** | Mixed (PDF, MD, DOCX...) | TBD | P13 chunker exists | Enpack_CCC P13 | LLM-driven two-stage extraction pipeline |
+| Source          | Type                     | Volume (est.)                    | Extraction Status      | Adapter                  | Technical Details                                                 |
+| --------------- | ------------------------ | -------------------------------- | ---------------------- | ------------------------ | ----------------------------------------------------------------- |
+| **WeChat**      | Chat (1:1 + group)       | 538 convos, 232K+ messages, 41MB | Extracted              | `wechat.py` (652 lines)  | macOS SQLite + WCDB/SQLCipher4 decryption                         |
+| **ChatGPT**     | AI conversations         | ~100 convos, ~10K messages       | Adapter ready, not run | `chatgpt.py` (244 lines) | Parses official ChatGPT ZIP export (`conversations.json`)         |
+| **Grok**        | AI conversations         | ~50 convos, ~5K messages         | Adapter ready, not run | `grok.py` (295 lines)    | Browser automation via OpenClaw HTTP API (Chrome extension relay) |
+| **Doubao**      | AI conversations         | ~30 convos, ~3K messages         | Adapter ready, not run | `doubao.py` (311 lines)  | Browser automation, extra anti-bot delays (3-7s)                  |
+| **Gmail**       | Email                    | TBD                              | No adapter             | Needs `gmail.py`         | Gmail API + OAuth2                                                |
+| **Google Docs** | Documents                | TBD                              | No adapter             | Needs `gdocs.py`         | Drive API + export as markdown                                    |
+| **Local Files** | Mixed (PDF, MD, DOCX...) | TBD                              | P13 chunker exists     | Enpack_CCC P13           | LLM-driven two-stage extraction pipeline                          |
 
 **Total estimated:** ~880+ conversations, ~250K+ messages once fully extracted.
 
@@ -67,31 +69,31 @@ The system sits on top of OpenClaw's existing infrastructure: the knowledge harv
 
 ## Dependencies
 
-| Dependency | Source | Status | Required For |
-|------------|--------|--------|-------------|
-| Knowledge Harvester adapters | openclaw `src/knowledge_harvester/` | Ready | Phase 1 |
-| WeChat Extension (bot framework) | openclaw `extensions/wechat/` | Built | Phase 3-4 |
-| Wechaty + PadLocal puppet | npm | Installed | Phase 3-4 |
-| OpenClaw agent runner | openclaw `src/agents/` | Built | Phase 3-4 |
-| OpenClaw memory system | openclaw `src/memory/` | Built | Phase 2 (optional) |
-| P13 Document Chunker | Enpack_CCC `源代码/chunked_processor/` | Production | Phase 1 (local files) |
-| Claude API access | Anthropic | Available | Phase 3-4 |
-| ChromaDB | `pip install chromadb` | Need to install | Phase 2 |
-| BGE-M3 embedding model | HuggingFace / `pip install FlagEmbedding` | Need to download | Phase 2 |
-| Gmail API credentials | Google Cloud Console | Need to set up | Phase 1 |
-| Google Drive API credentials | Google Cloud Console | Need to set up | Phase 1 |
-| ChatGPT data export | OpenAI account settings | Need to request | Phase 1 |
+| Dependency                       | Source                                    | Status           | Required For          |
+| -------------------------------- | ----------------------------------------- | ---------------- | --------------------- |
+| Knowledge Harvester adapters     | openclaw `src/knowledge_harvester/`       | Ready            | Phase 1               |
+| WeChat Extension (bot framework) | openclaw `extensions/wechat/`             | Built            | Phase 3-4             |
+| Wechaty + PadLocal puppet        | npm                                       | Installed        | Phase 3-4             |
+| OpenClaw agent runner            | openclaw `src/agents/`                    | Built            | Phase 3-4             |
+| OpenClaw memory system           | openclaw `src/memory/`                    | Built            | Phase 2 (optional)    |
+| P13 Document Chunker             | Enpack_CCC `源代码/chunked_processor/`    | Production       | Phase 1 (local files) |
+| Claude API access                | Anthropic                                 | Available        | Phase 3-4             |
+| ChromaDB                         | `pip install chromadb`                    | Need to install  | Phase 2               |
+| BGE-M3 embedding model           | HuggingFace / `pip install FlagEmbedding` | Need to download | Phase 2               |
+| Gmail API credentials            | Google Cloud Console                      | Need to set up   | Phase 1               |
+| Google Drive API credentials     | Google Cloud Console                      | Need to set up   | Phase 1               |
+| ChatGPT data export              | OpenAI account settings                   | Need to request  | Phase 1               |
 
 ## Questions & Clarifications
 
 ### Resolved
 
-| Question | Answer |
-|----------|--------|
-| WeChat bot protocol? | Wechaty + PadLocal (iPad protocol). Stable, paid service. |
-| Embedding storage? | ChromaDB (best balance at 250K scale). BGE-M3 for embeddings. |
-| Gmail approach? | Gmail API with OAuth2 (not Takeout). 3,000 gets/min. |
-| Multi-device? | Yes — PadLocal uses iPad protocol, can run alongside phone WeChat. |
+| Question                 | Answer                                                                |
+| ------------------------ | --------------------------------------------------------------------- |
+| WeChat bot protocol?     | Wechaty + PadLocal (iPad protocol). Stable, paid service.             |
+| Embedding storage?       | ChromaDB (best balance at 250K scale). BGE-M3 for embeddings.         |
+| Gmail approach?          | Gmail API with OAuth2 (not Takeout). 3,000 gets/min.                  |
+| Multi-device?            | Yes — PadLocal uses iPad protocol, can run alongside phone WeChat.    |
 | OpenClaw email handling? | No email adapter exists. Build new `gmail.py` in knowledge_harvester. |
 
 ### Still open

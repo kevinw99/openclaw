@@ -9,6 +9,7 @@ Task breakdown for building the WeChat channel extension (`extensions/wechat/`).
 ## Phase 1: Scaffolding and Configuration
 
 ### Task 1.1: Create Extension Directory and Package Manifest
+
 - **Status**: Not Started
 - **Description**: Set up the `extensions/wechat/` directory with all required scaffolding files matching the Zalo extension structure.
 - **Acceptance Criteria**:
@@ -20,6 +21,7 @@ Task breakdown for building the WeChat channel extension (`extensions/wechat/`).
   - [ ] Extension registered in workspace `pnpm-workspace.yaml`
 
 ### Task 1.2: Define Config Schema (`config-schema.ts`)
+
 - **Status**: Not Started
 - **Description**: Write the Zod schema for all `channels.wechat.*` configuration fields with validation and defaults.
 - **Acceptance Criteria**:
@@ -34,6 +36,7 @@ Task breakdown for building the WeChat channel extension (`extensions/wechat/`).
   - [ ] Zod validation error messages are human-readable
 
 ### Task 1.3: Implement Account Resolution (`accounts.ts`)
+
 - **Status**: Not Started
 - **Description**: Functions to resolve a configured WeChat account from `openclaw.json`, with multi-account support.
 - **Acceptance Criteria**:
@@ -44,6 +47,7 @@ Task breakdown for building the WeChat channel extension (`extensions/wechat/`).
   - [ ] Missing padlocal token on padlocal puppet → clear error
 
 ### Task 1.4: Implement Runtime Singleton (`runtime.ts`)
+
 - **Status**: Not Started
 - **Description**: Standard PluginRuntime singleton (identical pattern to Zalo).
 - **Acceptance Criteria**:
@@ -55,6 +59,7 @@ Task breakdown for building the WeChat channel extension (`extensions/wechat/`).
 ## Phase 2: Core Bot Lifecycle
 
 ### Task 2.1: Implement Bot Factory (`bot.ts`)
+
 - **Status**: Not Started
 - **Blocked by**: Task 1.3
 - **Description**: Create and manage Wechaty bot instances — one per account.
@@ -67,6 +72,7 @@ Task breakdown for building the WeChat channel extension (`extensions/wechat/`).
   - [ ] Bot instances cached per accountId (singleton per account)
 
 ### Task 2.2: Implement QR Login Onboarding (`onboarding.ts`)
+
 - **Status**: Not Started
 - **Blocked by**: Task 2.1
 - **Description**: Adapt Wechaty's QR scan flow to OpenClaw's `openclaw channels login` command.
@@ -78,6 +84,7 @@ Task breakdown for building the WeChat channel extension (`extensions/wechat/`).
   - [ ] `openclaw channels logout --channel wechat` deletes session file and calls `bot.logout()`
 
 ### Task 2.3: Implement Health Probe (`probe.ts`)
+
 - **Status**: Not Started
 - **Blocked by**: Task 2.1
 - **Description**: Health check that reports bot connection state.
@@ -88,6 +95,7 @@ Task breakdown for building the WeChat channel extension (`extensions/wechat/`).
   - [ ] Timeout supported (default 3000ms)
 
 ### Task 2.4: Implement Status Issues (`status-issues.ts`)
+
 - **Status**: Not Started
 - **Blocked by**: Task 2.3
 - **Description**: Detect and report common connectivity issues for `openclaw channels status`.
@@ -102,6 +110,7 @@ Task breakdown for building the WeChat channel extension (`extensions/wechat/`).
 ## Phase 3: Message Processing Pipeline
 
 ### Task 3.1: Implement Message Monitor (`monitor.ts`)
+
 - **Status**: Not Started
 - **Blocked by**: Task 2.1, Task 1.4
 - **Description**: Register Wechaty event handlers and implement the full inbound message processing pipeline.
@@ -133,6 +142,7 @@ Task breakdown for building the WeChat channel extension (`extensions/wechat/`).
   - [ ] `minReplyDelayMs` enforced before delivery
 
 ### Task 3.2: Implement Outbound Send (`send.ts`)
+
 - **Status**: Not Started
 - **Blocked by**: Task 2.1
 - **Description**: Deliver agent replies to WeChat contacts or groups via the Wechaty bot.
@@ -145,6 +155,7 @@ Task breakdown for building the WeChat channel extension (`extensions/wechat/`).
   - [ ] Caption sent as separate message after media
 
 ### Task 3.3: Implement Tool Actions (`actions.ts`)
+
 - **Status**: Not Started
 - **Blocked by**: Task 3.2
 - **Description**: WeChat-specific tool actions available to the agent.
@@ -155,6 +166,7 @@ Task breakdown for building the WeChat channel extension (`extensions/wechat/`).
   - [ ] Action schema follows existing channel action pattern
 
 ### Task 3.4: Implement Channel Plugin and Dock (`channel.ts`)
+
 - **Status**: Not Started
 - **Blocked by**: Tasks 1.2, 1.3, 2.2, 2.3, 2.4, 3.1, 3.2, 3.3
 - **Description**: Assemble the full `ChannelPlugin` and `ChannelDock` objects and wire the `gateway.startAccount` lifecycle.
@@ -172,6 +184,7 @@ Task breakdown for building the WeChat channel extension (`extensions/wechat/`).
   - [ ] `setup` section handles `openclaw channels setup wechat`
 
 ### Task 3.5: Wire Plugin Entry (`index.ts`)
+
 - **Status**: Not Started
 - **Blocked by**: Task 3.4
 - **Description**: Complete the plugin entry point.
@@ -185,6 +198,7 @@ Task breakdown for building the WeChat channel extension (`extensions/wechat/`).
 ## Phase 4: WeChat-Specific Features
 
 ### Task 4.1: Voice Message Transcription (`voice.ts`)
+
 - **Status**: Not Started
 - **Blocked by**: Task 3.1
 - **Description**: Transcribe WeChat SILK audio messages to text before routing to agent.
@@ -199,6 +213,7 @@ Task breakdown for building the WeChat channel extension (`extensions/wechat/`).
   - [ ] Feature disabled (`transcribe: false`) → returns `"[Voice message]"` placeholder
 
 ### Task 4.2: Moments Feed Polling (`moments.ts`)
+
 - **Status**: Not Started
 - **Blocked by**: Task 2.1, Task 3.4
 - **Description**: Background polling of WeChat Moments (padlocal only) with context injection.
@@ -213,6 +228,7 @@ Task breakdown for building the WeChat channel extension (`extensions/wechat/`).
   - [ ] `stopMomentsPoller()` exported for cleanup
 
 ### Task 4.3: Contact Graph Indexing (`contact-graph.ts`)
+
 - **Status**: Not Started
 - **Blocked by**: Task 2.1
 - **Description**: Build and maintain an indexed, searchable contact list for relationship context.
@@ -230,6 +246,7 @@ Task breakdown for building the WeChat channel extension (`extensions/wechat/`).
 ## Phase 5: Documentation and Tests
 
 ### Task 5.1: Write Channel Documentation (`docs/channels/wechat.md`)
+
 - **Status**: Not Started
 - **Blocked by**: Phase 3 complete
 - **Description**: Write end-user documentation following the format of `docs/channels/whatsapp.md`.
@@ -245,6 +262,7 @@ Task breakdown for building the WeChat channel extension (`extensions/wechat/`).
   - [ ] Account safety notes (rate limiting, ban risk)
 
 ### Task 5.2: Write Unit Tests
+
 - **Status**: Not Started
 - **Blocked by**: Task 3.1, Task 4.1
 - **Description**: Unit tests for core message pipeline using mock puppet.
@@ -260,6 +278,7 @@ Task breakdown for building the WeChat channel extension (`extensions/wechat/`).
   - [ ] Config schema: padlocal without token → validation error
 
 ### Task 5.3: Integration Test with Mock Puppet
+
 - **Status**: Not Started
 - **Blocked by**: Task 5.2
 - **Description**: End-to-end test using `wechaty-puppet-mock`.
@@ -274,14 +293,14 @@ Task breakdown for building the WeChat channel extension (`extensions/wechat/`).
 
 ## Task Summary
 
-| Phase | Description | Tasks | Est. Complexity |
-|-------|-------------|-------|----------------|
-| Phase 1 | Scaffolding & Config | 4 | Low |
-| Phase 2 | Bot Lifecycle | 4 | Medium |
-| Phase 3 | Message Pipeline | 5 | High |
-| Phase 4 | WeChat-Specific Features | 3 | Medium–High |
-| Phase 5 | Docs & Tests | 3 | Medium |
-| **Total** | | **19** | |
+| Phase     | Description              | Tasks  | Est. Complexity |
+| --------- | ------------------------ | ------ | --------------- |
+| Phase 1   | Scaffolding & Config     | 4      | Low             |
+| Phase 2   | Bot Lifecycle            | 4      | Medium          |
+| Phase 3   | Message Pipeline         | 5      | High            |
+| Phase 4   | WeChat-Specific Features | 3      | Medium–High     |
+| Phase 5   | Docs & Tests             | 3      | Medium          |
+| **Total** |                          | **19** |                 |
 
 ---
 

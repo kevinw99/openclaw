@@ -3,6 +3,7 @@
 > A native OpenClaw channel extension that connects WeChat personal accounts — including DMs, group chats, voice messages, and Moments — to the OpenClaw agent pipeline.
 
 ## Quick Links
+
 - [Requirements](./requirements.md)
 - [Design](./design.md)
 - [Tasks](./tasks.md)
@@ -27,6 +28,7 @@ OpenClaw has no WeChat support today. This spec defines a TypeScript channel ext
 ## Scope
 
 **In scope:**
+
 - Direct messages (DMs) and group chat messages
 - Voice message transcription
 - Image / video / file receive and send
@@ -38,6 +40,7 @@ OpenClaw has no WeChat support today. This spec defines a TypeScript channel ext
 - @mention gating in groups
 
 **Out of scope (initial cut):**
+
 - WeChat Official Accounts (public subscription accounts)
 - WeChat Channels (视频号 short video)
 - WeChat Work / WeCom (separate product, separate API)
@@ -48,12 +51,14 @@ OpenClaw has no WeChat support today. This spec defines a TypeScript channel ext
 ## References
 
 ### Internal
+
 - `[ref-zalo-ext]` /Users/kweng/AI/openclaw/extensions/zalo/ — reference implementation pattern
 - `[ref-whatsapp-docs]` /Users/kweng/AI/openclaw/docs/channels/whatsapp.md — comparable channel doc
 - `[ref-plugin-sdk]` openclaw/plugin-sdk — ChannelPlugin, ChannelDock, OpenClawPluginApi types
 - `[ref-spec-01]` /Users/kweng/AI/openclaw/specs/01_full-context-ai-assistant/ — consumer of this channel
 
 ### External
+
 - `[ref-wechaty]` https://wechaty.js.org/docs/wechaty
 - `[ref-wechaty-message]` https://wechaty.js.org/docs/api/message
 - `[ref-padlocal]` https://github.com/wechaty/puppet-padlocal

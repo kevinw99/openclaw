@@ -14,6 +14,7 @@ Build a **Full Context AI Personal Assistant** that deeply understands and assis
 ## Scope
 
 ### In Scope
+
 - Leveraging existing OpenClaw capabilities (Gateway, channels, tools, memory, skills)
 - Workspace organization for full-context memory storage
 - Memory architecture design (short-term, long-term, project-specific)
@@ -24,12 +25,14 @@ Build a **Full Context AI Personal Assistant** that deeply understands and assis
 - Privacy and security considerations
 
 ### Out of Scope
+
 - Building new messaging channel integrations (use existing)
 - Creating new LLM providers (use existing)
 - Developing mobile apps (use existing iOS/Android nodes)
 - Hardware integrations beyond existing nodes
 
 ### Dependencies
+
 - OpenClaw Gateway (existing)
 - OpenClaw workspace system (AGENTS.md, SOUL.md, MEMORY.md, etc.)
 - OpenClaw memory search (vector + BM25 hybrid)
@@ -44,6 +47,7 @@ Build a **Full Context AI Personal Assistant** that deeply understands and assis
 ### Functional Requirements
 
 #### FR1: User Profile Management
+
 - Description: System maintains comprehensive user profile including background, history, preferences, and persona
 - Acceptance Criteria:
   - [x] USER.md exists with structured profile data
@@ -54,6 +58,7 @@ Build a **Full Context AI Personal Assistant** that deeply understands and assis
   - [ ] Profile data persists across sessions
 
 #### FR2: Project Context Management
+
 - Description: System tracks all ongoing projects with full context
 - Acceptance Criteria:
   - [ ] Dedicated project directories in workspace (`projects/<project-name>/`)
@@ -63,6 +68,7 @@ Build a **Full Context AI Personal Assistant** that deeply understands and assis
   - [ ] Project archives maintained for completed work
 
 #### FR3: Memory System
+
 - Description: Multi-layered memory architecture for full context awareness
 - Acceptance Criteria:
   - [x] Daily logs in `memory/YYYY-MM-DD.md` (exists in OpenClaw)
@@ -73,6 +79,7 @@ Build a **Full Context AI Personal Assistant** that deeply understands and assis
   - [ ] Memory tagging and categorization
 
 #### FR4: Collaborative Work Modes
+
 - Description: Support different collaboration modes for various tasks
 - Acceptance Criteria:
   - [ ] Brainstorming mode with idea capture and organization
@@ -84,6 +91,7 @@ Build a **Full Context AI Personal Assistant** that deeply understands and assis
   - [ ] Deployment mode with shell access and monitoring
 
 #### FR5: Natural Language Interaction
+
 - Description: Communicate naturally across all channels
 - Acceptance Criteria:
   - [x] Multi-channel support (WhatsApp, Telegram, Slack, Discord, etc.)
@@ -93,6 +101,7 @@ Build a **Full Context AI Personal Assistant** that deeply understands and assis
   - [ ] Rich media support (images, files, code blocks)
 
 #### FR6: Learning and Adaptation
+
 - Description: System learns from interactions and adapts over time
 - Acceptance Criteria:
   - [ ] Feedback capture mechanism
@@ -102,6 +111,7 @@ Build a **Full Context AI Personal Assistant** that deeply understands and assis
   - [ ] Self-improvement through reflection
 
 #### FR7: Proactive Assistance
+
 - Description: Assistant takes initiative when appropriate
 - Acceptance Criteria:
   - [x] Heartbeat system for periodic checks (exists in OpenClaw)
@@ -115,28 +125,33 @@ Build a **Full Context AI Personal Assistant** that deeply understands and assis
 ### Non-Functional Requirements
 
 #### NFR1: Performance
+
 - Response time < 5 seconds for simple queries
 - Context retrieval < 2 seconds from memory
 - Support sessions with 100K+ token context windows
 
 #### NFR2: Security
+
 - All data stored locally (no cloud sync without explicit consent)
 - Sensitive information encryption at rest
 - Access control via OpenClaw pairing/allowlist system
 - No data exfiltration (per SOUL.md guidelines)
 
 #### NFR3: Reliability
+
 - Session persistence across restarts
 - Graceful degradation if services unavailable
 - Memory backup and recovery
 
 #### NFR4: Usability
+
 - Natural conversation flow
 - Minimal configuration required
 - Clear feedback on actions taken
 - Easy correction of mistakes
 
 #### NFR5: Privacy
+
 - User controls all stored data
 - Easy data export/deletion
 - Clear visibility into what is remembered
@@ -156,17 +171,20 @@ Build a **Full Context AI Personal Assistant** that deeply understands and assis
 ## Constraints
 
 ### Technical Constraints
+
 - Must run on OpenClaw infrastructure
 - Requires Node.js 22+
 - Requires compatible LLM provider subscription (Anthropic Pro/Max recommended)
 - Memory search requires embedding provider (OpenAI, Gemini, or local)
 
 ### Operational Constraints
+
 - Single-user system (personal assistant, not multi-tenant)
 - Local-first architecture (data stays on user's devices)
 - Requires initial setup and configuration time
 
 ### Resource Constraints
+
 - Workspace storage for memory (recommend 10GB+ available)
 - API costs for LLM and embeddings
 - Compute for local embedding model (optional)
@@ -176,16 +194,19 @@ Build a **Full Context AI Personal Assistant** that deeply understands and assis
 ## Deliverables
 
 ### Primary Deliverables
+
 1. **Workspace Template** - Pre-configured workspace structure for full-context assistant
 2. **Configuration Guide** - Complete openclaw.json configuration
 3. **Skills Package** - Custom skills for project management and learning
 
 ### Secondary Deliverables
+
 1. **Memory Organization Guide** - Best practices for memory structure
 2. **Project Template** - Reusable template for new projects
 3. **Workflow Guides** - Documentation for each collaboration mode
 
 ### Documentation
+
 1. Setup guide
 2. Configuration reference
 3. Usage tutorials
@@ -206,6 +227,7 @@ Build a **Full Context AI Personal Assistant** that deeply understands and assis
 ## Existing OpenClaw Capabilities to Leverage
 
 ### Already Available (No Development Needed)
+
 - [x] Multi-channel messaging (WhatsApp, Telegram, Slack, Discord, Signal, iMessage, etc.)
 - [x] Gateway control plane and session management
 - [x] Workspace files (AGENTS.md, SOUL.md, TOOLS.md, USER.md, MEMORY.md)
@@ -223,6 +245,7 @@ Build a **Full Context AI Personal Assistant** that deeply understands and assis
 - [x] Identity configuration (IDENTITY.md)
 
 ### Needs Configuration/Organization
+
 - [ ] Structured USER.md with comprehensive profile
 - [ ] Project directory organization
 - [ ] MEMORY.md curation strategy
@@ -230,6 +253,7 @@ Build a **Full Context AI Personal Assistant** that deeply understands and assis
 - [ ] Skill customization for workflows
 
 ### Potential Enhancements (Future)
+
 - [ ] Automated memory consolidation skill
 - [ ] Project template generator skill
 - [ ] Learning/feedback capture skill

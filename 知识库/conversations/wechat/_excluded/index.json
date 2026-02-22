@@ -1,0 +1,1128 @@
+[
+  {
+    "id": "wechat-wxid_xn6puny1yaf011",
+    "platform": "wechat",
+    "title": "wei 翁伟炜",
+    "participants": [
+      "wxid_xn6puny1yaf011"
+    ],
+    "message_count": 2,
+    "first_message_time": "2026-01-03T13:08:17+00:00",
+    "last_message_time": "2026-01-03T13:08:49+00:00",
+    "metadata": {
+      "table": "Msg_cbe01bccbce980ac410a92b1db976f9e",
+      "username": "wxid_xn6puny1yaf011",
+      "is_group": false,
+      "db_file": "message_1.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-50218502135_chatroom",
+    "platform": "wechat",
+    "title": "50218502135@chatroom",
+    "participants": [],
+    "message_count": 19,
+    "first_message_time": "2026-01-10T08:29:36+00:00",
+    "last_message_time": "2026-01-13T03:17:31+00:00",
+    "metadata": {
+      "table": "Msg_f5dcbe25f305feaff8b6ba8b55f45fb2",
+      "username": "50218502135@chatroom",
+      "is_group": true,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-low-activity-groups"
+    }
+  },
+  {
+    "id": "wechat-47826726299_chatroom",
+    "platform": "wechat",
+    "title": "47826726299@chatroom",
+    "participants": [],
+    "message_count": 1,
+    "first_message_time": "2026-01-14T03:47:49+00:00",
+    "last_message_time": "2026-01-14T03:47:49+00:00",
+    "metadata": {
+      "table": "Msg_d031fe8ec0b09c9cc3786557e9778ba4",
+      "username": "47826726299@chatroom",
+      "is_group": true,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-low-activity-groups"
+    }
+  },
+  {
+    "id": "wechat-Michelle_C_dream",
+    "platform": "wechat",
+    "title": "Michelle",
+    "participants": [
+      "Michelle_C_dream"
+    ],
+    "message_count": 2,
+    "first_message_time": "2026-01-14T05:16:00+00:00",
+    "last_message_time": "2026-01-14T05:16:07+00:00",
+    "metadata": {
+      "table": "Msg_6dc2fa13822ff57e35ebf10a6f3d8ace",
+      "username": "Michelle_C_dream",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-49348610411_chatroom",
+    "platform": "wechat",
+    "title": "49348610411@chatroom",
+    "participants": [],
+    "message_count": 6,
+    "first_message_time": "2026-01-20T13:28:56+00:00",
+    "last_message_time": "2026-01-20T13:34:41+00:00",
+    "metadata": {
+      "table": "Msg_4247413e012c0b6063d27baf3f1ad5ab",
+      "username": "49348610411@chatroom",
+      "is_group": true,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-low-activity-groups"
+    }
+  },
+  {
+    "id": "wechat-50393285253_chatroom",
+    "platform": "wechat",
+    "title": "【投资人群】南国清华路演",
+    "participants": [],
+    "message_count": 19,
+    "first_message_time": "2025-12-30T11:17:40+00:00",
+    "last_message_time": "2026-01-05T08:38:07+00:00",
+    "metadata": {
+      "table": "Msg_8bfe209aed62cefbd65701eb45d3c019",
+      "username": "50393285253@chatroom",
+      "is_group": true,
+      "db_file": "message_1.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-low-activity-groups"
+    }
+  },
+  {
+    "id": "wechat-26712915806_chatroom",
+    "platform": "wechat",
+    "title": "创东方-美团战投-生境",
+    "participants": [],
+    "message_count": 3,
+    "first_message_time": "2026-01-21T06:33:32+00:00",
+    "last_message_time": "2026-01-21T06:40:09+00:00",
+    "metadata": {
+      "table": "Msg_ac18e3cf5a2de84f609e31d360e5e61b",
+      "username": "26712915806@chatroom",
+      "is_group": true,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-low-activity-groups"
+    }
+  },
+  {
+    "id": "wechat-wxid_9761967619311",
+    "platform": "wechat",
+    "title": "翁子航",
+    "participants": [
+      "wxid_9761967619311"
+    ],
+    "message_count": 2,
+    "first_message_time": "2024-09-17T02:22:46+00:00",
+    "last_message_time": "2024-09-17T02:37:09+00:00",
+    "metadata": {
+      "table": "Msg_d62e2b8afc61ab784ae4e1f2d12687e7",
+      "username": "wxid_9761967619311",
+      "is_group": false,
+      "db_file": "message_2.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-v173669",
+    "platform": "wechat",
+    "title": "V",
+    "participants": [
+      "v173669"
+    ],
+    "message_count": 2,
+    "first_message_time": "2026-01-23T11:28:24+00:00",
+    "last_message_time": "2026-01-23T18:48:27+00:00",
+    "metadata": {
+      "table": "Msg_c6e463b807b94c92c7eddd8b3c30e452",
+      "username": "v173669",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-wxid_ap5asrbuu6m222",
+    "platform": "wechat",
+    "title": "旧金山华人家园3",
+    "participants": [
+      "wxid_ap5asrbuu6m222"
+    ],
+    "message_count": 1,
+    "first_message_time": "2026-01-24T02:12:55+00:00",
+    "last_message_time": "2026-01-24T02:12:55+00:00",
+    "metadata": {
+      "table": "Msg_a51b5d0b25ce341521d931169761ebda",
+      "username": "wxid_ap5asrbuu6m222",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-tnnd2000",
+    "platform": "wechat",
+    "title": "astro boy-Wallace",
+    "participants": [
+      "tnnd2000"
+    ],
+    "message_count": 4,
+    "first_message_time": "2026-01-25T23:59:27+00:00",
+    "last_message_time": "2026-01-26T00:08:45+00:00",
+    "metadata": {
+      "table": "Msg_860d707a5be56fedae04e756d11cc86e",
+      "username": "tnnd2000",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-47748924680_chatroom",
+    "platform": "wechat",
+    "title": "47748924680@chatroom",
+    "participants": [],
+    "message_count": 1,
+    "first_message_time": "2026-01-27T05:34:09+00:00",
+    "last_message_time": "2026-01-27T05:34:09+00:00",
+    "metadata": {
+      "table": "Msg_0487c8e1ff7b609dfad417c5140e0bef",
+      "username": "47748924680@chatroom",
+      "is_group": true,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-low-activity-groups"
+    }
+  },
+  {
+    "id": "wechat-51790743856_chatroom",
+    "platform": "wechat",
+    "title": "51790743856@chatroom",
+    "participants": [],
+    "message_count": 16,
+    "first_message_time": "2026-01-28T11:01:57+00:00",
+    "last_message_time": "2026-01-28T11:24:56+00:00",
+    "metadata": {
+      "table": "Msg_1127d38e84ffe1e6233dc3e18ee2447f",
+      "username": "51790743856@chatroom",
+      "is_group": true,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-low-activity-groups"
+    }
+  },
+  {
+    "id": "wechat-53640054100_chatroom",
+    "platform": "wechat",
+    "title": "53640054100@chatroom",
+    "participants": [],
+    "message_count": 5,
+    "first_message_time": "2026-01-29T09:50:41+00:00",
+    "last_message_time": "2026-01-29T11:09:33+00:00",
+    "metadata": {
+      "table": "Msg_fa09d0ea8a467a0634923010ffe5504d",
+      "username": "53640054100@chatroom",
+      "is_group": true,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-low-activity-groups"
+    }
+  },
+  {
+    "id": "wechat-27335715886_chatroom",
+    "platform": "wechat",
+    "title": "27335715886@chatroom",
+    "participants": [],
+    "message_count": 5,
+    "first_message_time": "2026-02-01T03:35:17+00:00",
+    "last_message_time": "2026-02-01T04:55:27+00:00",
+    "metadata": {
+      "table": "Msg_126d0cfef1ea83acdf19cede31805341",
+      "username": "27335715886@chatroom",
+      "is_group": true,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-low-activity-groups"
+    }
+  },
+  {
+    "id": "wechat-wxid_mzfqf6vhk2ye22",
+    "platform": "wechat",
+    "title": "宝艇游艇💋🌺陆小丫",
+    "participants": [
+      "wxid_mzfqf6vhk2ye22"
+    ],
+    "message_count": 4,
+    "first_message_time": "2026-02-01T05:20:42+00:00",
+    "last_message_time": "2026-02-17T00:11:22+00:00",
+    "metadata": {
+      "table": "Msg_09a465f1c5823e7bda422f9cbb38adbd",
+      "username": "wxid_mzfqf6vhk2ye22",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-wxid_33vv4z58lt9052",
+    "platform": "wechat",
+    "title": "万传军-Habit@",
+    "participants": [
+      "wxid_33vv4z58lt9052"
+    ],
+    "message_count": 4,
+    "first_message_time": "2026-02-01T13:10:22+00:00",
+    "last_message_time": "2026-02-01T15:05:12+00:00",
+    "metadata": {
+      "table": "Msg_c976e7371b05216a383c7f0ba58644c7",
+      "username": "wxid_33vv4z58lt9052",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-48784123568_chatroom",
+    "platform": "wechat",
+    "title": "48784123568@chatroom",
+    "participants": [],
+    "message_count": 3,
+    "first_message_time": "2026-02-02T04:07:26+00:00",
+    "last_message_time": "2026-02-02T04:08:44+00:00",
+    "metadata": {
+      "table": "Msg_a4e33b2f13116d161d8a4f123d90d760",
+      "username": "48784123568@chatroom",
+      "is_group": true,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-low-activity-groups"
+    }
+  },
+  {
+    "id": "wechat-44776045367_chatroom",
+    "platform": "wechat",
+    "title": "44776045367@chatroom",
+    "participants": [],
+    "message_count": 11,
+    "first_message_time": "2026-02-02T04:47:36+00:00",
+    "last_message_time": "2026-02-02T04:52:32+00:00",
+    "metadata": {
+      "table": "Msg_44ffdcb6d74630c2c3d70ffb2b8f1b9a",
+      "username": "44776045367@chatroom",
+      "is_group": true,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-low-activity-groups"
+    }
+  },
+  {
+    "id": "wechat-50067108233_chatroom",
+    "platform": "wechat",
+    "title": "50067108233@chatroom",
+    "participants": [],
+    "message_count": 15,
+    "first_message_time": "2026-02-02T05:35:30+00:00",
+    "last_message_time": "2026-02-02T05:55:27+00:00",
+    "metadata": {
+      "table": "Msg_d681ebfa28ff3ed337b9fc232991fa0c",
+      "username": "50067108233@chatroom",
+      "is_group": true,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-low-activity-groups"
+    }
+  },
+  {
+    "id": "wechat-54355231353_chatroom",
+    "platform": "wechat",
+    "title": "54355231353@chatroom",
+    "participants": [],
+    "message_count": 5,
+    "first_message_time": "2026-02-02T15:17:42+00:00",
+    "last_message_time": "2026-02-02T15:18:41+00:00",
+    "metadata": {
+      "table": "Msg_da2fbd99325b655bd3abffd31d877182",
+      "username": "54355231353@chatroom",
+      "is_group": true,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-low-activity-groups"
+    }
+  },
+  {
+    "id": "wechat-wxid_a87nywpd5dtn22",
+    "platform": "wechat",
+    "title": "xw",
+    "participants": [
+      "wxid_a87nywpd5dtn22"
+    ],
+    "message_count": 4,
+    "first_message_time": "2026-02-02T21:53:18+00:00",
+    "last_message_time": "2026-02-02T22:03:57+00:00",
+    "metadata": {
+      "table": "Msg_e3a3c6d063d0a1d10ec1c49cb7ae1d99",
+      "username": "wxid_a87nywpd5dtn22",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-weixin",
+    "platform": "wechat",
+    "title": "微信团队",
+    "participants": [
+      "weixin"
+    ],
+    "message_count": 1,
+    "first_message_time": "2026-02-03T08:38:33+00:00",
+    "last_message_time": "2026-02-03T08:38:33+00:00",
+    "metadata": {
+      "table": "Msg_c196266f837d14e0b693f961bee37b66",
+      "username": "weixin",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-wxid_8bosngyvmfpw22",
+    "platform": "wechat",
+    "title": "ё",
+    "participants": [
+      "wxid_8bosngyvmfpw22"
+    ],
+    "message_count": 4,
+    "first_message_time": "2026-02-04T07:16:32+00:00",
+    "last_message_time": "2026-02-04T07:18:41+00:00",
+    "metadata": {
+      "table": "Msg_3f9938c5aa987661fc4b1d78236f3baa",
+      "username": "wxid_8bosngyvmfpw22",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-43202049603_chatroom",
+    "platform": "wechat",
+    "title": "43202049603@chatroom",
+    "participants": [],
+    "message_count": 8,
+    "first_message_time": "2026-02-04T12:31:04+00:00",
+    "last_message_time": "2026-02-05T00:37:29+00:00",
+    "metadata": {
+      "table": "Msg_449ec69fc6bca7bf3368f53b4c375f7a",
+      "username": "43202049603@chatroom",
+      "is_group": true,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-low-activity-groups"
+    }
+  },
+  {
+    "id": "wechat-26546911015_chatroom",
+    "platform": "wechat",
+    "title": "此群停用",
+    "participants": [],
+    "message_count": 1,
+    "first_message_time": "2026-02-04T20:48:20+00:00",
+    "last_message_time": "2026-02-04T20:48:20+00:00",
+    "metadata": {
+      "table": "Msg_eb394314831a3c3d02b27666cbf83973",
+      "username": "26546911015@chatroom",
+      "is_group": true,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-low-activity-groups"
+    }
+  },
+  {
+    "id": "wechat-wxid_39f0xz54he1j12",
+    "platform": "wechat",
+    "title": "linlin",
+    "participants": [
+      "wxid_39f0xz54he1j12"
+    ],
+    "message_count": 4,
+    "first_message_time": "2026-02-05T01:25:14+00:00",
+    "last_message_time": "2026-02-05T01:32:50+00:00",
+    "metadata": {
+      "table": "Msg_5523d56dcf6980eec59b2e3c304388e8",
+      "username": "wxid_39f0xz54he1j12",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-wxid_d9bkgk288s5q12",
+    "platform": "wechat",
+    "title": "WILLIAM 张敬维",
+    "participants": [
+      "wxid_d9bkgk288s5q12"
+    ],
+    "message_count": 4,
+    "first_message_time": "2026-02-05T01:25:15+00:00",
+    "last_message_time": "2026-02-05T01:32:39+00:00",
+    "metadata": {
+      "table": "Msg_b012ba9d872bffb3e3501e27362ad42e",
+      "username": "wxid_d9bkgk288s5q12",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-wxid_pwrn1v1bbawy12",
+    "platform": "wechat",
+    "title": "施毅",
+    "participants": [
+      "wxid_pwrn1v1bbawy12"
+    ],
+    "message_count": 4,
+    "first_message_time": "2026-02-05T01:25:15+00:00",
+    "last_message_time": "2026-02-05T01:32:41+00:00",
+    "metadata": {
+      "table": "Msg_c52052254b7d21a78c59ea1ef98031e5",
+      "username": "wxid_pwrn1v1bbawy12",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-zjwway",
+    "platform": "wechat",
+    "title": "张敬维 William",
+    "participants": [
+      "zjwway"
+    ],
+    "message_count": 4,
+    "first_message_time": "2024-01-31T15:34:31+00:00",
+    "last_message_time": "2024-06-10T18:17:43+00:00",
+    "metadata": {
+      "table": "Msg_f35ea02644b0097c68afb6e5b177311c",
+      "username": "zjwway",
+      "is_group": false,
+      "db_file": "message_2.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-44577046249_chatroom",
+    "platform": "wechat",
+    "title": "44577046249@chatroom",
+    "participants": [],
+    "message_count": 13,
+    "first_message_time": "2026-02-06T05:03:45+00:00",
+    "last_message_time": "2026-02-06T05:05:05+00:00",
+    "metadata": {
+      "table": "Msg_f4518f045ed41243c95e05db2718a688",
+      "username": "44577046249@chatroom",
+      "is_group": true,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-low-activity-groups"
+    }
+  },
+  {
+    "id": "wechat-26948312610_chatroom",
+    "platform": "wechat",
+    "title": "23-24 Pali & Alpine🏂⛷2️⃣",
+    "participants": [],
+    "message_count": 12,
+    "first_message_time": "2026-02-06T05:29:31+00:00",
+    "last_message_time": "2026-02-20T07:18:13+00:00",
+    "metadata": {
+      "table": "Msg_e5f520098c99d82c60006f6ac506b586",
+      "username": "26948312610@chatroom",
+      "is_group": true,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-low-activity-groups"
+    }
+  },
+  {
+    "id": "wechat-wxid_sl217snoi08y12",
+    "platform": "wechat",
+    "title": "Jacky 王",
+    "participants": [
+      "wxid_sl217snoi08y12"
+    ],
+    "message_count": 4,
+    "first_message_time": "2026-02-06T07:34:28+00:00",
+    "last_message_time": "2026-02-06T07:34:55+00:00",
+    "metadata": {
+      "table": "Msg_5ad7a5f23a7e481bf8f4e564ceac6638",
+      "username": "wxid_sl217snoi08y12",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-wxid_2hmstuimd9uq22",
+    "platform": "wechat",
+    "title": "ROBERT 陈国章",
+    "participants": [
+      "wxid_2hmstuimd9uq22"
+    ],
+    "message_count": 4,
+    "first_message_time": "2026-02-06T09:22:13+00:00",
+    "last_message_time": "2026-02-06T10:23:23+00:00",
+    "metadata": {
+      "table": "Msg_6e96e90c92efa83b366da017949f574b",
+      "username": "wxid_2hmstuimd9uq22",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-wxid_o2x3nxrobbdl12",
+    "platform": "wechat",
+    "title": "Ross",
+    "participants": [
+      "wxid_o2x3nxrobbdl12"
+    ],
+    "message_count": 4,
+    "first_message_time": "2026-02-06T09:27:17+00:00",
+    "last_message_time": "2026-02-06T09:34:15+00:00",
+    "metadata": {
+      "table": "Msg_70e4e194e901ce08fcabcf832729166c",
+      "username": "wxid_o2x3nxrobbdl12",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-xuyingyinghui",
+    "platform": "wechat",
+    "title": "許瑩 Ying",
+    "participants": [
+      "xuyingyinghui"
+    ],
+    "message_count": 4,
+    "first_message_time": "2026-02-06T12:25:46+00:00",
+    "last_message_time": "2026-02-06T13:03:48+00:00",
+    "metadata": {
+      "table": "Msg_036f69a30c536c524442c6ba6837cd9f",
+      "username": "xuyingyinghui",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-wangstephen",
+    "platform": "wechat",
+    "title": "Stephen",
+    "participants": [
+      "wangstephen"
+    ],
+    "message_count": 4,
+    "first_message_time": "2026-02-06T11:17:51+00:00",
+    "last_message_time": "2026-02-06T11:18:28+00:00",
+    "metadata": {
+      "table": "Msg_3e2ee3aa11dfd78fbb4451ace79353e3",
+      "username": "wangstephen",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-a33208666",
+    "platform": "wechat",
+    "title": "王李珏（学固）",
+    "participants": [
+      "a33208666"
+    ],
+    "message_count": 3,
+    "first_message_time": "2026-02-06T14:30:03+00:00",
+    "last_message_time": "2026-02-16T00:24:51+00:00",
+    "metadata": {
+      "table": "Msg_8e3f99f5a722aa75f5b2e6bee9d69008",
+      "username": "a33208666",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-13991927079_chatroom",
+    "platform": "wechat",
+    "title": "清华清华材料学院深圳校友分会理事",
+    "participants": [],
+    "message_count": 2,
+    "first_message_time": "2026-02-07T07:06:23+00:00",
+    "last_message_time": "2026-02-07T11:00:28+00:00",
+    "metadata": {
+      "table": "Msg_ae7752447304db1aaf4b830c4399248c",
+      "username": "13991927079@chatroom",
+      "is_group": true,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-low-activity-groups"
+    }
+  },
+  {
+    "id": "wechat-wxid_3583995833722",
+    "platform": "wechat",
+    "title": "Tony博涛",
+    "participants": [
+      "wxid_3583995833722"
+    ],
+    "message_count": 2,
+    "first_message_time": "2026-02-07T14:05:23+00:00",
+    "last_message_time": "2026-02-07T14:05:24+00:00",
+    "metadata": {
+      "table": "Msg_a7b12f1f8ff171269512098efa0514af",
+      "username": "wxid_3583995833722",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-45757831455_chatroom",
+    "platform": "wechat",
+    "title": "来华事宜沟通群",
+    "participants": [],
+    "message_count": 10,
+    "first_message_time": "2026-02-08T06:32:42+00:00",
+    "last_message_time": "2026-02-09T03:26:30+00:00",
+    "metadata": {
+      "table": "Msg_9ace995dbf2b4b32b5c605758bd0f8bd",
+      "username": "45757831455@chatroom",
+      "is_group": true,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-low-activity-groups"
+    }
+  },
+  {
+    "id": "wechat-49674717101_chatroom",
+    "platform": "wechat",
+    "title": "49674717101@chatroom",
+    "participants": [],
+    "message_count": 10,
+    "first_message_time": "2026-02-08T15:29:31+00:00",
+    "last_message_time": "2026-02-09T02:15:31+00:00",
+    "metadata": {
+      "table": "Msg_5ef51685acdf97ca765a54be4df89bd3",
+      "username": "49674717101@chatroom",
+      "is_group": true,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-low-activity-groups"
+    }
+  },
+  {
+    "id": "wechat-lzybbzhang",
+    "platform": "wechat",
+    "title": "Ray",
+    "participants": [
+      "lzybbzhang"
+    ],
+    "message_count": 3,
+    "first_message_time": "2026-02-09T00:01:33+00:00",
+    "last_message_time": "2026-02-09T00:12:01+00:00",
+    "metadata": {
+      "table": "Msg_9910d08db3c2174e63e7ddfd46a2c734",
+      "username": "lzybbzhang",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-wychinese",
+    "platform": "wechat",
+    "title": "王胤",
+    "participants": [
+      "wychinese"
+    ],
+    "message_count": 1,
+    "first_message_time": "2026-02-10T07:27:28+00:00",
+    "last_message_time": "2026-02-10T07:27:28+00:00",
+    "metadata": {
+      "table": "Msg_e2ad02518c03fb1932f90420efcb09a4",
+      "username": "wychinese",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-43383606062_chatroom",
+    "platform": "wechat",
+    "title": "中医治疗内科、痛症、中风、妇科",
+    "participants": [],
+    "message_count": 1,
+    "first_message_time": "2026-02-10T17:53:06+00:00",
+    "last_message_time": "2026-02-10T17:53:06+00:00",
+    "metadata": {
+      "table": "Msg_20c571f66523fe595f19e46c926aeba1",
+      "username": "43383606062@chatroom",
+      "is_group": true,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-low-activity-groups"
+    }
+  },
+  {
+    "id": "wechat-H_linlin7923",
+    "platform": "wechat",
+    "title": "H.Lin🐇",
+    "participants": [
+      "H_linlin7923"
+    ],
+    "message_count": 2,
+    "first_message_time": "2026-02-14T12:04:49+00:00",
+    "last_message_time": "2026-02-14T12:04:49+00:00",
+    "metadata": {
+      "table": "Msg_2e4b6d107b457b561413addc3449dba8",
+      "username": "H_linlin7923",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-xmgggg",
+    "platform": "wechat",
+    "title": "许铭",
+    "participants": [
+      "xmgggg"
+    ],
+    "message_count": 4,
+    "first_message_time": "2026-02-16T03:21:17+00:00",
+    "last_message_time": "2026-02-17T03:08:45+00:00",
+    "metadata": {
+      "table": "Msg_41fd13d7978e3c2447f9c4e5276fdd3b",
+      "username": "xmgggg",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-wxid_cvukwqeetgx122",
+    "platform": "wechat",
+    "title": "jingwen wang",
+    "participants": [
+      "wxid_cvukwqeetgx122"
+    ],
+    "message_count": 3,
+    "first_message_time": "2026-02-16T04:46:41+00:00",
+    "last_message_time": "2026-02-17T00:12:32+00:00",
+    "metadata": {
+      "table": "Msg_21fa9f894d5cd1527d6131d0958ee73e",
+      "username": "wxid_cvukwqeetgx122",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-wxid_e68cc3svig2v12",
+    "platform": "wechat",
+    "title": "gyh",
+    "participants": [
+      "wxid_e68cc3svig2v12"
+    ],
+    "message_count": 2,
+    "first_message_time": "2026-02-16T07:40:46+00:00",
+    "last_message_time": "2026-02-16T13:46:24+00:00",
+    "metadata": {
+      "table": "Msg_abea813a5519931d48f95a527c4d4eba",
+      "username": "wxid_e68cc3svig2v12",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-3285963889_chatroom",
+    "platform": "wechat",
+    "title": "初三（2）班（84级87届）",
+    "participants": [],
+    "message_count": 15,
+    "first_message_time": "2026-02-16T08:23:30+00:00",
+    "last_message_time": "2026-02-17T05:35:49+00:00",
+    "metadata": {
+      "table": "Msg_05135b32d018246a2e453d4482b5b50b",
+      "username": "3285963889@chatroom",
+      "is_group": true,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-low-activity-groups"
+    }
+  },
+  {
+    "id": "wechat-wxid_e8iv7qvqeibf12",
+    "platform": "wechat",
+    "title": "Jerry王浩明",
+    "participants": [
+      "wxid_e8iv7qvqeibf12"
+    ],
+    "message_count": 3,
+    "first_message_time": "2026-02-16T11:35:00+00:00",
+    "last_message_time": "2026-02-17T00:12:33+00:00",
+    "metadata": {
+      "table": "Msg_7f6673248e9d40876119f48e510ad1b2",
+      "username": "wxid_e8iv7qvqeibf12",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-wxid_9n5rxy7bfcsb12",
+    "platform": "wechat",
+    "title": "瞎猫 谢昊-清华老乡",
+    "participants": [
+      "wxid_9n5rxy7bfcsb12"
+    ],
+    "message_count": 2,
+    "first_message_time": "2026-02-16T16:14:17+00:00",
+    "last_message_time": "2026-02-17T00:12:30+00:00",
+    "metadata": {
+      "table": "Msg_96b4d650716f9ef1bc0ae3ed54967364",
+      "username": "wxid_9n5rxy7bfcsb12",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-may2010428",
+    "platform": "wechat",
+    "title": "刘曼莉-纽约人寿",
+    "participants": [
+      "may2010428"
+    ],
+    "message_count": 2,
+    "first_message_time": "2026-02-16T22:53:31+00:00",
+    "last_message_time": "2026-02-17T00:04:00+00:00",
+    "metadata": {
+      "table": "Msg_2ab88a7b6a270656cce86bd46d390ead",
+      "username": "may2010428",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-nancy-zhan",
+    "platform": "wechat",
+    "title": "种子 Nancy",
+    "participants": [
+      "nancy-zhan"
+    ],
+    "message_count": 1,
+    "first_message_time": "2026-02-17T00:29:17+00:00",
+    "last_message_time": "2026-02-17T00:29:17+00:00",
+    "metadata": {
+      "table": "Msg_4e64ad1c2a92504c81b86f4e6d5bd1dc",
+      "username": "nancy-zhan",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-27539820681_chatroom",
+    "platform": "wechat",
+    "title": "New agents",
+    "participants": [],
+    "message_count": 1,
+    "first_message_time": "2026-02-17T18:30:29+00:00",
+    "last_message_time": "2026-02-17T18:30:29+00:00",
+    "metadata": {
+      "table": "Msg_2eb39e73b2ae74063b0754ae9623ab7b",
+      "username": "27539820681@chatroom",
+      "is_group": true,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-low-activity-groups"
+    }
+  },
+  {
+    "id": "wechat-liyipui",
+    "platform": "wechat",
+    "title": "liyi 李宜",
+    "participants": [
+      "liyipui"
+    ],
+    "message_count": 1,
+    "first_message_time": "2026-02-17T20:05:49+00:00",
+    "last_message_time": "2026-02-17T20:05:49+00:00",
+    "metadata": {
+      "table": "Msg_fc16f80010058432d46577b42aaee9a4",
+      "username": "liyipui",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-6193345960_chatroom",
+    "platform": "wechat",
+    "title": "湾区滑雪🎿网球🎾双项运动实名群",
+    "participants": [],
+    "message_count": 18,
+    "first_message_time": "2024-01-17T05:55:56+00:00",
+    "last_message_time": "2024-12-07T19:06:17+00:00",
+    "metadata": {
+      "table": "Msg_341f56caddb470efcdac5aef84697433",
+      "username": "6193345960@chatroom",
+      "is_group": true,
+      "db_file": "message_2.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-low-activity-groups"
+    }
+  },
+  {
+    "id": "wechat-filehelper",
+    "platform": "wechat",
+    "title": "文件传输助手",
+    "participants": [
+      "filehelper"
+    ],
+    "message_count": 2,
+    "first_message_time": "2026-01-16T07:21:50+00:00",
+    "last_message_time": "2026-02-20T14:03:35+00:00",
+    "metadata": {
+      "table": "Msg_9e20f478899dc29eb19741386f9343c8",
+      "username": "filehelper",
+      "is_group": false,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-48788810006_chatroom",
+    "platform": "wechat",
+    "title": "美团闪购 -深圳松鼠专属福利群-54",
+    "participants": [],
+    "message_count": 5,
+    "first_message_time": "2026-02-20T22:28:46+00:00",
+    "last_message_time": "2026-02-20T22:56:48+00:00",
+    "metadata": {
+      "table": "Msg_5ec279d59a97170c87d954b3719771da",
+      "username": "48788810006@chatroom",
+      "is_group": true,
+      "db_file": "message_0.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-low-activity-groups"
+    }
+  },
+  {
+    "id": "wechat-27948421998_chatroom",
+    "platform": "wechat",
+    "title": "27948421998@chatroom",
+    "participants": [],
+    "message_count": 10,
+    "first_message_time": "2024-01-21T04:27:46+00:00",
+    "last_message_time": "2024-01-21T04:58:32+00:00",
+    "metadata": {
+      "table": "Msg_0e9710c01b1d82feb5a876aca8578b39",
+      "username": "27948421998@chatroom",
+      "is_group": true,
+      "db_file": "message_2.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-low-activity-groups"
+    }
+  },
+  {
+    "id": "wechat-mengran2166",
+    "platform": "wechat",
+    "title": "Meng 孟冉 tennis",
+    "participants": [
+      "mengran2166"
+    ],
+    "message_count": 2,
+    "first_message_time": "2024-02-09T04:48:40+00:00",
+    "last_message_time": "2024-02-09T05:38:32+00:00",
+    "metadata": {
+      "table": "Msg_42c80f052e69ce4bc7c93f18d164bf55",
+      "username": "mengran2166",
+      "is_group": false,
+      "db_file": "message_2.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  },
+  {
+    "id": "wechat-dd9935138",
+    "platform": "wechat",
+    "title": "吕小丹🍭ENFP",
+    "participants": [
+      "dd9935138"
+    ],
+    "message_count": 2,
+    "first_message_time": "2024-02-10T02:10:40+00:00",
+    "last_message_time": "2024-02-10T02:49:03+00:00",
+    "metadata": {
+      "table": "Msg_c00777f3055e869f64b2ffbce80384da",
+      "username": "dd9935138",
+      "is_group": false,
+      "db_file": "message_2.db",
+      "tier": "exclude",
+      "filter_rule": "exclude-tiny-conversations"
+    }
+  }
+]

@@ -220,28 +220,34 @@ User Message → Channel → Gateway → Session
 ## Technical Approach
 
 ### Approach 1: Full Custom Build (Rejected)
+
 **Description**: Build all components from scratch
 
 **Pros**:
+
 - Complete control over every aspect
 - Optimized for specific use case
 
 **Cons**:
+
 - Enormous development effort
 - Duplicates existing OpenClaw functionality
 - Maintenance burden
 - Slower time to value
 
 ### Approach 2: Configuration-First (Chosen)
+
 **Description**: Maximize use of existing OpenClaw capabilities through configuration and workspace organization
 
 **Pros**:
+
 - Rapid implementation
 - Leverages battle-tested code
 - Automatic updates with OpenClaw
 - Focus on value-add customization
 
 **Cons**:
+
 - Some limitations from existing design
 - May need future feature requests for gaps
 
@@ -270,6 +276,7 @@ User Message → Channel → Gateway → Session
 ### Key Components
 
 #### Component 1: Enhanced USER.md
+
 - **Purpose**: Comprehensive user profile
 - **Interface**: Markdown file read at session start
 - **Content Structure**:
@@ -278,67 +285,84 @@ User Message → Channel → Gateway → Session
 # USER.md - About Your Human
 
 ## Identity
+
 - **Name**: [Full name]
 - **Preferred Name**: [What to call them]
 - **Pronouns**: [Pronouns]
 - **Timezone**: [TZ]
 
 ## Background
+
 ### Personal History
+
 - [Key life events, background]
 
 ### Professional Background
+
 - **Current Role**: [Title, Company]
 - **Skills**: [Key skills]
 - **Career History**: [Brief history]
 
 ## Preferences
+
 ### Communication Style
+
 - [Formal/casual, brevity preferences, etc.]
 
 ### Work Patterns
+
 - **Peak Hours**: [When most productive]
 - **Meeting Days**: [Preferred meeting days]
 - **Focus Time**: [When to not disturb]
 
 ### Interests
+
 - [Personal interests, hobbies]
 
 ## Current Context
+
 ### Active Projects
+
 - [Project 1]: [Brief status]
 - [Project 2]: [Brief status]
 
 ### Upcoming Events
+
 - [Important dates]
 
 ### Current Focus
+
 - [What they're working on now]
 
 ## Relationships
+
 ### Key Contacts
+
 - [Name]: [Relationship, context]
 
 ## Notes
+
 [Additional context]
 ```
 
 #### Component 2: Project Directory Structure
+
 - **Purpose**: Isolated context for each project
 - **Interface**: Directory with standardized files
 - **Structure**:
 
 ```markdown
 projects/<project-name>/
-├── README.md       # Overview, goals, stakeholders
-├── context.md      # Active working context
-├── tasks.md        # Current tasks and status
-├── decisions.md    # Key decisions and rationale
-├── notes.md        # Working notes
-└── archive/        # Completed work
+├── README.md # Overview, goals, stakeholders
+├── context.md # Active working context
+├── tasks.md # Current tasks and status
+├── decisions.md # Key decisions and rationale
+├── notes.md # Working notes
+└── archive/ # Completed work
 ```
 
 #### Component 3: HEARTBEAT.md Configuration
+
 - **Purpose**: Proactive assistance triggers
 - **Interface**: Checklist-style configuration
 - **Example**:
@@ -347,23 +371,28 @@ projects/<project-name>/
 # HEARTBEAT.md - Proactive Checks
 
 ## Daily Checks (Morning, ~8am user time)
+
 - [ ] Check calendar for today and tomorrow
 - [ ] Summarize unread important emails
 - [ ] Review project deadlines this week
 
 ## Periodic Checks (Every 4 hours)
+
 - [ ] Check for urgent emails
 - [ ] Monitor project blockers
 
 ## Weekly Review (Sunday evening)
+
 - [ ] Summarize week's accomplishments
 - [ ] Preview next week's schedule
 - [ ] Update MEMORY.md with week's learnings
 
 ## Quiet Hours
+
 - No proactive messages: 23:00 - 08:00
 
 ## State File
+
 memory/heartbeat-state.json
 ```
 
@@ -388,27 +417,27 @@ memory/heartbeat-state.json
           hybrid: {
             enabled: true,
             vectorWeight: 0.7,
-            textWeight: 0.3
-          }
+            textWeight: 0.3,
+          },
         },
-        extraPaths: ["projects", "reference"]
+        extraPaths: ["projects", "reference"],
       },
       compaction: {
         reserveTokensFloor: 25000,
         memoryFlush: {
           enabled: true,
-          softThresholdTokens: 5000
-        }
-      }
-    }
+          softThresholdTokens: 5000,
+        },
+      },
+    },
   },
   messages: {
-    responsePrefix: "auto"
+    responsePrefix: "auto",
   },
   heartbeat: {
     enabled: true,
-    intervalMinutes: 30
-  }
+    intervalMinutes: 30,
+  },
 }
 ```
 
@@ -427,6 +456,7 @@ No new APIs needed. Leverage existing OpenClaw tools:
 ### Data Model
 
 #### User Profile (USER.md)
+
 ```typescript
 interface UserProfile {
   identity: {
@@ -453,15 +483,16 @@ interface UserProfile {
     interests: string[];
   };
   currentContext: {
-    activeProjects: Array<{name: string; status: string}>;
+    activeProjects: Array<{ name: string; status: string }>;
     upcomingEvents: string[];
     currentFocus: string;
   };
-  relationships: Array<{name: string; relationship: string; context: string}>;
+  relationships: Array<{ name: string; relationship: string; context: string }>;
 }
 ```
 
 #### Project Context (projects/<name>/context.md)
+
 ```typescript
 interface ProjectContext {
   name: string;
@@ -470,7 +501,7 @@ interface ProjectContext {
   goals: string[];
   stakeholders: string[];
   currentPhase: string;
-  recentDecisions: Array<{date: string; decision: string; rationale: string}>;
+  recentDecisions: Array<{ date: string; decision: string; rationale: string }>;
   blockers: string[];
   nextSteps: string[];
 }
@@ -499,16 +530,19 @@ interface ProjectContext {
 ## Security Considerations
 
 ### Data Protection
+
 - All data stays on local filesystem
 - Memory index stored locally in SQLite
 - No cloud sync without explicit configuration
 
 ### Access Control
+
 - OpenClaw pairing system for channel access
 - Allowlist configuration for who can interact
 - Elevated bash mode requires explicit enablement
 
 ### Privacy
+
 - MEMORY.md only loaded in main session (not groups)
 - Sensitive data flagged in USER.md with visibility rules
 - No data exfiltration per SOUL.md guidelines
@@ -518,11 +552,13 @@ interface ProjectContext {
 ## Performance Considerations
 
 ### Targets
+
 - Memory search: < 2 seconds
 - Context assembly: < 1 second
 - Total response time: < 5 seconds (excluding LLM thinking)
 
 ### Optimizations
+
 - Hybrid search (vector + BM25) for better recall
 - Embedding cache to avoid re-computation
 - Session memory indexing for recent context
@@ -533,22 +569,26 @@ interface ProjectContext {
 ## Migration / Rollout Plan
 
 ### Phase 1: Basic Setup (Day 1)
+
 1. Configure workspace with enhanced structure
 2. Create USER.md with initial profile
 3. Set up memory search
 4. Configure channels
 
 ### Phase 2: Memory Population (Week 1)
+
 1. Import existing notes/context to MEMORY.md
 2. Create project directories for active work
 3. Configure HEARTBEAT.md
 
 ### Phase 3: Tuning (Week 2-4)
+
 1. Refine USER.md based on interactions
 2. Adjust memory consolidation patterns
 3. Add custom skills as needed
 
 ### Phase 4: Steady State (Ongoing)
+
 1. Regular memory maintenance
 2. Project context updates
 3. Periodic USER.md refresh
@@ -558,6 +598,7 @@ interface ProjectContext {
 ## References
 
 ### Internal Sources
+
 - `[ref-workspace-ts]` /Users/kweng/AI/openclaw/src/agents/workspace.ts
 - `[ref-memory-tool]` /Users/kweng/AI/openclaw/src/agents/tools/memory-tool.ts
 - `[ref-memory-docs]` /Users/kweng/AI/openclaw/docs/concepts/memory.md
@@ -566,6 +607,7 @@ interface ProjectContext {
 - `[ref-user-template]` /Users/kweng/AI/openclaw/docs/reference/templates/USER.md
 
 ### External Sources
+
 - `[ref-openclaw-docs]` https://docs.openclaw.ai
 
 ---

@@ -9,6 +9,7 @@ Task breakdown for implementing the Full Context AI Personal Assistant. Since th
 ## Phase 1: Foundation Setup
 
 ### Task 1.1: Create Workspace Directory Structure
+
 - **Estimate**: 30 minutes
 - **Status**: Not Started
 - **Assignee**: Unassigned
@@ -22,6 +23,7 @@ Task breakdown for implementing the Full Context AI Personal Assistant. Since th
   - [ ] `.git` initialized for version control
 
 ### Task 1.2: Configure openclaw.json
+
 - **Estimate**: 1 hour
 - **Status**: Not Started
 - **Assignee**: Unassigned
@@ -35,6 +37,7 @@ Task breakdown for implementing the Full Context AI Personal Assistant. Since th
   - [ ] Heartbeat configured
 
 ### Task 1.3: Create Enhanced USER.md
+
 - **Estimate**: 2 hours
 - **Status**: Not Started
 - **Assignee**: Unassigned
@@ -47,6 +50,7 @@ Task breakdown for implementing the Full Context AI Personal Assistant. Since th
   - [ ] Key relationships listed
 
 ### Task 1.4: Customize AGENTS.md
+
 - **Estimate**: 1 hour
 - **Status**: Not Started
 - **Assignee**: Unassigned
@@ -58,6 +62,7 @@ Task breakdown for implementing the Full Context AI Personal Assistant. Since th
   - [ ] Full-context retrieval workflow documented
 
 ### Task 1.5: Customize SOUL.md
+
 - **Estimate**: 1 hour
 - **Status**: Not Started
 - **Assignee**: Unassigned
@@ -73,6 +78,7 @@ Task breakdown for implementing the Full Context AI Personal Assistant. Since th
 ## Phase 2: Memory System Setup
 
 ### Task 2.1: Initialize MEMORY.md
+
 - **Estimate**: 2 hours
 - **Status**: Not Started
 - **Assignee**: Unassigned
@@ -84,6 +90,7 @@ Task breakdown for implementing the Full Context AI Personal Assistant. Since th
   - [ ] Memory management guidelines documented in header
 
 ### Task 2.2: Configure Memory Search
+
 - **Estimate**: 1 hour
 - **Status**: Not Started
 - **Assignee**: Unassigned
@@ -96,6 +103,7 @@ Task breakdown for implementing the Full Context AI Personal Assistant. Since th
   - [ ] Verify search returns relevant results
 
 ### Task 2.3: Create Memory Consolidation Process
+
 - **Estimate**: 1 hour
 - **Status**: Not Started
 - **Assignee**: Unassigned
@@ -111,6 +119,7 @@ Task breakdown for implementing the Full Context AI Personal Assistant. Since th
 ## Phase 3: Project Management Setup
 
 ### Task 3.1: Create Project Template
+
 - **Estimate**: 1 hour
 - **Status**: Not Started
 - **Assignee**: Unassigned
@@ -124,6 +133,7 @@ Task breakdown for implementing the Full Context AI Personal Assistant. Since th
   - [ ] Template stored in reference/templates/project/
 
 ### Task 3.2: Initialize First Project
+
 - **Estimate**: 30 minutes
 - **Status**: Not Started
 - **Assignee**: Unassigned
@@ -135,6 +145,7 @@ Task breakdown for implementing the Full Context AI Personal Assistant. Since th
   - [ ] Verify project files are indexed by memory search
 
 ### Task 3.3: Document Project Workflow
+
 - **Estimate**: 1 hour
 - **Status**: Not Started
 - **Assignee**: Unassigned
@@ -150,6 +161,7 @@ Task breakdown for implementing the Full Context AI Personal Assistant. Since th
 ## Phase 4: Proactive Assistance Setup
 
 ### Task 4.1: Configure HEARTBEAT.md
+
 - **Estimate**: 1 hour
 - **Status**: Not Started
 - **Assignee**: Unassigned
@@ -162,6 +174,7 @@ Task breakdown for implementing the Full Context AI Personal Assistant. Since th
   - [ ] State file location specified
 
 ### Task 4.2: Set Up Cron Jobs
+
 - **Estimate**: 30 minutes
 - **Status**: Not Started
 - **Assignee**: Unassigned
@@ -172,6 +185,7 @@ Task breakdown for implementing the Full Context AI Personal Assistant. Since th
   - [ ] Cron jobs documented in TOOLS.md
 
 ### Task 4.3: Configure Email/Calendar Integration
+
 - **Estimate**: 1 hour
 - **Status**: Not Started
 - **Assignee**: Unassigned (requires service setup)
@@ -187,6 +201,7 @@ Task breakdown for implementing the Full Context AI Personal Assistant. Since th
 ## Phase 5: Channel Configuration
 
 ### Task 5.1: Configure Primary Channel
+
 - **Estimate**: 30 minutes
 - **Status**: Not Started
 - **Assignee**: Unassigned
@@ -198,6 +213,7 @@ Task breakdown for implementing the Full Context AI Personal Assistant. Since th
   - [ ] Test message sent/received
 
 ### Task 5.2: Configure Secondary Channels
+
 - **Estimate**: 1 hour
 - **Status**: Not Started
 - **Assignee**: Unassigned
@@ -209,6 +225,7 @@ Task breakdown for implementing the Full Context AI Personal Assistant. Since th
   - [ ] Test messages verified
 
 ### Task 5.3: Configure Voice Interface
+
 - **Estimate**: 30 minutes
 - **Status**: Not Started
 - **Assignee**: Unassigned (requires macOS/iOS)
@@ -224,6 +241,7 @@ Task breakdown for implementing the Full Context AI Personal Assistant. Since th
 ## Phase 6: Custom Skills (Optional)
 
 ### Task 6.1: Create Project Manager Skill
+
 - **Estimate**: 2 hours
 - **Status**: Not Started
 - **Assignee**: Unassigned
@@ -236,6 +254,7 @@ Task breakdown for implementing the Full Context AI Personal Assistant. Since th
   - [ ] Skill registered in workspace
 
 ### Task 6.2: Create Learning Capture Skill
+
 - **Estimate**: 2 hours
 - **Status**: Not Started
 - **Assignee**: Unassigned
@@ -248,6 +267,7 @@ Task breakdown for implementing the Full Context AI Personal Assistant. Since th
   - [ ] Learnings stored in appropriate memory location
 
 ### Task 6.3: Create Memory Consolidation Skill
+
 - **Estimate**: 2 hours
 - **Status**: Not Started
 - **Assignee**: Unassigned
@@ -264,6 +284,7 @@ Task breakdown for implementing the Full Context AI Personal Assistant. Since th
 ## Phase 7: Documentation and Testing
 
 ### Task 7.1: Write Setup Guide
+
 - **Estimate**: 2 hours
 - **Status**: Not Started
 - **Assignee**: Unassigned
@@ -275,6 +296,7 @@ Task breakdown for implementing the Full Context AI Personal Assistant. Since th
   - [ ] Troubleshooting section
 
 ### Task 7.2: Write Usage Guide
+
 - **Estimate**: 2 hours
 - **Status**: Not Started
 - **Assignee**: Unassigned
@@ -286,6 +308,7 @@ Task breakdown for implementing the Full Context AI Personal Assistant. Since th
   - [ ] Tips and best practices included
 
 ### Task 7.3: End-to-End Testing
+
 - **Estimate**: 4 hours
 - **Status**: Not Started
 - **Assignee**: Unassigned
@@ -299,6 +322,7 @@ Task breakdown for implementing the Full Context AI Personal Assistant. Since th
   - [ ] Voice interface tested (if configured)
 
 ### Task 7.4: Performance Verification
+
 - **Estimate**: 1 hour
 - **Status**: Not Started
 - **Assignee**: Unassigned
@@ -313,16 +337,16 @@ Task breakdown for implementing the Full Context AI Personal Assistant. Since th
 
 ## Task Summary
 
-| Phase | Description | Tasks | Completed | Remaining | Est. Hours |
-|-------|-------------|-------|-----------|-----------|------------|
-| Phase 1 | Foundation Setup | 5 | 0 | 5 | 5.5 |
-| Phase 2 | Memory System | 3 | 0 | 3 | 4 |
-| Phase 3 | Project Management | 3 | 0 | 3 | 2.5 |
-| Phase 4 | Proactive Assistance | 3 | 0 | 3 | 2.5 |
-| Phase 5 | Channel Configuration | 3 | 0 | 3 | 2 |
-| Phase 6 | Custom Skills (Optional) | 3 | 0 | 3 | 6 |
-| Phase 7 | Documentation & Testing | 4 | 0 | 4 | 9 |
-| **Total** | | **24** | **0** | **24** | **31.5** |
+| Phase     | Description              | Tasks  | Completed | Remaining | Est. Hours |
+| --------- | ------------------------ | ------ | --------- | --------- | ---------- |
+| Phase 1   | Foundation Setup         | 5      | 0         | 5         | 5.5        |
+| Phase 2   | Memory System            | 3      | 0         | 3         | 4          |
+| Phase 3   | Project Management       | 3      | 0         | 3         | 2.5        |
+| Phase 4   | Proactive Assistance     | 3      | 0         | 3         | 2.5        |
+| Phase 5   | Channel Configuration    | 3      | 0         | 3         | 2          |
+| Phase 6   | Custom Skills (Optional) | 3      | 0         | 3         | 6          |
+| Phase 7   | Documentation & Testing  | 4      | 0         | 4         | 9          |
+| **Total** |                          | **24** | **0**     | **24**    | **31.5**   |
 
 ---
 

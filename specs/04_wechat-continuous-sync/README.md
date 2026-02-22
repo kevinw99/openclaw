@@ -3,15 +3,17 @@
 > Continuously capture WeChat messages (historical + ongoing) into a personal knowledge base, without relying on dead third-party puppet services like PadLocal.
 
 ## Quick Links
+
 - [Design](./design.md)
 
-## Status: Planning
+## Status: In Progress
 
 ## Background
 
 Spec 02 built a WeChat channel extension using Wechaty + PadLocal. However, **PadLocal is dead** (confirmed 2026-02): npm unpublished 3+ years, website down, WeChat protocol changes broke login, maintainer unresponsive.
 
-Spec 03 extracted 431 conversations / 41,814 messages from the WeChat **desktop** database, but:
+Spec 03 extracted conversations from the WeChat **desktop** database. As of 2026-02-22: 537 conversations, 352,190 messages (225K compressed texts recovered via zstd). However:
+
 - Desktop only has messages received while logged in on desktop
 - Phone-only messages are missing (WeChat keeps per-device history)
 - The extraction is a static one-time snapshot
@@ -47,11 +49,11 @@ Use WeChat's built-in "Transfer Chat History" feature to sync phone messages to 
 
 Evaluate current alternatives to PadLocal for real-time message reception. **Do not build until viability is confirmed.**
 
-| Alternative | Status (2026-02) | Approach | Risk |
-|------------|-------------------|----------|------|
-| WeChatFerry (org fork) | Active (1.9k stars) | Windows PC hook | High — requires Windows, hook detection risk |
+| Alternative            | Status (2026-02)        | Approach           | Risk                                                  |
+| ---------------------- | ----------------------- | ------------------ | ----------------------------------------------------- |
+| WeChatFerry (org fork) | Active (1.9k stars)     | Windows PC hook    | High — requires Windows, hook detection risk          |
 | AstrBot + WeChatPadPro | Very active (17k stars) | Pad protocol (new) | Medium — paid, closed-source, could die like PadLocal |
-| WeCom API | Official | Enterprise API | Low — but cannot access personal WeChat messages |
+| WeCom API              | Official                | Enterprise API     | Low — but cannot access personal WeChat messages      |
 
 **Recommendation**: Do NOT invest in Track C until Track A+B are working. If Track C is pursued later, prefer WeChatFerry (open source) with a disposable test account first.
 
@@ -102,12 +104,14 @@ Desktop WeChat                                  │
 ## Phases
 
 ### Phase 1: Automated DB Polling
+
 - Wrap existing `knowledge_harvester extract-wechat` into a scheduled poller
 - Add filesystem watcher (fswatch) to detect DB changes
 - Create macOS launchd plist for periodic extraction
 - Incremental mode: only extract messages newer than last sync
 
 ### Phase 2: Phone Sync Workflow
+
 - Document the manual phone sync procedure (step-by-step with screenshots)
 - Add a `/sync-wechat` skill that:
   1. Prompts user to do phone sync
@@ -116,6 +120,7 @@ Desktop WeChat                                  │
   4. Reports new message count
 
 ### Phase 3: Evaluate Real-Time Alternatives (Optional)
+
 - Test WeChatFerry with a secondary/test account
 - Evaluate AstrBot + WeChatPadPro
 - If viable, build adapter following Spec 02's extension pattern
@@ -135,22 +140,24 @@ Desktop WeChat                                  │
 
 ## Risk Register
 
-| Risk | Severity | Mitigation |
-|------|----------|------------|
-| WeChat desktop DB format changes | Medium | Version detection already in adapter; add format migration |
-| Master password extraction breaks (macOS/SIP update) | Medium | Document alternative methods; cache key securely |
-| Track C alternative dies (like PadLocal) | High | Track A+B are self-sufficient; Track C is optional |
-| WeChat detects automated DB reads | Low | Read-only access to local files; no protocol manipulation |
+| Risk                                                 | Severity | Mitigation                                                 |
+| ---------------------------------------------------- | -------- | ---------------------------------------------------------- |
+| WeChat desktop DB format changes                     | Medium   | Version detection already in adapter; add format migration |
+| Master password extraction breaks (macOS/SIP update) | Medium   | Document alternative methods; cache key securely           |
+| Track C alternative dies (like PadLocal)             | High     | Track A+B are self-sufficient; Track C is optional         |
+| WeChat detects automated DB reads                    | Low      | Read-only access to local files; no protocol manipulation  |
 
 ## References
 
 ### Internal
+
 - [Spec 02: WeChat Channel](../02_wechat-channel/) — Blocked on PadLocal; extension code reusable
 - [Spec 03: Personal Knowledge Extraction](../03_personal-knowledge-extraction/) — Knowledge harvester with WeChat adapter
 - `src/knowledge_harvester/adapters/wechat.py` — WeChat DB extraction implementation
 - `scripts/extract_wechat_key.py` — LLDB-based master password extraction
 
 ### External
+
 - [WeChatFerry (org fork)](https://github.com/wechatferry/wechatferry) — Active Windows hook approach
 - [AstrBot](https://github.com/AstrBotDevs/AstrBot) — Multi-platform bot framework with WeChatPadPro support
 - [PadLocal Issues](https://github.com/wechaty/puppet-padlocal/issues) — Evidence of PadLocal's demise
