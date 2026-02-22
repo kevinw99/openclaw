@@ -33,15 +33,17 @@
 import hashlib
 import json
 import os
+import re
 import shutil
 import sqlite3
 import subprocess
+import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Iterator, List, Optional
+from typing import Iterator, List, Optional, Tuple
 
 from .base import BaseAdapter
-from ..models import Conversation, Message
+from ..models import Conversation, MediaRef, Message
 
 # WeChat macOS 数据目录
 WECHAT_CONTAINER = Path.home() / "Library/Containers/com.tencent.xinWeChat"
@@ -51,6 +53,154 @@ WECHAT_DATA_V4 = WECHAT_CONTAINER / "Data/Documents/xwechat_files"
 
 # WeChat 旧版路径
 WECHAT_DATA_LEGACY = WECHAT_CONTAINER / "Data/Library/Application Support/com.tencent.xinWeChat"
+
+
+def _format_size(size_bytes: int) -> str:
+    """格式化文件大小: 1234567 → '1.2MB'"""
+    if size_bytes <= 0:
+        return ""
+    if size_bytes < 1024:
+        return f"{size_bytes}B"
+    if size_bytes < 1024 * 1024:
+        return f"{size_bytes / 1024:.1f}KB"
+    if size_bytes < 1024 * 1024 * 1024:
+        return f"{size_bytes / (1024 * 1024):.1f}MB"
+    return f"{size_bytes / (1024 * 1024 * 1024):.1f}GB"
+
+
+def _parse_type49_xml(raw_content: str) -> Tuple[str, List[MediaRef]]:
+    """解析 type=49 (appmsg) 消息的 XML 内容.
+
+    Returns:
+        (inline_label, media_refs) — Tier 0 展示文本 + Tier 1 媒体元数据
+    """
+    if not raw_content or not raw_content.strip():
+        return "[链接/文件]", []
+
+    # 清理 XML: 去掉可能的前缀文本 (群消息会有 "wxid_xxx:\n" 前缀)
+    xml_text = raw_content
+    msg_idx = xml_text.find("<msg")
+    if msg_idx > 0:
+        xml_text = xml_text[msg_idx:]
+    elif not xml_text.strip().startswith("<"):
+        return "[链接/文件]", []
+
+    # 解析 XML
+    try:
+        root = ET.fromstring(xml_text)
+    except ET.ParseError:
+        # Regex fallback: 尝试提取 title
+        title_match = re.search(r"<title>([^<]+)</title>", raw_content)
+        if title_match:
+            title = title_match.group(1).strip()
+            return f"[链接: {title}]", [MediaRef(type="link", filename=title)]
+        return "[链接/文件]", []
+
+    appmsg = root.find("appmsg") or root
+    title_el = appmsg.find("title")
+    des_el = appmsg.find("des")
+    type_el = appmsg.find("type")
+    url_el = appmsg.find("url")
+
+    title = (title_el.text or "").strip() if title_el is not None else ""
+    description = (des_el.text or "").strip() if des_el is not None else ""
+    url = (url_el.text or "").strip() if url_el is not None else ""
+
+    try:
+        sub_type = int(type_el.text) if type_el is not None and type_el.text else 0
+    except (ValueError, TypeError):
+        sub_type = 0
+
+    # 文件附件信息
+    appattach = appmsg.find("appattach")
+    file_size = 0
+    file_ext = ""
+    attach_filename = ""
+    if appattach is not None:
+        totallen_el = appattach.find("totallen")
+        fileext_el = appattach.find("fileext")
+        filename_el = appattach.find("attachfilename")
+        if totallen_el is not None and totallen_el.text:
+            try:
+                file_size = int(totallen_el.text)
+            except ValueError:
+                pass
+        if fileext_el is not None:
+            file_ext = (fileext_el.text or "").strip()
+        if filename_el is not None:
+            attach_filename = (filename_el.text or "").strip()
+
+    filename = attach_filename or title
+
+    # 根据 appmsg sub-type 生成标签和 MediaRef
+    if sub_type == 6:
+        # 文件
+        size_str = _format_size(file_size)
+        size_part = f" ({size_str})" if size_str else ""
+        label = f"[文件: {filename}{size_part}]"
+        media = [MediaRef(
+            type="file", filename=filename, original_url=url,
+            size_bytes=file_size, description=description,
+        )]
+    elif sub_type == 5:
+        # 链接/文章
+        label = f"[链接: {title}]" if title else "[链接]"
+        media = [MediaRef(
+            type="link", filename=title, original_url=url,
+            description=description,
+        )]
+    elif sub_type in (33, 36):
+        # 小程序
+        label = f"[小程序: {title}]" if title else "[小程序]"
+        media = [MediaRef(type="mini_program", filename=title, original_url=url)]
+    elif sub_type == 57:
+        # 引用消息
+        ref_content = ""
+        refermsg = appmsg.find("refermsg")
+        if refermsg is not None:
+            ref_content_el = refermsg.find("content")
+            if ref_content_el is not None:
+                ref_content = (ref_content_el.text or "").strip()[:80]
+        label = f"[引用: {ref_content}]" if ref_content else "[引用]"
+        # 引用消息本身可能包含 title 作为回复内容
+        if title:
+            label = f"{title}\n{label}"
+        media = []
+    elif sub_type == 19:
+        # 合并转发的聊天记录
+        label = f"[聊天记录: {title}]" if title else "[聊天记录]"
+        media = []
+    elif sub_type == 4:
+        # 音乐
+        label = f"[音乐: {title}]" if title else "[音乐]"
+        media = [MediaRef(type="link", filename=title, original_url=url)]
+    elif sub_type in (2000, 2001):
+        # 转账 / 红包
+        label = "[转账]" if sub_type == 2000 else "[红包]"
+        media = []
+    elif sub_type == 51:
+        # 视频号
+        label = f"[视频号: {title}]" if title else "[视频号]"
+        media = [MediaRef(type="link", filename=title, original_url=url)]
+    elif sub_type == 53:
+        # 群通话
+        label = "[群通话]"
+        media = []
+    elif sub_type == 87:
+        # 群公告
+        label = f"[群公告: {title}]" if title else "[群公告]"
+        media = []
+    else:
+        # 未知 sub-type, 尽量保留 title
+        if title:
+            label = f"[链接: {title}]"
+            media = [MediaRef(type="link", filename=title, original_url=url,
+                              description=description)]
+        else:
+            label = "[链接/文件]"
+            media = []
+
+    return label, media
 
 
 def _derive_raw_key(master_password_hex: str, db_path: Path) -> str:
@@ -515,15 +665,20 @@ class WeChatAdapter(BaseAdapter):
         is_sender = (status == 3)
 
         content_type = "text"
+        media: List[MediaRef] = []
+
         if msg_type == 3:
             content_type = "image"
             content = "[图片]"
+            media = [MediaRef(type="image")]
         elif msg_type == 34:
             content_type = "audio"
             content = "[语音]"
+            media = [MediaRef(type="voice")]
         elif msg_type == 43:
             content_type = "video"
             content = "[视频]"
+            media = [MediaRef(type="video")]
         elif msg_type == 47:
             content_type = "sticker"
             content = "[表情]"
@@ -532,8 +687,10 @@ class WeChatAdapter(BaseAdapter):
             content = "[位置]"
         elif msg_type == 49:
             content_type = "link"
-            if compression != 0:
+            if compression != 0 and not content.strip().startswith("<"):
                 content = "[链接/文件]"
+            else:
+                content, media = _parse_type49_xml(content)
         elif msg_type == 10000:
             pass  # system message, keep content
         elif msg_type == 10002:
@@ -559,6 +716,7 @@ class WeChatAdapter(BaseAdapter):
             timestamp=timestamp,
             message_id=str(local_id),
             content_type=content_type,
+            media=media,
         )
 
     def _read_msg_table_via_cli(self, db_path: Path, raw_key: str) -> Iterator[Conversation]:
@@ -619,12 +777,20 @@ class WeChatAdapter(BaseAdapter):
             return None
 
         content_type = "text"
+        media: List[MediaRef] = []
+
         if msg_type == 3:
             content_type = "image"
+            media = [MediaRef(type="image")]
         elif msg_type == 34:
             content_type = "audio"
+            media = [MediaRef(type="voice")]
         elif msg_type == 43:
-            content_type = "file"
+            content_type = "video"
+            media = [MediaRef(type="video")]
+        elif msg_type == 49:
+            content_type = "link"
+            content, media = _parse_type49_xml(content)
         elif msg_type == 10000:
             pass  # system message
 
@@ -644,6 +810,7 @@ class WeChatAdapter(BaseAdapter):
             timestamp=timestamp,
             message_id=str(msg_id),
             content_type=content_type,
+            media=media,
         )
 
 

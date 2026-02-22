@@ -1,0 +1,136 @@
+{
+  "entity_id": "spec:04_wechat-continuous-sync",
+  "entity_type": "spec",
+  "display_name": "Spec 04: wechat-continuous-sync",
+  "directory": "specs/04_wechat-continuous-sync",
+  "session_count": 7,
+  "sessions": [
+    {
+      "session_id": "4bf580be-ce57-48bc-a59b-82ef6d38cd13",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/4bf580be-ce57-48bc-a59b-82ef6d38cd13.jsonl",
+      "confidence": 0.175,
+      "start_time": "2026-02-20T23:54:25.252Z",
+      "end_time": "2026-02-21T12:42:34.720Z",
+      "message_count": 311,
+      "matched_message_count": 6,
+      "matched_messages": [
+        {
+          "uuid": "a98ddbc2-dc61-49a6-8af7-8904f7d9e6fc",
+          "line_number": 354,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-21T02:36:57.829Z",
+          "preview": "Now let me update spec 02's status with the padlocal deprecation notice, and create spec 04 for cont"
+        },
+        {
+          "uuid": "630d3623-631a-4037-b336-a81195738d5e",
+          "line_number": 367,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-21T02:37:35.727Z",
+          "preview": "Now create Spec 04:"
+        },
+        {
+          "uuid": "fb8ab570-2d69-408c-b5dd-44cf90eabdec",
+          "line_number": 378,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-21T02:39:17.291Z",
+          "preview": "Done. Here's what I did:\n\n### 1. Documented PadLocal's death in Spec 02\n\n- **`spec/02_wechat-channel"
+        },
+        {
+          "uuid": "23e6ca63-2109-4736-bfe3-823c74e7c00f",
+          "line_number": 419,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-21T12:16:28.302Z",
+          "preview": "Good. Here's the plan:\n\n```\nspecs/00_template                     (stays)\nspecs/01_full-context-ai-a"
+        },
+        {
+          "uuid": "a8eaad56-f301-4cb6-a6d1-91e014290cae",
+          "line_number": 441,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-21T12:17:14.225Z",
+          "preview": "Spec 04 was just created (untracked). Let me handle tracked and untracked separately:"
+        },
+        {
+          "uuid": "00c57b0f-db5e-4ca1-852b-0bf5e74afde0",
+          "line_number": 650,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-21T12:40:43.874Z",
+          "preview": "**16 sessions** total (11 classified, 5 uncategorized):\n\n| Session | Date | Msgs | Top Classificatio"
+        }
+      ],
+      "evidence": [
+        "Text: ...Now let me update spec 02's status with the padlocal deprecation notice, and cre...",
+        "Text: ...Now create Spec 04:...",
+        "Text: ...Done. Here's what I did:  ### 1. Documented PadLocal's death in Spec 02  - **`sp...",
+        "Text: ...Good. Here's the plan:  ``` specs/00_template                     (stays) specs/...",
+        "Text: ...Spec 04 was just created (untracked). Let me handle tracked and untracked separa..."
+      ]
+    },
+    {
+      "session_id": "f0729cea-be3e-4a39-9670-0f841425809e",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/f0729cea-be3e-4a39-9670-0f841425809e.jsonl",
+      "confidence": 0.14,
+      "start_time": "2026-02-20T23:24:49.505Z",
+      "end_time": "2026-02-21T00:21:05.811Z",
+      "message_count": 244,
+      "matched_message_count": 0,
+      "matched_messages": [],
+      "evidence": []
+    },
+    {
+      "session_id": "9347e2ce-4961-4b2d-8722-cdfcbda16ccf",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/9347e2ce-4961-4b2d-8722-cdfcbda16ccf.jsonl",
+      "confidence": 0.158,
+      "start_time": "2026-02-19T20:04:19.073Z",
+      "end_time": "2026-02-19T20:46:30.564Z",
+      "message_count": 132,
+      "matched_message_count": 0,
+      "matched_messages": [],
+      "evidence": []
+    },
+    {
+      "session_id": "fc3bb687-9c4c-4080-a849-a1507a0d6259",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/fc3bb687-9c4c-4080-a849-a1507a0d6259.jsonl",
+      "confidence": 0.21,
+      "start_time": "2026-02-19T14:47:24.847Z",
+      "end_time": "2026-02-19T23:52:58.391Z",
+      "message_count": 781,
+      "matched_message_count": 0,
+      "matched_messages": [],
+      "evidence": []
+    },
+    {
+      "session_id": "1013e624-062b-465c-ba10-87a60a78dbde",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/1013e624-062b-465c-ba10-87a60a78dbde.jsonl",
+      "confidence": 0.18,
+      "start_time": "2026-02-19T12:52:03.268Z",
+      "end_time": "2026-02-19T13:18:18.515Z",
+      "message_count": 64,
+      "matched_message_count": 0,
+      "matched_messages": [],
+      "evidence": []
+    },
+    {
+      "session_id": "2dc7e455-39a3-4673-b15a-43f89aaea877",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/2dc7e455-39a3-4673-b15a-43f89aaea877.jsonl",
+      "confidence": 0.116,
+      "start_time": "2026-02-19T12:43:44.402Z",
+      "end_time": "2026-02-19T13:56:09.472Z",
+      "message_count": 490,
+      "matched_message_count": 0,
+      "matched_messages": [],
+      "evidence": []
+    },
+    {
+      "session_id": "31181cd7-05a2-45ae-9f54-493a7774776e",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/31181cd7-05a2-45ae-9f54-493a7774776e.jsonl",
+      "confidence": 0.115,
+      "start_time": "2026-02-19T10:38:11.950Z",
+      "end_time": "2026-02-19T12:25:08.901Z",
+      "message_count": 142,
+      "matched_message_count": 0,
+      "matched_messages": [],
+      "evidence": []
+    }
+  ],
+  "last_updated": "2026-02-21T20:42:35.158368"
+}

@@ -1,6 +1,6 @@
 # Status: WeChat Channel Extension
 
-**Overall Status**: Implementation Complete — unit tests written, pending integration testing
+**Overall Status**: BLOCKED — PadLocal is dead; implementation complete but cannot proceed to integration testing
 **Started**: 2026-02-19
 **Last Updated**: 2026-02-19
 
@@ -67,13 +67,21 @@
 
 ## Blockers
 
-- padlocal token needed for integration testing (Phase 3+)
+- **CRITICAL: PadLocal is dead (confirmed 2026-02).**
+  - npm package last published 3+ years ago (2022)
+  - pad-local.com is down (502)
+  - GitHub issues unanswered; maintainer unresponsive
+  - WeChat protocol updates broke login: "你的应用版本过低"
+  - **This blocks ALL integration testing for Spec 02.**
+  - See: [Spec 04](../04_wechat-continuous-sync/) for replacement approach
 - System voice transcription (macOS Speech.framework) is stubbed — needs Swift helper
 - ~~Dependencies not installed~~ — resolved (pnpm install successful, all 89 tests pass)
+- ~~padlocal token needed~~ — PadLocal is dead, token cannot be obtained
 - monitor.ts duplicates the pipeline from bot.ts — should be refactored to call handleWeChatMessage
 
 ## Notes
 
-- padlocal trial token (7 days free) available at https://github.com/wechaty/puppet-padlocal
+- ~~padlocal trial token (7 days free) available at https://github.com/wechaty/puppet-padlocal~~ — site is down
 - Reference implementation: `extensions/zalo/` in this repo
 - All 19 source files created following Zalo extension patterns
+- **Next steps**: See [Spec 04](../04_wechat-continuous-sync/) for the replacement strategy to get WeChat messages continuously

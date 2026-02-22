@@ -2,9 +2,9 @@
 
 ## Current Status
 
-**Overall**: Complete — All 6 phases implemented (55 tests: 45 unit + 10 e2e). WeChat live extraction verified.
+**Overall**: Complete — All 6 phases implemented (61 unit + 10 e2e tests). WeChat live extraction verified.
 **Started**: 2026-02-20
-**Last Updated**: 2026-02-21
+**Last Updated**: 2026-02-22
 
 ## Implementation
 
@@ -27,6 +27,15 @@ Task tracking: see `tasks.md` in this directory
   - `/extract-history` OpenClaw skill
   - Privacy audit: all operations local-only, no external data leakage
   - End-to-end test framework (10 tests, env-gated with `KH_E2E=1`)
+- 2026-02-22: WeChat media metadata parsing + tiered context strategy:
+  - `_parse_type49_xml()`: parse XML from type=49 appmsg messages (files, links, mini-programs, references, chat history, transfers)
+  - `MediaRef` extended with `description` and `summary` fields, sparse serialization
+  - Tier 0 inline labels: `[文件: name.pdf (2.3MB)]`, `[链接: title]`, `[小程序: name]`, `[引用: ...]`
+  - MediaRef created for image/audio/video types (3/34/43) for structural tracking
+  - Search engine now matches against media filename and description fields
+  - `view --media` flag for Tier 1 metadata display (URL, description, file size)
+  - `/search-knowledge` skill updated with tiered retrieval instructions
+  - 16 new tests (13 wechat XML parsing + 3 model serialization)
 
 ## Architecture Notes
 

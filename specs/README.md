@@ -7,7 +7,7 @@
 ## How to Create a New Spec
 
 1. Determine the next available number (check existing specs)
-2. Create directory: `##_descriptive-name/` (e.g., `01_user-authentication`)
+2. Create directory: `##_descriptive-name/` (e.g., `06_user-authentication`)
 3. Copy template files from `specs/00_template/`:
    - `README.md` - Overview and navigation
    - `requirements.md` - What needs to be done
@@ -26,7 +26,11 @@
 
 | # | Name | Status | Description |
 |---|------|--------|-------------|
-| — | — | — | No specs yet |
+| 01 | [full-context-ai-assistant](./01_full-context-ai-assistant/) | Planning | Full context AI personal assistant |
+| 02 | [wechat-channel](./02_wechat-channel/) | BLOCKED | WeChat channel extension (PadLocal is dead) |
+| 03 | [personal-knowledge-extraction](./03_personal-knowledge-extraction/) | Complete | Multi-platform knowledge harvester |
+| 04 | [wechat-continuous-sync](./04_wechat-continuous-sync/) | Planning | Continuous WeChat message capture |
+| 05 | [personal-knowledge-base](./05_personal-knowledge-base/) | Draft | Unified PKB from WeChat/ChatGPT/Gmail/etc. |
 
 ---
 

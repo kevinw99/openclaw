@@ -11,6 +11,16 @@
       "matches": []
     },
     {
+      "session_id": "49465e28-16fa-41bc-91d5-f91e0070adce",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/49465e28-16fa-41bc-91d5-f91e0070adce.jsonl",
+      "start_time": "2026-02-21T01:19:20.709Z",
+      "end_time": "2026-02-21T02:43:19.564Z",
+      "message_count": 50,
+      "user_message_count": 20,
+      "primary_entity": "Uncategorized",
+      "matches": []
+    },
+    {
       "session_id": "89b1d4ca-4af5-4832-80ad-27c4dcbe9622",
       "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/89b1d4ca-4af5-4832-80ad-27c4dcbe9622.jsonl",
       "start_time": "2026-02-19T13:56:38.026Z",
@@ -41,5 +51,5 @@
       "matches": []
     }
   ],
-  "count": 4
+  "count": 5
 }

@@ -2,7 +2,7 @@
   "entity_id": "spec:01_full-context-ai-assistant",
   "entity_type": "spec",
   "display_name": "Spec 01: full-context-ai-assistant",
-  "directory": "spec/01_full-context-ai-assistant",
+  "directory": "specs/01_full-context-ai-assistant",
   "session_count": 4,
   "sessions": [
     {
@@ -164,5 +164,5 @@
       ]
     }
   ],
-  "last_updated": "2026-02-21T08:18:23.892542"
+  "last_updated": "2026-02-21T20:19:35.534145"
 }

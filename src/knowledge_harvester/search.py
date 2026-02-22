@@ -150,10 +150,23 @@ class SearchEngine:
                     continue
 
                 content_lower = data.get("content", "").lower()
-                if all(kw in content_lower for kw in keywords):
+
+                # 也搜索媒体文件名和描述
+                media_text = ""
+                for m in data.get("media", []):
+                    fn = m.get("filename", "")
+                    desc = m.get("description", "")
+                    if fn:
+                        media_text += " " + fn
+                    if desc:
+                        media_text += " " + desc
+                media_lower = media_text.lower()
+                searchable = content_lower + media_lower
+
+                if all(kw in searchable for kw in keywords):
                     msg = Message.from_dict(data)
                     # 计算简单相关度分数
-                    score = sum(content_lower.count(kw) for kw in keywords)
+                    score = sum(searchable.count(kw) for kw in keywords)
                     score = min(score / 10.0, 1.0) + title_bonus
 
                     results.append(SearchResult(

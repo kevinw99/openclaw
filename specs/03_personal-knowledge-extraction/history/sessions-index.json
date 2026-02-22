@@ -1,0 +1,91 @@
+{
+  "entity_id": "spec:03_personal-knowledge-extraction",
+  "entity_type": "spec",
+  "display_name": "Spec 03: personal-knowledge-extraction",
+  "directory": "specs/03_personal-knowledge-extraction",
+  "session_count": 5,
+  "sessions": [
+    {
+      "session_id": "59e39b64-c71d-420a-a01f-95343bd20f88",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/59e39b64-c71d-420a-a01f-95343bd20f88.jsonl",
+      "confidence": 0.16,
+      "start_time": "2026-02-21T00:22:24.097Z",
+      "end_time": "2026-02-21T11:09:23.882Z",
+      "message_count": 750,
+      "matched_message_count": 0,
+      "matched_messages": [],
+      "evidence": []
+    },
+    {
+      "session_id": "4bf580be-ce57-48bc-a59b-82ef6d38cd13",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/4bf580be-ce57-48bc-a59b-82ef6d38cd13.jsonl",
+      "confidence": 0.119,
+      "start_time": "2026-02-20T23:54:25.252Z",
+      "end_time": "2026-02-21T12:42:34.720Z",
+      "message_count": 311,
+      "matched_message_count": 3,
+      "matched_messages": [
+        {
+          "uuid": "ac0db3c2-a14d-46c2-b633-7aa7688adbb2",
+          "line_number": 251,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-21T01:16:48.191Z",
+          "preview": "你的问题很好，分三部分回答：\n\n## 1. 为什么桌面端不全？\n\n微信的设计是**每个设备维护独立的消息历史**。桌面端只有你在桌面端登录期间收到的消息。手机端独有的消息（比如你没开电脑时收到的）不会"
+        },
+        {
+          "uuid": "23e6ca63-2109-4736-bfe3-823c74e7c00f",
+          "line_number": 419,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-21T12:16:28.302Z",
+          "preview": "Good. Here's the plan:\n\n```\nspecs/00_template                     (stays)\nspecs/01_full-context-ai-a"
+        },
+        {
+          "uuid": "6ee0339a-d2f1-4a06-b904-d81a487317cf",
+          "line_number": 537,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-21T12:19:56.385Z",
+          "preview": "Clean. Here's the summary:\n\n### What changed\n\n**Consolidation: `spec/` + `specs/` → `specs/` only**\n"
+        }
+      ],
+      "evidence": [
+        "Text: ...你的问题很好，分三部分回答：  ## 1. 为什么桌面端不全？  微信的设计是**每个设备维护独立的消息历史**。桌面端只有你在桌面端登录期间收到的消息。手机端...",
+        "Text: ...Good. Here's the plan:  ``` specs/00_template                     (stays) specs/...",
+        "Text: ...Clean. Here's the summary:  ### What changed  **Consolidation: `spec/` + `specs/..."
+      ]
+    },
+    {
+      "session_id": "36454a45-5d77-4883-a4b3-6c33550c0822",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/36454a45-5d77-4883-a4b3-6c33550c0822.jsonl",
+      "confidence": 0.259,
+      "start_time": "2026-02-19T23:52:58.354Z",
+      "end_time": "2026-02-20T23:05:29.827Z",
+      "message_count": 740,
+      "matched_message_count": 0,
+      "matched_messages": [],
+      "evidence": []
+    },
+    {
+      "session_id": "b86636af-795b-446c-9b1a-232cf343c760",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/b86636af-795b-446c-9b1a-232cf343c760.jsonl",
+      "confidence": 0.154,
+      "start_time": "2026-02-19T20:46:30.536Z",
+      "end_time": "2026-02-20T23:02:02.606Z",
+      "message_count": 424,
+      "matched_message_count": 0,
+      "matched_messages": [],
+      "evidence": []
+    },
+    {
+      "session_id": "fc3bb687-9c4c-4080-a849-a1507a0d6259",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/fc3bb687-9c4c-4080-a849-a1507a0d6259.jsonl",
+      "confidence": 0.11,
+      "start_time": "2026-02-19T14:47:24.847Z",
+      "end_time": "2026-02-19T23:52:58.391Z",
+      "message_count": 781,
+      "matched_message_count": 0,
+      "matched_messages": [],
+      "evidence": []
+    }
+  ],
+  "last_updated": "2026-02-21T20:42:35.158797"
+}

@@ -51,7 +51,7 @@ Users accumulate valuable personal knowledge across many AI tools — ChatGPT, C
 - `[ref-chrome-ext]` /Users/kweng/AI/openclaw/assets/chrome-extension/ — Chrome extension for controlling existing tabs
 - `[ref-media-understanding]` /Users/kweng/AI/openclaw/src/media-understanding/ — Vision AI for screenshot analysis
 - `[ref-memory]` /Users/kweng/AI/openclaw/extensions/memory-core/ — Memory/knowledge base plugin
-- `[ref-spec-01]` /Users/kweng/AI/openclaw/spec/01_full-context-ai-assistant/ — consumer of extracted knowledge
+- `[ref-spec-01]` /Users/kweng/AI/openclaw/specs/01_full-context-ai-assistant/ — consumer of extracted knowledge
 
 ### External
 

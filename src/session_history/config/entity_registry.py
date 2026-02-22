@@ -135,7 +135,7 @@ class EntityRegistry:
         When a source directory name appears in a spec's keywords, the
         source's implementation paths are added to the spec entity.  This
         lets the turn-level classifier match implementation code (e.g.
-        ``extensions/wechat/``) to its spec (e.g. ``spec/02_wechat-channel``).
+        ``extensions/wechat/``) to its spec (e.g. ``specs/02_wechat-channel``).
         """
         kw_lower: Dict[str, set] = {}
         for spec in specs:

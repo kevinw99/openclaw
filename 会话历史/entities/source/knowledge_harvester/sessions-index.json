@@ -3,8 +3,37 @@
   "entity_type": "source",
   "display_name": "Source: knowledge_harvester",
   "directory": "src/knowledge_harvester",
-  "session_count": 2,
+  "session_count": 3,
   "sessions": [
+    {
+      "session_id": "59e39b64-c71d-420a-a01f-95343bd20f88",
+      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/59e39b64-c71d-420a-a01f-95343bd20f88.jsonl",
+      "confidence": 0.117,
+      "start_time": "2026-02-21T00:22:24.097Z",
+      "end_time": "2026-02-21T11:09:23.882Z",
+      "message_count": 750,
+      "matched_message_count": 2,
+      "matched_messages": [
+        {
+          "uuid": "bedb1964-a4b2-4762-8b26-56a151c758d2",
+          "line_number": 222,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-21T00:36:44.833Z",
+          "preview": "All 8 tests pass. Let me do a final summary of what was accomplished.\n\n---\n\nHere's what was accompli"
+        },
+        {
+          "uuid": "bc3d99b2-6bec-448c-bebf-dc94c824240e",
+          "line_number": 550,
+          "msg_type": "user",
+          "timestamp": "2026-02-21T02:02:35.335Z",
+          "preview": "This session is being continued from a previous conversation that ran out of context. The summary be"
+        }
+      ],
+      "evidence": [
+        "Text: ...All 8 tests pass. Let me do a final summary of what was accomplished.  ---  Here...",
+        "Text: ...This session is being continued from a previous conversation that ran out of con..."
+      ]
+    },
     {
       "session_id": "36454a45-5d77-4883-a4b3-6c33550c0822",
       "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/36454a45-5d77-4883-a4b3-6c33550c0822.jsonl",
@@ -88,5 +117,5 @@
       ]
     }
   ],
-  "last_updated": "2026-02-21T08:18:23.892968"
+  "last_updated": "2026-02-21T20:19:35.535385"
 }

@@ -1,3 +1,5 @@
+so how continuous wechat message are handled now？we have the histotry。 Now where new messages arrive， will it becomear part of the personal context， or there is a cron job need to be run？
+
 
 
 这种属于黑客行为吗？是本地操作吗？就是微信他可不可能把我们给封了。

@@ -261,6 +261,30 @@ def cmd_view(args):
                 marker = "→" if role == "user" else "←"
                 print(f"\n{marker} [{ts}] {role}")
                 print(f"  {content}")
+
+                # 显示媒体元数据
+                media_list = data.get("media", [])
+                if media_list:
+                    if getattr(args, "media", False):
+                        # --media: 显示完整 Tier 1 元数据
+                        for m in media_list:
+                            parts = [f"    📎 {m.get('type', '?')}"]
+                            if m.get("filename"):
+                                parts.append(m["filename"])
+                            if m.get("size_bytes"):
+                                from knowledge_harvester.adapters.wechat import _format_size
+                                parts.append(f"({_format_size(m['size_bytes'])})")
+                            print(" ".join(parts))
+                            if m.get("original_url"):
+                                print(f"      URL: {m['original_url']}")
+                            if m.get("description"):
+                                desc = m["description"][:200]
+                                print(f"      描述: {desc}")
+                    else:
+                        # 默认: 仅显示简要概览
+                        types = [m.get("type", "?") for m in media_list]
+                        print(f"    [附件: {', '.join(types)}]")
+
                 shown += 1
                 if limit and shown >= limit:
                     remaining = msg_count - shown
@@ -356,6 +380,7 @@ def main():
     p_view.add_argument("conversation", help="对话 ID 或标题关键词")
     p_view.add_argument("--limit", "-n", type=int, default=100, help="显示消息数 (0=全部)")
     p_view.add_argument("--all", "-a", action="store_true", help="查看所有匹配的对话")
+    p_view.add_argument("--media", "-m", action="store_true", help="显示完整媒体元数据 (URL, 描述等)")
 
     # list
     subparsers.add_parser("list", help="列出已导入的对话")

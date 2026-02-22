@@ -2,46 +2,18 @@
   "entity_id": "spec:02_wechat-channel",
   "entity_type": "spec",
   "display_name": "Spec 02: wechat-channel",
-  "directory": "spec/02_wechat-channel",
-  "session_count": 10,
+  "directory": "specs/02_wechat-channel",
+  "session_count": 9,
   "sessions": [
-    {
-      "session_id": "59e39b64-c71d-420a-a01f-95343bd20f88",
-      "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/59e39b64-c71d-420a-a01f-95343bd20f88.jsonl",
-      "confidence": 0.113,
-      "start_time": "2026-02-21T00:22:24.097Z",
-      "end_time": "2026-02-21T01:09:08.833Z",
-      "message_count": 247,
-      "matched_message_count": 1,
-      "matched_messages": [
-        {
-          "uuid": "afaa4352-ac40-45a5-bf44-e6ffb3557b83",
-          "line_number": 256,
-          "msg_type": "assistant",
-          "timestamp": "2026-02-21T01:05:32.703Z",
-          "preview": "Here are all **14 sessions** in the history. Key ones for this project:\n\n| Session | Date | Msgs | P"
-        }
-      ],
-      "evidence": [
-        "Text: ...Here are all **14 sessions** in the history. Key ones for this project:  | Sessi..."
-      ]
-    },
     {
       "session_id": "4bf580be-ce57-48bc-a59b-82ef6d38cd13",
       "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/4bf580be-ce57-48bc-a59b-82ef6d38cd13.jsonl",
-      "confidence": 0.158,
+      "confidence": 0.219,
       "start_time": "2026-02-20T23:54:25.252Z",
-      "end_time": "2026-02-21T00:18:41.280Z",
-      "message_count": 126,
-      "matched_message_count": 4,
+      "end_time": "2026-02-21T12:42:34.720Z",
+      "message_count": 311,
+      "matched_message_count": 11,
       "matched_messages": [
-        {
-          "uuid": "94c412f5-d719-46a8-bcca-e025d97a0f8b",
-          "line_number": 18,
-          "msg_type": "assistant",
-          "timestamp": "2026-02-20T23:55:45.374Z",
-          "preview": "The `replay` command needs an entity name. Here are the available entities:\n\n**Specs:**\n- `spec/01_f"
-        },
         {
           "uuid": "c93c2fd1-b53c-4c36-9717-c00001acf6ce",
           "line_number": 28,
@@ -62,13 +34,70 @@
           "msg_type": "assistant",
           "timestamp": "2026-02-21T00:00:36.651Z",
           "preview": "Now I see the issue. Session `c249636c` (the one with your \"Agent Teams / Swarm Mode\" prompt) was cl"
+        },
+        {
+          "uuid": "320418dd-67e2-46a4-bb85-fb0a1574f02d",
+          "line_number": 211,
+          "msg_type": "user",
+          "timestamp": "2026-02-21T01:15:12.281Z",
+          "preview": "\n关于微信 spec 02, 03 \n\"\"  - 431 conversations, 41,814 messages extracted\n   \"\"\n这是在电脑客户端的信息量，但他并不是全部的， 是"
+        },
+        {
+          "uuid": "ac0db3c2-a14d-46c2-b633-7aa7688adbb2",
+          "line_number": 251,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-21T01:16:48.191Z",
+          "preview": "你的问题很好，分三部分回答：\n\n## 1. 为什么桌面端不全？\n\n微信的设计是**每个设备维护独立的消息历史**。桌面端只有你在桌面端登录期间收到的消息。手机端独有的消息（比如你没开电脑时收到的）不会"
+        },
+        {
+          "uuid": "31851542-511b-4882-b35a-e3c0204a2aa2",
+          "line_number": 257,
+          "msg_type": "user",
+          "timestamp": "2026-02-21T02:34:47.050Z",
+          "preview": "\"  B. 实时接收（Spec 02 WeChat Channel）\n  - Wechaty + padlocal 协议建立持久连接\n  - 部署后所有新消息实时接收\n  - 代码已实现，待集成测试\n"
+        },
+        {
+          "uuid": "06b70ef3-0fd4-4f6c-83a8-557a55a63863",
+          "line_number": 345,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-21T02:36:51.549Z",
+          "preview": "Good news — the repo already documents padlocal as dead in the session history (`spec/02_wechat-chan"
+        },
+        {
+          "uuid": "a98ddbc2-dc61-49a6-8af7-8904f7d9e6fc",
+          "line_number": 354,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-21T02:36:57.829Z",
+          "preview": "Now let me update spec 02's status with the padlocal deprecation notice, and create spec 04 for cont"
+        },
+        {
+          "uuid": "fb8ab570-2d69-408c-b5dd-44cf90eabdec",
+          "line_number": 378,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-21T02:39:17.291Z",
+          "preview": "Done. Here's what I did:\n\n### 1. Documented PadLocal's death in Spec 02\n\n- **`spec/02_wechat-channel"
+        },
+        {
+          "uuid": "23e6ca63-2109-4736-bfe3-823c74e7c00f",
+          "line_number": 419,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-21T12:16:28.302Z",
+          "preview": "Good. Here's the plan:\n\n```\nspecs/00_template                     (stays)\nspecs/01_full-context-ai-a"
+        },
+        {
+          "uuid": "6ee0339a-d2f1-4a06-b904-d81a487317cf",
+          "line_number": 537,
+          "msg_type": "assistant",
+          "timestamp": "2026-02-21T12:19:56.385Z",
+          "preview": "Clean. Here's the summary:\n\n### What changed\n\n**Consolidation: `spec/` + `specs/` → `specs/` only**\n"
         }
       ],
       "evidence": [
-        "Text: ...The `replay` command needs an entity name. Here are the available entities:  **S...",
         "Text: ...Replay generated for **Spec 02: wechat-channel** — 6 session files:  | File | Ti...",
         "Text: ...Found it. That prompt is in session **`c249636c...`** from **2026-02-20**. The r...",
-        "Text: ...Now I see the issue. Session `c249636c` (the one with your \"Agent Teams / Swarm ..."
+        "Text: ...Now I see the issue. Session `c249636c` (the one with your \"Agent Teams / Swarm ...",
+        "Text: ... 关于微信 spec 02, 03  \"\"  - 431 conversations, 41,814 messages extracted    \"\" 这是在电...",
+        "Text: ...你的问题很好，分三部分回答：  ## 1. 为什么桌面端不全？  微信的设计是**每个设备维护独立的消息历史**。桌面端只有你在桌面端登录期间收到的消息。手机端..."
       ]
     },
     {
@@ -107,7 +136,7 @@
     {
       "session_id": "9347e2ce-4961-4b2d-8722-cdfcbda16ccf",
       "file_path": "/Users/kweng/.claude/projects/-Users-kweng-AI-openclaw/9347e2ce-4961-4b2d-8722-cdfcbda16ccf.jsonl",
-      "confidence": 0.251,
+      "confidence": 0.211,
       "start_time": "2026-02-19T20:04:19.073Z",
       "end_time": "2026-02-19T20:46:30.564Z",
       "message_count": 132,
@@ -160,5 +189,5 @@
       "evidence": []
     }
   ],
-  "last_updated": "2026-02-21T09:09:13.956347"
+  "last_updated": "2026-02-21T20:42:35.157773"
 }

@@ -45,9 +45,13 @@ All files live flat at the root. Upstream openclaw files and your customizations
 │  ── Project-specific (edit here) ──
 ├── REPO_GUIDE.md                # This file
 ├── requests-claw.txt            # Project requirements notes
-└── spec/                        # Your project specs
-    ├── README.md
-    └── 01_full-context-ai-assistant/
+└── specs/                       # All project specs (project-owned)
+    ├── 00_template/             # Spec template (from base)
+    ├── 01_full-context-ai-assistant/
+    ├── 02_wechat-channel/
+    ├── 03_personal-knowledge-extraction/
+    ├── 04_wechat-continuous-sync/
+    └── 05_personal-knowledge-base/
 ```
 
 Your files don't exist in upstream, so `git merge upstream/main` won't touch them.
@@ -60,7 +64,7 @@ This repo has three layers. **Always edit in the layer that owns the code.**
 |-------|-------------|------------------|-------------|
 | **Upstream** | `upstream` (openclaw/openclaw) | OpenClaw source code (`src/`, `apps/`, `docs/`, `CLAUDE.md`, etc.) | In this repo if you're modifying openclaw. Push to `origin`. |
 | **Base** | `base` (ai-project-base) | Generic workflow tools and templates (`PROJECT_GUIDELINES.md`, `specs/00_template/`, `.claude/commands/`, `.claude/skills/`, `src/session_history/`) | **In `~/AI/base`, not here.** Then pull via `git fetch base && git merge base/main`. |
-| **Project** | `origin` (this fork) | Project-specific files (`REPO_GUIDE.md`, `WORK_LOG.md`, `spec/01_*`, `requests-claw.txt`) | In this repo. Push to `origin`. |
+| **Project** | `origin` (this fork) | Project-specific files (`REPO_GUIDE.md`, `WORK_LOG.md`, `specs/01_*`, `requests-claw.txt`) | In this repo. Push to `origin`. |
 
 **Key rules:**
 - **Don't modify base-owned files here.** If you need to fix `PROJECT_GUIDELINES.md`, `src/session_history/`, `.claude/skills/log.md`, or spec templates — do it in `~/AI/base` and pull the change into this repo. This keeps all projects in sync.

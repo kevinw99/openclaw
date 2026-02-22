@@ -8,7 +8,9 @@
 - [Tasks](./tasks.md)
 - [Status](./status.md)
 
-## Status: Planning
+## Status: BLOCKED — PadLocal is dead
+
+> **2026-02**: PadLocal (the primary Wechaty puppet) is confirmed dead — npm unpublished 3+ years, website down, maintainer unresponsive, WeChat protocol changes broke login. This spec's implementation is complete but cannot proceed to integration testing. See [Spec 04](../04_wechat-continuous-sync/) for the replacement approach.
 
 ## Summary
 
@@ -49,7 +51,7 @@ OpenClaw has no WeChat support today. This spec defines a TypeScript channel ext
 - `[ref-zalo-ext]` /Users/kweng/AI/openclaw/extensions/zalo/ — reference implementation pattern
 - `[ref-whatsapp-docs]` /Users/kweng/AI/openclaw/docs/channels/whatsapp.md — comparable channel doc
 - `[ref-plugin-sdk]` openclaw/plugin-sdk — ChannelPlugin, ChannelDock, OpenClawPluginApi types
-- `[ref-spec-01]` /Users/kweng/AI/openclaw/spec/01_full-context-ai-assistant/ — consumer of this channel
+- `[ref-spec-01]` /Users/kweng/AI/openclaw/specs/01_full-context-ai-assistant/ — consumer of this channel
 
 ### External
 - `[ref-wechaty]` https://wechaty.js.org/docs/wechaty

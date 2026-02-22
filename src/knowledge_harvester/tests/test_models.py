@@ -107,3 +107,56 @@ def test_media_ref_fields():
                  filename="a.png", size_bytes=12345)
     assert m.filename == "a.png"
     assert m.size_bytes == 12345
+
+
+def test_media_ref_description_summary():
+    """新字段: description 和 summary"""
+    m = MediaRef(type="link", filename="AI计划.pdf",
+                 description="人工智能发展计划", summary="关于AI战略的文档")
+    assert m.description == "人工智能发展计划"
+    assert m.summary == "关于AI战略的文档"
+
+
+def test_media_ref_sparse_serialization():
+    """to_dict 应省略空的 description/summary 字段"""
+    msg = Message(
+        role="user", content="[图片]", content_type="image",
+        media=[MediaRef(type="image")],
+    )
+    d = msg.to_dict()
+    m_dict = d["media"][0]
+    assert m_dict == {"type": "image"}
+    assert "description" not in m_dict
+    assert "summary" not in m_dict
+    assert "path" not in m_dict
+
+    # 带 description 的应该包含
+    msg2 = Message(
+        role="user", content="[链接: test]",
+        media=[MediaRef(type="link", filename="test", description="描述")],
+    )
+    d2 = msg2.to_dict()
+    m2 = d2["media"][0]
+    assert m2["description"] == "描述"
+    assert "summary" not in m2
+
+
+def test_media_ref_roundtrip_new_fields():
+    """新字段的序列化/反序列化往返测试"""
+    msg = Message(
+        role="user", content="[文件: AI计划.pdf (2.3MB)]",
+        content_type="link",
+        media=[MediaRef(
+            type="file", filename="AI计划.pdf", size_bytes=2400000,
+            description="AI战略规划文档", original_url="https://example.com/f",
+        )],
+    )
+    d = msg.to_dict()
+    restored = Message.from_dict(d)
+    assert len(restored.media) == 1
+    m = restored.media[0]
+    assert m.type == "file"
+    assert m.filename == "AI计划.pdf"
+    assert m.size_bytes == 2400000
+    assert m.description == "AI战略规划文档"
+    assert m.summary == ""  # 未设置

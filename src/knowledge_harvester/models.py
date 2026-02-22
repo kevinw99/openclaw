@@ -1,6 +1,6 @@
 """数据模型 - 统一的对话和消息格式
 
-遵循 spec/03_personal-knowledge-extraction 定义的统一 schema。
+遵循 specs/03_personal-knowledge-extraction 定义的统一 schema。
 """
 
 from dataclasses import dataclass, field
@@ -9,12 +9,32 @@ from typing import Any, Dict, List
 
 @dataclass
 class MediaRef:
-    """媒体引用 (图片、文件、语音)"""
-    type: str           # "image" | "file" | "voice"
+    """媒体引用 (图片、文件、语音、链接等)"""
+    type: str           # "image" | "file" | "voice" | "link" | "video" | "mini_program"
     path: str = ""      # 本地路径 (下载后)
     original_url: str = ""
     filename: str = ""
     size_bytes: int = 0
+    description: str = ""   # 文章摘要 / 文件描述 (来自 XML <des>)
+    summary: str = ""       # AI 生成的内容摘要 (Tier 2, 后续填充)
+
+
+def _media_ref_to_dict(m: MediaRef) -> Dict[str, Any]:
+    """MediaRef → dict, 省略空字段 (sparse serialization)"""
+    d: Dict[str, Any] = {"type": m.type}
+    if m.path:
+        d["path"] = m.path
+    if m.original_url:
+        d["original_url"] = m.original_url
+    if m.filename:
+        d["filename"] = m.filename
+    if m.size_bytes:
+        d["size_bytes"] = m.size_bytes
+    if m.description:
+        d["description"] = m.description
+    if m.summary:
+        d["summary"] = m.summary
+    return d
 
 
 @dataclass
@@ -38,11 +58,7 @@ class Message:
         if self.content_type != "text":
             result["content_type"] = self.content_type
         if self.media:
-            result["media"] = [
-                {"type": m.type, "path": m.path, "original_url": m.original_url,
-                 "filename": m.filename, "size_bytes": m.size_bytes}
-                for m in self.media
-            ]
+            result["media"] = [_media_ref_to_dict(m) for m in self.media]
         return result
 
     @classmethod
@@ -54,6 +70,8 @@ class Message:
                 original_url=m.get("original_url", ""),
                 filename=m.get("filename", ""),
                 size_bytes=m.get("size_bytes", 0),
+                description=m.get("description", ""),
+                summary=m.get("summary", ""),
             )
             for m in d.get("media", [])
         ]
